@@ -1,0 +1,42 @@
+- What are variables?
+  Variables are just containers to store data values.
+
+- Data Types in C++
+
+- Different data taypes of variables (defined with different keywords)
+
+  1) Fundamentals(Primitive data-types):
+
+    * Integral Type:
+	int  --> Whole Number : 712
+	char --> Single Character : 'A'
+
+    * Floating Type:
+	float --> Floating Point : 14.5
+	double --> Floating Point : 14.587945 (bigger than float)
+
+    * Boolean Type:
+	bool --> True or False / 0 or 1
+
+    * String Type:
+	string --> Text : "Soufiane" / "ABCDEF"
+
+    * Void Type:
+	void --> Empty
+
+    * Wide Character:
+	wchar_t --> Unicode
+
+  2) Derived(data-types)
+
+    * Function
+    * Array
+    * Pointer
+    * Reference
+
+  3) User-Defined(data-types)
+    * Class
+    * Struct
+    * Union
+    * Enum
+    * Type Def

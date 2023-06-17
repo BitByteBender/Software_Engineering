@@ -11,6 +11,9 @@ int main(){
   char MySecondChar;
   MySecondChar = 'B';
   cout<<MySecondChar<<"\n";
+
+  char MyThirdChar{'\''};
+  cout<<MyThirdChar<<endl;
   
   return 0;
 }

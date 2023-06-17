@@ -40,3 +40,11 @@
     * Union
     * Enum
     * Type Def
+
+- Declaring (Creating) Variables:
+
+  *  type VariableName = value;
+
+     ** Example: 
+	* std::string MyName{"Soufiane"};
+	* short MyAge{29};

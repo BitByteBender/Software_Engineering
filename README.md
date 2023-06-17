@@ -1,5 +1,5 @@
 # Software_Engineering
-# I will be using C++ through out the first part of this course
+** I will be using C++ through out the first part of this course
 # Why C++?
 # C++ is a cross-platform/Portable language that can be used to create high-performance applications that can be adapted to multiple platforms
 # C++ is fun and easy to learn!

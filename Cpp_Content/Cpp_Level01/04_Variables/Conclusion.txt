@@ -51,3 +51,15 @@
      ** Example: 
 	* std::string MyName{"Soufiane"};
 	* short MyAge{29};
+
+- Identifiers:
+
+  * All C++ variables must be identified with **Unique names**
+
+  * The *IDENTIFIER* is also called name of the variable.
+
+  * These unique names are called identifiers.
+
+  * Identifiers can be short names (like x, y, i, a, b) or more descriptive (like MyFirstName, Sum, Total and Grades).
+
+  ** Note: It is recommended to use descriptive names in order to create understandable and maintainable code.

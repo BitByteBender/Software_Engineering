@@ -45,7 +45,8 @@
 
 - Declaring (Creating) Variables:
 
-  *  type VariableName = value;
+  *  type VariableName = value; (1)
+  *  type Identifier = Literal; (2)
 
      ** Example: 
 	* std::string MyName{"Soufiane"};

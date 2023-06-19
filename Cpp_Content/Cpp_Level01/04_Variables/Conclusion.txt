@@ -63,3 +63,12 @@
   * Identifiers can be short names (like x, y, i, a, b) or more descriptive (like MyFirstName, Sum, Total and Grades).
 
   ** Note: It is recommended to use descriptive names in order to create understandable and maintainable code.
+
+- Naming Rules:
+
+  * The general "Rules" for naming variables are:
+    ** Names can contain letters, digits and underscores.
+    ** Names must begin with a letter or an underscore(_).
+    ** Names are case sensitive(myVar, Myvar, MyVar are totally different variables).
+    ** Names can't contain whitespace or special characters like(!, #, /, *, %, etc ...).
+    ** Reserved words (like C++ keywords, such as int, char, string) can't be used as names.

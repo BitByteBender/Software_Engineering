@@ -13,7 +13,7 @@ int main()
   cout<<"Name: "<<Name<<"\n";
 
   short Age{29};
-  cout<<"Age: "<<Age<<"\n";
+  cout<<"Age: "<<Age<<" years\n";
 
   string City{"Bouznika"}, Country{"Morocco"};
   cout<<"City: "<<City<<"\n";

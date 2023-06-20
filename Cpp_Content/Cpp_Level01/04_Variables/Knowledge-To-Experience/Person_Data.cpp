@@ -19,11 +19,11 @@ int main()
   cout<<"City: "<<City<<"\n";
   cout<<"Country: "<<Country<<"\n";
 
-  const unsigned short Months{12};
-  unsigned short MonthlySalary = 6500;
+  const int Months{12};
+  int MonthlySalary = 6500;
   cout<<"Monthly Salary: "<<MonthlySalary<<" USD\n";
   
-  unsigned int YearlySalary = Months * MonthlySalary;
+  int YearlySalary = Months * MonthlySalary;
   cout<<"YearlySalary: "<<YearlySalary<<" USD\n";
 
   char Gender{'M'};

@@ -29,8 +29,8 @@ int main()
   char Gender{'M'};
   cout<<"Gender: "<<Gender<<"\n";
 
-  bool Married{false};
-  cout<<"Married: "<<Married<<"\n";
+  bool isMarried{false};
+  cout<<"Married: "<<isMarried<<"\n";
   
   cout<<Stars<<endl;
   return 0;

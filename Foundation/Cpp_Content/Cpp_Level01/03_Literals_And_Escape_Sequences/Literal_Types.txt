@@ -1,0 +1,16 @@
+Literal Types:
+
+1. Integer Literals:
+   1. decimal(base 10)
+   2. octal(base 8)
+   3. hexadecimal(base 16)
+
+   Decimal: 0, -9, 22 etc
+   Octal: 021, 077, 033 etc
+   Hexadecimal: 0x7f, 0x51A, 0x632 etc
+
+In C++ programming, octal starts with a 0, and hexadecimal starts with 0x
+
+2. Floating-Point Literals: 1.5, 13.7, 1.99, -8.81
+3. Characters Literals: A, b, z, $, #
+4. Escape Sequences Literals: \n, \t, \\, \a, \", \'

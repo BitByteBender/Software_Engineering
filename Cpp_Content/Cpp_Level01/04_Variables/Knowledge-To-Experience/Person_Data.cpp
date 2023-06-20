@@ -23,7 +23,7 @@ int main()
   int MonthlySalary = 6500;
   cout<<"Monthly Salary: "<<MonthlySalary<<" USD\n";
   
-  int YearlySalary = Months * MonthlySalary;
+  float YearlySalary = Months * MonthlySalary;
   cout<<"YearlySalary: "<<YearlySalary<<" USD\n";
 
   char Gender{'M'};

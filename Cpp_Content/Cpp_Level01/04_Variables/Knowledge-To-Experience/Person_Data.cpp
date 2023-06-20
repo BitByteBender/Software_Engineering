@@ -19,18 +19,18 @@ int main()
   cout<<"City: "<<City<<"\n";
   cout<<"Country: "<<Country<<"\n";
 
-  const unsigned short Months{12};
-  unsigned short MonthlySalary = 6500;
+  const int Months{12};
+  int MonthlySalary = 6500;
   cout<<"Monthly Salary: "<<MonthlySalary<<" USD\n";
   
-  unsigned int YearlySalary = Months * MonthlySalary;
+  float YearlySalary = Months * MonthlySalary;
   cout<<"YearlySalary: "<<YearlySalary<<" USD\n";
 
   char Gender{'M'};
   cout<<"Gender: "<<Gender<<"\n";
 
-  bool Married{false};
-  cout<<"Married: "<<Married<<"\n";
+  bool isMarried{false};
+  cout<<"Married: "<<isMarried<<"\n";
   
   cout<<Stars<<endl;
   return 0;

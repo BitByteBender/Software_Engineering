@@ -14,7 +14,7 @@ int main()
   unsigned char Gender{'F'};
   bool isMarried{false};
 
-  //Card Person data
+  //Card: Person data
   cout<<Stars<<"\n";
   cout<<"Name: "<<Firstname +" " + Lastname<<"\n";
   cout<<"Age: "<<Age<<"\n";

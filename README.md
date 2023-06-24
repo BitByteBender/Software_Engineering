@@ -9,5 +9,5 @@
 * It will force you to learn basic programming concepts.
 * Once you learn it well, you will be able to learn any other programming language in a very short time.
   
-# How big famous programs are made?
+# How the big and famous programs are made?
 * They are a chunk of small programs put together piece by piece.

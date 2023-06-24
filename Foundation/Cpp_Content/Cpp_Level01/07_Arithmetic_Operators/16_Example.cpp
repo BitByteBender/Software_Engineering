@@ -1,9 +1,5 @@
 #include <iostream>
 
-
-//TotalBill and CashPaid
-//remainder to be paid back
-
 using std::cout;
 using std::cin;
 using std::endl;

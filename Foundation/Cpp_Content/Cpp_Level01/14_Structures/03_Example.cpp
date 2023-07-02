@@ -52,7 +52,7 @@ int main(){
 
       <<PrintStars<<"\n";
 
-  Bike2.Brand = "Yamaha";
+  Bike2.Brand = "Kawasaki";
   Bike2.Model = "Ninja";
   Bike2.Category = 'H';
   Bike2.Serie = 2;

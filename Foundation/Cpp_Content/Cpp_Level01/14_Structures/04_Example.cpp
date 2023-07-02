@@ -59,6 +59,7 @@ int main()
     
   cout<<PrintStars<<"\n"
       <<"First name: "<<Person2.FirstName<<"\n"
+      <<"Middle name: "<<Person2.MiddleName<<"\n"
       <<"Last name: "<<Person2.LastName<<"\n"
       <<"Age: "<<Person2.Age<<"\n"
       <<"City: "<<Person2.City<<"\n"

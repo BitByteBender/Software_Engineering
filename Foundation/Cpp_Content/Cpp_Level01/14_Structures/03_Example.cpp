@@ -5,12 +5,13 @@ using std::cout;
 using std::endl;
 using std::string;
 
-struct stContactDetails{
-  string PhoneNum1{"+987541364"}, PhoneNum2{"+19742213"}, Email1{"example@test.com"}, Email2{"Empty"};
-};
-
 struct stAddress{
   string Adr1{"st44, NY Tower, Apt7"}, Adr2{"St49, Trump Tower, Penthouse"};
+};
+
+struct stContactDetails{
+  string PhoneNum1{"+987541364"}, PhoneNum2{"+19742213"}, Email1{"example@test.com"}, Email2{"Empty"};
+  stAddress Adr;
 };
 
 struct stOwner{
@@ -18,7 +19,6 @@ struct stOwner{
   string MiddleName{"Empty"};
   string LastName{"Sadgali"};
   char Gender{'M'};
-  stAddress Adr;
   stContactDetails ContactDetails;
 };
 
@@ -46,7 +46,7 @@ int main(){
       <<"Options: "<<Bike1.FullOptions<<"\n"
       <<"Owner: "<<Bike1.Owner.FirstName + Bike1.Owner.LastName<<"\n"
       <<"Gender: "<<Bike1.Owner.Gender<<"ale"<<"\n"
-      <<"Adr: "<<Bike1.Owner.Adr.Adr1<<"\n"
+      <<"Adr: "<<Bike1.Owner.ContactDetails.Adr.Adr1<<"\n"
       <<"Phone: "<<Bike1.Owner.ContactDetails.PhoneNum1<<"\n"
       <<"Email: "<<Bike1.Owner.ContactDetails.Email1<<"\n"
 
@@ -62,8 +62,8 @@ int main(){
   Bike2.Owner.MiddleName = "Jay";
   Bike2.Owner.LastName = "olum";
   Bike2.Owner.Gender = 'F';
-  Bike2.Owner.Adr.Adr1 = "New Orleans, st 108, Penthouse";
-  Bike2.Owner.Adr.Adr2 = "Dubai, Bentley Mansion";
+  Bike2.Owner.ContactDetails.Adr.Adr1 = "New Orleans, st 108, Penthouse";
+  Bike2.Owner.ContactDetails.Adr.Adr2 = "Dubai, Bentley Mansion";
   Bike2.Owner.ContactDetails.PhoneNum1 = "+897121218";
   Bike2.Owner.ContactDetails.Email1 = "example01@cpp.org";
   Bike2.Owner.ContactDetails.Email2 = "example02@cpp.com";
@@ -76,8 +76,8 @@ int main(){
       <<"Options: "<<Bike2.FullOptions<<"\n"
       <<"Owner: "<<Bike2.Owner.FirstName + Bike2.Owner.MiddleName + Bike2.Owner.LastName<<"\n"
       <<"Gender: "<<Bike2.Owner.Gender<<"emale"<<"\n"
-      <<"Adr1: "<<Bike2.Owner.Adr.Adr1<<"\n"
-      <<"Adr2: "<<Bike2.Owner.Adr.Adr2<<"\n"
+      <<"Adr1: "<<Bike2.Owner.ContactDetails.Adr.Adr1<<"\n"
+      <<"Adr2: "<<Bike2.Owner.ContactDetails.Adr.Adr2<<"\n"
       <<"Phone: "<<Bike2.Owner.ContactDetails.PhoneNum1<<"\n"
       <<"Email1: "<<Bike2.Owner.ContactDetails.Email1<<"\n"
       <<"Email2: "<<Bike2.Owner.ContactDetails.Email2<<"\n"

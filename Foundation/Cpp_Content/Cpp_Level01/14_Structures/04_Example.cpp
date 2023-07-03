@@ -70,7 +70,7 @@ int main()
       <<"Adr2: "<<Person2.Adr.Adr_2<<"\n"
       <<"Phone1: "<<Person2.ContactDetails.PhoneNum_1<<"\n"
       <<"Phone2: "<<Person2.ContactDetails.PhoneNum_2<<"\n"
-      <<PrintStars<<"\n";
+      <<PrintStars<<endl;
   
     
   return 0;

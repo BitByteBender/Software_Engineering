@@ -8,6 +8,7 @@ void NumberSwapper(short Number1, short Number2){
   short TempVar = Number1;
   Number1 = Number2;
   Number2 = TempVar;
+  //you shouldn't be printing the result inside this function(i just did it like this to showcase the many possible ways)
   cout<<"Number1 = "<<Number1<<" - Number2 = "<<Number2<<"\n";
 }
 

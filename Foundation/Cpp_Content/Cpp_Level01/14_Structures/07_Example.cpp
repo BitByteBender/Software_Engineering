@@ -3,7 +3,6 @@
 using std::cout;
 using std::endl;
 using std::string;
-using std::cin;
 
 struct stAddress{
   string Location{"Empty"};
@@ -64,7 +63,7 @@ int main()
 
   cout<<"Restaurant Name: "<<Restaurant2.Name<<"\n";
   cout<<"Founded In: "<<Restaurant2.FoundedIn<<"\n";
-  cout<<"Owner's name: "<<Restaurant2.Owner.FirstName + " " + Restaurant1.Owner.LastName<<"\n";
+  cout<<"Owner's name: "<<Restaurant2.Owner.FirstName + " " + Restaurant2.Owner.LastName<<"\n";
   cout<<"Owner's Age: "<<Restaurant2.Owner.Age<<"\n";
   cout<<"Owner's Phone: "<<Restaurant2.Owner.Phone<<"\n";
   cout<<"Owner's Country: "<<Restaurant2.Owner.FounderAdr.Country<<"\n";

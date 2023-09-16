@@ -28,7 +28,7 @@ int main()
       arr[2] = num1;
     }
   }else{
-    arr[3] = num3;
+    arr[0] = num3;
     arr[2] = num2;
     arr[3] = num1;
   }

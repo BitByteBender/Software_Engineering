@@ -29,8 +29,8 @@ int main()
     }
   }else{
     arr[0] = num3;
-    arr[2] = num2;
-    arr[3] = num1;
+    arr[1] = num2;
+    arr[2] = num1;
   }
 
   cout<<"Sorted array: "<<arr[0]<<"\n"<<arr[1]<<"\n"<<arr[2]<<endl;

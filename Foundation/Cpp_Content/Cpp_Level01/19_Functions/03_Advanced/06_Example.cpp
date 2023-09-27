@@ -38,7 +38,7 @@ struct stMotorYacht{
   
   
 stMotorYacht ReadInfos(stMotorYacht& Vessel){
-
+  
   cout<<"Enter Vessel Alias: ";
   cin>>Vessel.Alias;
 
@@ -80,7 +80,8 @@ stMotorYacht ReadInfos(stMotorYacht& Vessel){
   cin>>Vessel.Owner.Address.City;
 
   cout<<"Enter Owner's Country: ";
-  cin>>Vessel.Owner.Address.Country;
+  cin.ignore(1, '\n');
+  getline(cin, Vessel.Owner.Address.Country);
 
   cout<<"Enter Owner's Full address: ";
   cin.ignore(1, '\n');
@@ -94,7 +95,8 @@ stMotorYacht ReadInfos(stMotorYacht& Vessel){
 
   cout<<"Enter Owner's Marital Status: ";
   cin>>Vessel.Owner.isMarried;
-  
+
+  return Vessel;
 }
 
 float ChartingPrice(stMotorYacht Vessel, short Base, short Exponent){

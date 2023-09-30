@@ -6,26 +6,26 @@ using std::endl;
 
 int main()
 {
-  short ArrayOfNumbers[4] = {0, 0, 0, 0};
+  short Grades[4] = {0, 0, 0, 0};
 
   cout<<"Enter 1st grade: ";
-  cin>>ArrayOfNumbers[0];
+  cin>>Grades[0];
 
   cout<<"Enter 2nd grade: ";
-  cin>>ArrayOfNumbers[1];
+  cin>>Grades[1];
 
   cout<<"Enter 3rd grade: ";
-  cin>>ArrayOfNumbers[2];
+  cin>>Grades[2];
 
   cout<<"Enter 4th grade: ";
-  cin>>ArrayOfNumbers[3];
+  cin>>Grades[3];
 
-  cout<<"ArrayOfNumbers at index 0: "<<ArrayOfNumbers[0]<<"\n";
-  cout<<"ArrayOfNumbers at index 1: "<<ArrayOfNumbers[1]<<"\n";
-  cout<<"ArrayOfNumbers at index 2: "<<ArrayOfNumbers[2]<<"\n";
-  cout<<"ArrayOfNumbers at index 3: "<<ArrayOfNumbers[3]<<"\n";
+  cout<<"1st Grade at index 0: "<<Grades[0]<<"\n";
+  cout<<"2nd Grade  at index 1: "<<Grades[1]<<"\n";
+  cout<<"3rd Grade  at index 2: "<<Grades[2]<<"\n";
+  cout<<"4th Grade  at index 3: "<<Grades[3]<<"\n";
 
-  float AvgGrades = (ArrayOfNumbers[0] + ArrayOfNumbers[1] + ArrayOfNumbers[2] + ArrayOfNumbers[3]) / 4.0f;
+  float AvgGrades = (Grades[0] + Grades[1] + Grades[2] + Grades[3]) / 4.0f;
 
   cout<<"Average Grades: "<<AvgGrades<<endl;
   return 0;

@@ -39,7 +39,7 @@ void ReadPersonsData(strPerson Person[2]){
   ReadPersonData(Person[1]);
 }
 
-void DisplayAllCard(strPerson Person[2], string Style){
+void DisplayAllCards(strPerson Person[2], string Style){
   DisplaySingleCard(Person[0], Style);
   DisplaySingleCard(Person[1], Style);
 }
@@ -49,6 +49,6 @@ int main()
   strPerson Person[2];
   string Style = "******************************";
   ReadPersonsData(Person);
-  DisplayAllCard(Person, Style);
+  DisplayAllCards(Person, Style);
   return 0;
 }

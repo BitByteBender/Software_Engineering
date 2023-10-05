@@ -23,8 +23,10 @@ int main()
     cout<<"Thursday"<<endl;
   }else if(Day == 6){
     cout<<"Friday"<<endl;
-  }else{
+  }else if(Day == 7){
     cout<<"Saturday"<<endl;
+  }else{
+    cout<<"Wrong Day!"<<endl;
   }
   return 0;
 }

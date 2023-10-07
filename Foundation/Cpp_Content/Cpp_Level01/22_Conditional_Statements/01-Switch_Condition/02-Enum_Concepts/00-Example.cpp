@@ -22,7 +22,7 @@ int main()
   Country = (enCountries) Picker;
 
   cout<<"You have picked up "<<Picker<<" which is ";
-  switch (Picker)
+  switch (Country)
   {
   case enCountries::Morocco:
     cout<<"Morocco"<<endl;

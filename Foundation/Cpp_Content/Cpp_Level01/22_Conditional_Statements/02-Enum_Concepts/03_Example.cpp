@@ -8,7 +8,7 @@ enum enColors{Red = 1, Blue = 2, Green = 3};
 
 int main()
 {
-  enColors Color = enColors::Red;
+  enColors Color;
   short NumColor{0};
   
   cout<<"Please choose a color: "<<"\n"
@@ -16,12 +16,17 @@ int main()
       <<"Your choice: ";
   cin>>NumColor;
 
-  if (NumColor == enColors::Red) {
+  Color = (enColors) NumColor;
+  
+  if (Color == enColors::Red) {
     cout<<"Color: "<<"Red "<<"----> "<<enColors::Red<<endl;
-  }else if(NumColor == enColors::Blue){
+    system("color 4F");
+  }else if(Color == enColors::Blue){
     cout<<"Color: "<<"Blue "<<"----> "<<enColors::Blue<<endl;
-  }else if(NumColor == enColors::Green){
+    system("color 1F");
+  }else if(Color == enColors::Green){
     cout<<"Color: "<<"Green "<<"----> "<<enColors::Green<<endl;
+    system("color 2F");
   }else{
     cout<<"Sorry! We don't have this color in our color palettes.";
   }

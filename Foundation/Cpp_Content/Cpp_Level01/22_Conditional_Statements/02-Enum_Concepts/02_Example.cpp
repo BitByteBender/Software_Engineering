@@ -9,14 +9,9 @@ enum enOwner{Soufiane = 200, Issam = 300, Oussama = 400, Zak = 450};
 
 int main()
 {
-  enYacht Yacht1, Yacht2, Yacht3;
+  enYacht Yacht;
   enOwner Owner;
-
   short YachtChecker{0}, OwnerChecker{0};
-
-  Yacht1 = enYacht::Riva;
-  Yacht2 = enYacht::Pershing;
-  Yacht3 = enYacht::SunSeeker;
   
   cout<<"Enter yacht number1: ";
   cin>>YachtChecker;
@@ -24,18 +19,22 @@ int main()
   cout<<"Enter owner: ";
   cin>>OwnerChecker;
 
-  if (YachtChecker == 1 && OwnerChecker == 1) {
-    cout<<"Yacht: "<<enYacht::Riva<<"<----->"<<Yacht1<<"\n";
-    cout<<"Owner: "<<enOwner::Soufiane<<endl;
-  }else if(YachtChecker == 2 && OwnerChecker == 2){
-    cout<<"Yacht: "<<enYacht::Pershing<<"<----->"<<Yacht2<<"\n";
-    cout<<"OWner: "<<enOwner::Zak<<"\n";
-  }else if(YachtChecker == 3 && OwnerChecker == 3){
-    cout<<"Yacht: "<<enYacht::SunSeeker<<"<------->"<<Yacht3<<"\n";
-    cout<<"Owner: "<<enOwner::Oussama<<endl;
+  Yacht = (enYacht) YachtChecker;
+  Owner = (enOwner) OwnerChecker;
+  
+
+  if (Yacht == enYacht::Riva && Owner == enOwner::Soufiane) {
+    cout<<"Yacht: "<<"Riva"<<"\n";
+    cout<<"Owner: "<<"Soufiane"<<endl;
+  }else if(Yacht == enYacht::Pershing && Owner == enOwner::Zak){
+    cout<<"Yacht: "<<"Pershing"<<"\n";
+    cout<<"OWner: "<<"Zak"<<"\n";
+  }else if(Yacht == enYacht::SunSeeker && Owner == enOwner::Oussama){
+    cout<<"Yacht: "<<"Sunseeker"<<"\n";
+    cout<<"Owner: "<<"Oussama"<<endl;
   }else{
-    cout<<"Yacht: "<<enYacht::SunSeeker<<"\n";
-    cout<<"Owner: "<<enOwner::Issam<<endl;
+    cout<<"Yacht: "<<"Sunseeker"<<"\n";
+    cout<<"Owner: "<<"Issam"<<endl;
   }
   
   return 0;

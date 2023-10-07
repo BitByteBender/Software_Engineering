@@ -13,14 +13,15 @@ int main()
   
   cout<<"Choose a number from(0 to 3): ";
   cin>>ColorChecker;
-
-  if (ColorChecker == enColor::Red) {
+  Color = (enColor) ColorChecker;
+  
+  if (Color == enColor::Red) {
     cout<<"Red"<<endl;
-  }else if(ColorChecker == enColor::Blue){
+  }else if(Color == enColor::Blue){
     cout<<"Blue"<<endl;
-  }else if(ColorChecker == enColor::Green){
+  }else if(Color == enColor::Green){
     cout<<"Green"<<endl;
-  }else if(ColorChecker == enColor::Yellow){
+  }else if(Color == enColor::Yellow){
     cout<<"Yellow"<<endl;
   }else{
     cout<<"That's not a color in our color palette."<<endl;

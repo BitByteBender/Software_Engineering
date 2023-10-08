@@ -69,7 +69,6 @@ int main(void)
     break;
   default:
     cout<<"Wrong Month!"<<endl;
-      
   }
     
   return 0;

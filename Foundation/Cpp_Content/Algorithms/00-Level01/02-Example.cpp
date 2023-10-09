@@ -125,7 +125,7 @@ void DisplayCards(stPerson Person[3], string CardStyle)
 
 int main()
 {
-  stPerson Person[2];
+  stPerson Person[3];
 
   ReadPersons(Person);
   DisplayCards(Person, "\n************************\n");

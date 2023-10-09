@@ -6,9 +6,7 @@ using std::endl;
 using std::cin;
 using std::string;
 
-enum enColors{Red = 0, Black = 1};
 enum enCars{Ferrari = 'F', Lamborghini = 'L', Mclaren = 'M'};
-enum enGender{Male = 'M', Female = 'F'};
 
 struct stAddress{
   string City{"empty"}, Country{"empty"};
@@ -18,9 +16,7 @@ struct stPerson{
   string Fullname{"empty"};
   unsigned short Age{0};
   stAddress Address;
-  enGender Gender;
   enCars FavCar;
-  enColors FavColor;
 };
 
 void ReadInfo(stPerson &Person)
@@ -39,33 +35,11 @@ void ReadInfo(stPerson &Person)
   cout<<"Enter Country: ";
   cin>>Person.Address.Country;
 
-  char GenderPicker{'X'};
-  cout<<"Your Gender: ";
-  cin>>GenderPicker;
-  Person.Gender = (enGender)GenderPicker;
-  
   char Picker{'x'};
   cout<<"What your favourite car: ";
   cin>>Picker;
   Person.FavCar = (enCars)Picker;
-
-  bool ColorPicker{false};
-  cout<<"What's your favourite color?: ";
-  cin>>ColorPicker;
-  Person.FavColor = (enColors)ColorPicker;
-}
-
-string GetGender(stPerson Person)
-{
-  switch (Person.Gender) {
-  case enGender::Male:
-    return "Male";
-  case enGender::Female:
-    return "Female";
-    
-  default:
-    return "Not a gender";
-  }
+ 
 }
 
 string GetCar(stPerson Person)
@@ -83,19 +57,6 @@ string GetCar(stPerson Person)
   }
 }
 
-string GetColor(stPerson Person)
-{
-  switch (Person.FavColor) {
-  case enColors::Red:
-    return "Red";
-  case enColors::Black:
-    return "Black";
-     
-  default:
-    return "Not my favourite color";
-  }
-}
-
 void DisplayCard(stPerson Person, string CardStyle)
 {
   cout<<CardStyle;
@@ -103,29 +64,25 @@ void DisplayCard(stPerson Person, string CardStyle)
   cout<<"Age: "<<Person.Age<<"\n";
   cout<<"City: "<<Person.Address.City<<"\n";
   cout<<"Country: "<<Person.Address.Country<<"\n";
-  cout<<"Gender: "<<GetGender(Person)<<"\n";
   cout<<"Fav-Car: "<<GetCar(Person)<<"\n";
-  cout<<"Fav-Color: "<<GetColor(Person)<<"\n";
   cout<<CardStyle<<"\n";
 }
 
-void ReadPersons(stPerson Person[3])
+void ReadPersons(stPerson Person[2])
 {
   ReadInfo(Person[0]);
   ReadInfo(Person[1]);
-  ReadInfo(Person[2]);
 }
 
-void DisplayCards(stPerson Person[3], string CardStyle)
+void DisplayCards(stPerson Person[2], string CardStyle)
 {
   DisplayCard(Person[0], CardStyle);
   DisplayCard(Person[1], CardStyle);
-  DisplayCard(Person[2], CardStyle);
 }
 
 int main()
 {
-  stPerson Person[3];
+  stPerson Person[2];
 
   ReadPersons(Person);
   DisplayCards(Person, "\n************************\n");

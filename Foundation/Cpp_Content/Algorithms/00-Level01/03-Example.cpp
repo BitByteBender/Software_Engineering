@@ -10,8 +10,15 @@ enum enColors{Red = 0, Black = 1};
 enum enCars{Ferrari = 'F', Lamborghini = 'L', Mclaren = 'M'};
 enum enGender{Male = 'M', Female = 'F'};
 
+struct stDetails{
+  string Street{"empty"};
+  string Phone{"empty"};
+  string Email{"empty"};
+};
+
 struct stAddress{
   string City{"empty"}, Country{"empty"};
+  stDetails Details;
 };
 
 struct stPerson{
@@ -19,8 +26,10 @@ struct stPerson{
   unsigned short Age{0};
   stAddress Address;
   enGender Gender;
+  bool isMarried{false};
   enCars FavCar;
   enColors FavColor;
+  
 };
 
 void ReadInfo(stPerson &Person)
@@ -39,10 +48,23 @@ void ReadInfo(stPerson &Person)
   cout<<"Enter Country: ";
   cin>>Person.Address.Country;
 
+  cout<<"Enter your street address: ";
+  cin.ignore(1, '\n');
+  getline(cin, Person.Address.Details.Street);
+
+  cout<<"Enter your phone: ";
+  cin>>Person.Address.Details.Phone;
+
+  cout<<"Enter your email: ";
+  cin>>Person.Address.Details.Email;
+  
   char GenderPicker{'X'};
   cout<<"Your Gender: ";
   cin>>GenderPicker;
   Person.Gender = (enGender)GenderPicker;
+
+  cout<<"Are you married? ";
+  cin>>Person.isMarried;
   
   char Picker{'x'};
   cout<<"What your favourite car: ";
@@ -66,6 +88,11 @@ string GetGender(stPerson Person)
   default:
     return "Not a gender";
   }
+}
+
+char IsMarried(stPerson Person)
+{
+  return (Person.isMarried == 1 ? 'Y' : 'N'); 
 }
 
 string GetCar(stPerson Person)
@@ -103,7 +130,11 @@ void DisplayCard(stPerson Person, string CardStyle)
   cout<<"Age: "<<Person.Age<<"\n";
   cout<<"City: "<<Person.Address.City<<"\n";
   cout<<"Country: "<<Person.Address.Country<<"\n";
+  cout<<"Street: "<<Person.Address.Details.Street<<"\n";
+  cout<<"Phone: "<<Person.Address.Details.Phone<<"\n";
+  cout<<"Email: "<<Person.Address.Details.Email<<"\n";
   cout<<"Gender: "<<GetGender(Person)<<"\n";
+  cout<<"Married: "<<IsMarried(Person)<<"\n";
   cout<<"Fav-Car: "<<GetCar(Person)<<"\n";
   cout<<"Fav-Color: "<<GetColor(Person)<<"\n";
   cout<<CardStyle<<"\n";

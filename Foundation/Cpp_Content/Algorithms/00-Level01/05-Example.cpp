@@ -45,7 +45,7 @@ void ReadPersonsInfo(stPerson Person[10], unsigned short &Length)
   unsigned short i;
 
   do {
-    cout<<"Person "<<i+1<<" Info:\n";
+    cout<<"Enter Person "<<i+1<<" Info:\n";
     ReadPersonInfo(Person[i]);
     i++;
   } while (i <= Length - 1);

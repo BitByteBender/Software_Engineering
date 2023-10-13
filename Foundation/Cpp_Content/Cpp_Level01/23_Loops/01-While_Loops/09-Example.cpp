@@ -13,6 +13,12 @@ int main()
   cout<<"Enter n: ";
   cin>>PIN;
 
+  if (PIN == 1234)
+  {
+    cout<<"Your Balance is: "<<userBalance<<endl;
+  }
+  else
+  {
   i = 0;
 
   while (i < 3 || PIN != 1234) {
@@ -37,7 +43,7 @@ int main()
     }
     i++;
   }
-  
+  }
   
   return 0;
 }

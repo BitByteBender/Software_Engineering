@@ -32,7 +32,7 @@ void PrintPersonInfo(stPerson Person, string CardStyle)
   cout<<CardStyle
       <<"FirstName: "<<Person.FirstName<<"\n"
       <<"LastName: "<<Person.LastName<<"\n"
-      <<"Age: "<<Person.Age<<"\n"
+      <<"Age: "<<Person.Age<<"years\n"
       <<"Phone: "<<Person.Phone<<"\n"
       <<CardStyle<<endl;
 }

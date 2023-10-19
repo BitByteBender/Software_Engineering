@@ -13,6 +13,6 @@
 
 * Example:
 
-   if a variable is type of int.
+   if a variable is of type int.
 
    Pointers also has to be of type int.

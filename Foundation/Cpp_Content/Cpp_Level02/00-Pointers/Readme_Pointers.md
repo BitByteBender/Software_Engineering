@@ -11,7 +11,7 @@ The address of an already existed variable/array/struct...
 
 Pointers must have the same data type as the thing they are pointing to.
 
-** Example:
+* Example:
 
 if a variable is type of int.
 

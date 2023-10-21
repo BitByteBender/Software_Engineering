@@ -4,6 +4,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+
 int main()
 {
   short From{18}, To{45}, Number;

@@ -17,7 +17,7 @@ short ReadNumber(string Message)
   return (*ptrNum);
 }
 
-unsigned short CheckPerfectOrNot(short *ptrNum)
+bool CheckPerfectOrNot(short *ptrNum)
 {
   unsigned short counter, Sum = 0, Max = round(*ptrNum / 2);
 
@@ -27,12 +27,12 @@ unsigned short CheckPerfectOrNot(short *ptrNum)
     }
   }
   
-  return (Sum);
+  return (*ptrNum == Sum);
 }
 
 void PrintPerfectOrNot(short Num)
 {
-  if (CheckPerfectOrNot(&Num) == Num) {
+  if (CheckPerfectOrNot(&Num)) {
     cout<<Num<<" is Perfect"<<endl;
   }
   else

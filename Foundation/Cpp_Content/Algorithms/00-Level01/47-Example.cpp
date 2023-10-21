@@ -1,4 +1,5 @@
 #include <iostream>
+#include "math.h"
 
 using std::cout;
 using std::endl;
@@ -17,14 +18,16 @@ short ReadNumber(std::string Message)
 bool PrimeOrNot(short Num)
 {
 
-    if (Num % 2 == 0) {
+  short counter, Number = round(Num / 2);
+
+  for (counter = 2; counter <= Number; counter++) {
+    if (Num % counter == 0) {
       return (0);
     }
-    else
-    {
-      return (1);
-    }
+	
+  }
 
+    return (1);
 }
 
 void PrintPrimeOrNotPrime(short Num)

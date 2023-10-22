@@ -21,7 +21,7 @@ void PrintIsolatedNumbers(short &Num)
 {
   short Remainder{0};
 
-  while (Num != 0) {
+  while (Num > 0) {
     Remainder = Num % 10;
     Num = Num / 10;
     cout<<Remainder<<endl;

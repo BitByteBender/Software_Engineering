@@ -4,24 +4,28 @@ using std::cout, std::endl;
 
 int main()
 {
-  unsigned short Arr[11][11];
+  unsigned short Arr[10][10];
 
-  unsigned short i, j;
+  unsigned short i, j, Calc = 0;
   
-  for (i = 1; i <= 10; i++)
+  for (i = 0; i < 10; i++)
   {
-    Arr[i][0] = i;
-    for (j = 1; j <= 10; j++)
+    Arr[i][0] = (i + 1);
+    for (j = 0; j < 10; j++)
     {
-      Arr[i][j] = (j * i);
-      if ((i * j) < 10)
+      Calc = (j + 1) * (i + 1);
+      Arr[i][j] = Calc;
+      
+      if (Calc < 10)
       {
 	putchar('0');
-	cout<<Arr[i][j]<<' ';
+	putchar('0' + Arr[i][j]);
+	putchar(' ');
+	//cout<<0<<Arr[i][j]<<' ';
       }
       else
       {
-	if (j < 10)
+	if (j < 9)
 	{
 	  cout<<Arr[i][j]<<' ';
 	}

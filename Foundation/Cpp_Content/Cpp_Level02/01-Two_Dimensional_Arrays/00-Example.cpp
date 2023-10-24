@@ -5,7 +5,6 @@ using std::endl;
 
 int main()
 {
-
   int x[3][4] =
   {
     {1, 2, 3, 4},

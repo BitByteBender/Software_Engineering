@@ -6,7 +6,6 @@ using std::endl;
 int main()
 {
   unsigned short Arr[10][5];
-
   unsigned short i, j, Calc = 0;
   
   for (i = 0; i < 10; i++)

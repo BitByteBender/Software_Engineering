@@ -10,7 +10,6 @@ int main()
   
   for (i = 0; i < 10; i++)
   {
-    Arr[i][0] = (i + 1);
     for (j = 0; j < 10; j++)
     {
       Calc = (j + 1) * (i + 1);

@@ -16,8 +16,8 @@ int main()
 void Odd()
 {
   if (::n <= 20) {
-    printf("%d ", n+1);
-    n++;
+    printf("%d ", ::n+1);
+    ::n++;
     Even();
   }
   return;
@@ -26,8 +26,8 @@ void Odd()
 void Even()
 {
   if (::n <= 20) {
-    printf("%d ", n-1);
-    n++;
+    printf("%d ", ::n-1);
+    ::n++;
     Odd();
   }
   return;

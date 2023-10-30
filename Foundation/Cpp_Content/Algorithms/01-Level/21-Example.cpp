@@ -6,6 +6,32 @@ using std::endl;
 using std::cin;
 using std::string;
 
+short ReadNumber(string);
+
+void StoreNumbers(short [100], short &);
+
+short CalcRepetition(short [100], short, short);
+
+void PrintRepetition(short [100], short, short);
+
+int main(void)
+{
+
+  short *ptrLength = new short(2);
+  short Arr[100];
+  *ptrLength = ReadNumber("Enter a number: ");
+  
+  StoreNumbers(Arr, *ptrLength);
+  
+  short CheckedNumber = ReadNumber("Enter the number you want to check: ");
+
+  PrintRepetition(Arr, *ptrLength, CheckedNumber);
+
+  delete (ptrLength);
+  
+  return (0);
+}
+
 short ReadNumber(string Message)
 {
   short *ptrNum = new short;
@@ -60,19 +86,7 @@ void PrintRepetition(short Arr[100], short Length, short CheckedNumber)
   }
 
   cout<<"\n";
-  cout<<CheckedNumber<<" is repeated "<<CalcRepetition(Arr, Length, CheckedNumber)<<" time(s)"<<endl;
-}
-
-int main(void)
-{
-
-  short Length = ReadNumber("Enter a number: ");
-  short Arr[100];
-  StoreNumbers(Arr, Length);
-  
-  short CheckedNumber = ReadNumber("Enter the number you want to check: ");
-
-  PrintRepetition(Arr, Length, CheckedNumber);
-  
-  return 0;
+  cout<<CheckedNumber<<" is repeated "
+      <<CalcRepetition(Arr, Length, CheckedNumber)
+      <<" time(s)"<<endl;
 }

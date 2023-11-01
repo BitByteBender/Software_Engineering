@@ -67,6 +67,8 @@ void FillArrayWithRandNums(uint16_t Array[], uint16_t &Length)
   for (; i <= (Length - 1); i++) {
     Array[i] = RandNums(1, 100);
   }
+
+  Array[Length] = '\0';
 }
 
 uint16_t CheckMaxNumber(const uint16_t Array[], uint16_t Length)

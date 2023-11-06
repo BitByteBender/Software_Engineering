@@ -102,11 +102,12 @@ void PrintArrayElements(const char *Text, const uint16_t *Arr, const uint16_t Le
   }
 }
 
-void FreeAllocMemo(uint16_t* FirstArr, uint16_t* SecondArr, uint16_t *ptrNum)
+void FreeAllocMemo(uint16_t* FirstArr, uint16_t* SecondArr, uint16_t* SumArr, uint16_t *ptrNum)
 {
   free(ptrNum);
   free(FirstArr);
   free(SecondArr);
+  free(SumArr);
 }
 
 int main()
@@ -125,6 +126,6 @@ int main()
   SumArr = SumNewArray(FirstArr, SecondArr, *Length);
   PrintArrayElements("\nSum of first array and second array elements:\n", SumArr, *Length);
   
-  FreeAllocMemo(FirstArr, SecondArr, Length);
+  FreeAllocMemo(Length, FirstArr, SecondArr, SumArr);
   return (0);
 }

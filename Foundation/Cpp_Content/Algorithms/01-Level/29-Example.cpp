@@ -14,21 +14,14 @@ using std::string;
  * Array 2 elements: 74 29 76 87 3 77 7 11 20 28
  * Sum of first array and second array elements:
  * 160 99 87 177 30 126 55 41 22 100
- * ==92832== 
- * ==92832== HEAP SUMMARY:
- * ==92832==     in use at exit: 22 bytes in 1 blocks
- * ==92832==   total heap usage: 8 allocs, 7 frees, 74,852 bytes allocated
- * ==92832== 
- * ==92832== LEAK SUMMARY:
- * ==92832==    definitely lost: 22 bytes in 1 blocks
- * ==92832==    indirectly lost: 0 bytes in 0 blocks
- * ==92832==      possibly lost: 0 bytes in 0 blocks
- * ==92832==    still reachable: 0 bytes in 0 blocks
- * ==92832==         suppressed: 0 bytes in 0 blocks
- * ==92832== Rerun with --leak-check=full to see details of leaked memory
- * ==92832== 
- * ==92832== For lists of detected and suppressed errors, rerun with: -s
- * ==92832== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+ *
+ * ==93144== HEAP SUMMARY:
+ * ==93144==     in use at exit: 0 bytes in 0 blocks
+ * ==93144==   total heap usage: 8 allocs, 8 frees, 74,852 bytes allocated
+ * ==93144== 
+ * ==93144== All heap blocks were freed -- no leaks are possible
+ * ==93144== For lists of detected and suppressed errors, rerun with: -s
+ * ==93144== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
  */
 
 uint16_t *ReadPositiveNumber(string Message)
@@ -102,11 +95,12 @@ void PrintArrayElements(const char *Text, const uint16_t *Arr, const uint16_t Le
   }
 }
 
-void FreeAllocMemo(uint16_t* FirstArr, uint16_t* SecondArr, uint16_t *ptrNum)
+void FreeAllocMemo(uint16_t* FirstArr, uint16_t* SecondArr, uint16_t* SumArr, uint16_t *ptrNum)
 {
   free(ptrNum);
   free(FirstArr);
   free(SecondArr);
+  free(SumArr);
 }
 
 int main()
@@ -125,6 +119,6 @@ int main()
   SumArr = SumNewArray(FirstArr, SecondArr, *Length);
   PrintArrayElements("\nSum of first array and second array elements:\n", SumArr, *Length);
   
-  FreeAllocMemo(FirstArr, SecondArr, Length);
+  FreeAllocMemo(Length, FirstArr, SecondArr, SumArr);
   return (0);
 }

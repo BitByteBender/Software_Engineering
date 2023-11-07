@@ -6,6 +6,21 @@ using std::cout;
 using std::endl;
 using std::cin;
 
+/**
+ * Enter the length of an array: 10
+ * Array elements before shuffle: 1 2 3 4 5 6 7 8 9 10
+ * Array elements after shuffle: 9 7 3 10 2 8 1 4 5 6
+ * ==108486== 
+ * ==108486== HEAP SUMMARY:
+ * ==108486==     in use at exit: 0 bytes in 0 blocks
+ * ==108486==   total heap usage: 24 allocs, 24 frees, 74,794 bytes allocated
+ * ==108486== 
+ * ==108486== All heap blocks were freed -- no leaks are possible
+ * ==108486== 
+ * ==108486== For lists of detected and suppressed errors, rerun with: -s
+ * ==108486== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+ */
+
 short *ReadPositiveNumber(const char *Message)
 {
   short *ptrNum = (short *)malloc(sizeof(short));
@@ -34,7 +49,6 @@ void FillArray(short *Arr[], short Length)
   }
 
   Arr[Length] = nullptr;
-
 }
 
 short *ShuffledArrArray(short *ShuffledArr[], const short Length)
@@ -111,5 +125,5 @@ int main(void)
   PrintArrayElements("Array elements after shuffle: ", ShuffledArr, *Length);
 
   FreeMemoAlloc(Length, Arr, ShuffledArr);
-  return 0;
+  return (0);
 }

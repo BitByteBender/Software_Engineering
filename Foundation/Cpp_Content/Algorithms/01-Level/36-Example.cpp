@@ -55,12 +55,12 @@ void AddArrayElements(uint16_t Number, uint16_t Arr[100], uint16_t &Length)
 }
 
 
-void CopyArr(uint16_t Arr[100], uint16_t CopyArr[100], uint16_t Length, uint16_t &Number)
+void CopyArr(uint16_t Arr[100], uint16_t CopyArr[100], uint16_t ArrLength, uint16_t &CopyArrLength)
 {
   uint16_t i = 0;
   
-  for (i = 0; i <= (Length - 1); i++) {
-    AddArrayElements(Arr[i], CopyArr, Number);
+  for (i = 0; i <= (ArrLength - 1); i++) {
+    AddArrayElements(Arr[i], CopyArr, CopyArrLength);
   }
 }
 
@@ -73,7 +73,7 @@ int main()
   uint16_t Arr[100];
 
   
-  Length = ReadPositiveNumber("Enter a length: ");
+  Length = ReadPositiveNumber("How many elements: ");
   
   FillArray(Arr, Length);
   uint16_t  CopiedArr[100];

@@ -82,7 +82,6 @@ int main(void)
 
   PrintArrayElements(ArrSrc, SrcLength, "Array 1 elements:\n");
 
-  AddArrayElements(DestLength, ArrSrc, SrcLength);
   CopyOddArrayNumbers(ArrSrc, ArrDest, SrcLength, DestLength);
 
   PrintArrayElements(ArrDest, DestLength, "Array 2 Odd numbers:\n");

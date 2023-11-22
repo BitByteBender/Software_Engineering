@@ -4,7 +4,8 @@
 using std::cout;
 using std::endl;
 
-void PrintArrayElements(const unsigned short Arr[100], const unsigned short &Length, const char *Message)
+
+void PrintArrayElements(const unsigned short Arr[100], const unsigned short Length, const char *Message)
 {
   unsigned short i = 0;
   
@@ -56,5 +57,6 @@ int main(void)
  
   CopyDistinctNumbers(ArrSrc, ArrDest, SrcLength, DestLength);
   PrintArrayElements(ArrDest, DestLength, "Array 2 distinct elements:\n");
+
   return (0);
 }

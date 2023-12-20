@@ -78,6 +78,25 @@
  * ==18008== 
  * ==18008== For lists of detected and suppressed errors, rerun with: -s
  * ==18008== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+ * 
+ * Test (5):
+ *
+ * valgrind ./46
+ * ==20341== Memcheck, a memory error detector
+ * ==20341== Command: ./46
+ * ==20341== 
+ * Enter a number: -78.5
+ * Using Builtin C++ Round: -79
+ * Using My Custom Round Function: -79
+ * ==20341== 
+ * ==20341== HEAP SUMMARY:
+ * ==20341==     in use at exit: 0 bytes in 0 blocks
+ * ==20341==   total heap usage: 5 allocs, 5 frees, 74,813 bytes allocated
+ *==20341== 
+ * ==20341== All heap blocks were freed -- no leaks are possible
+ * ==20341== 
+ * ==20341== For lists of detected and suppressed errors, rerun with: -s
+ * ==20341== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
  */
 
 using std::cout,
@@ -99,7 +118,11 @@ int16_t _Round(float *ptrNum)
   if (*ptrNum == (int16_t) *ptrNum) {
     return (*ptrNum);
   } else {
-    return ((*ptrNum - (int16_t) *ptrNum) >= 0.5f ? (*ptrNum + 1) : ((int16_t)*ptrNum));
+    if (*ptrNum != abs(*ptrNum)) {
+      return (abs(*ptrNum - (int16_t) *ptrNum) < 0.5f ? ((int16_t)*ptrNum) : (*ptrNum - 1));
+    } else {
+      return (abs(*ptrNum - (int16_t) *ptrNum) >= 0.5f ? (*ptrNum + 1) : ((int16_t)*ptrNum));
+    }
   }
 }
 

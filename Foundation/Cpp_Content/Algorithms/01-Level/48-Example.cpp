@@ -18,6 +18,25 @@
  * ==19605== 
  * ==19605== For lists of detected and suppressed errors, rerun with: -s
  * ==19605== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+ *
+ * Test (2):
+ *
+ * valgrind ./48
+ * ==20925== Memcheck, a memory error detector
+ * ==20925== Command: ./48
+ * ==20925== 
+ * Enter a number: -15.9
+ * Using Builtin C++ Ceil: -15
+ * Using My Custom Ceil Function: -15
+ * ==20925== 
+ * ==20925== HEAP SUMMARY:
+ * ==20925==     in use at exit: 0 bytes in 0 blocks
+ * ==20925==   total heap usage: 5 allocs, 5 frees, 74,813 bytes allocated
+ * ==20925== 
+ * ==20925== All heap blocks were freed -- no leaks are possible
+ * ==20925== 
+ * ==20925== For lists of detected and suppressed errors, rerun with: -s
+ * ==20925== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
  */
 
 using std::cout,
@@ -39,7 +58,7 @@ int16_t _Ceil(float *ptrNum)
   if (*ptrNum == (int16_t) *ptrNum) {
     return (*ptrNum);
   } else {
-    return ((int16_t)*ptrNum + 1);
+    return (((int16_t)*ptrNum * -1) != abs((int16_t)*ptrNum) ? (*ptrNum + 1) : (*ptrNum));
   }
 }
 

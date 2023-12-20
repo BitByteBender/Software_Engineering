@@ -18,6 +18,25 @@
  * ==19661== 
  * ==19661== For lists of detected and suppressed errors, rerun with: -s
  * ==19661== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+ *
+ * Test (2):
+ *
+ * valgrind ./47
+ * ==20774== Memcheck, a memory error detector
+ * ==20774== Command: ./47
+ * ==20774== 
+ * Enter a number: -98.01
+ * Using Builtin C++ Floor: -99
+ * Using My Custom Floor Function: -99
+ * ==20774== 
+ * ==20774== HEAP SUMMARY:
+ * ==20774==     in use at exit: 0 bytes in 0 blocks
+ * ==20774==   total heap usage: 5 allocs, 5 frees, 74,813 bytes allocated
+ * ==20774== 
+ * ==20774== All heap blocks were freed -- no leaks are possible
+ * ==20774== 
+ * ==20774== For lists of detected and suppressed errors, rerun with: -s
+ * ==20774== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
  */
 
 using std::cout,
@@ -39,7 +58,7 @@ int16_t _Floor(float *ptrNum)
   if (*ptrNum == (int16_t) *ptrNum) {
     return (*ptrNum);
   } else {
-    return ((int16_t)*ptrNum);
+    return (((int16_t)*ptrNum * -1) == abs((int16_t)*ptrNum) ? (*ptrNum - 1) : (*ptrNum));
   }
 }
 

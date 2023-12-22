@@ -74,5 +74,5 @@ int main(void)
   printCeiledNum((float*)Num);
 
   free(Num);
-  return 0;
+  return (0);
 }

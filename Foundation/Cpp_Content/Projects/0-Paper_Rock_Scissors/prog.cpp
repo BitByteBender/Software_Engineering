@@ -70,8 +70,8 @@ bool strCmp(const char *Str1, const char *Str2)
 {
   unsigned short i = 0;
 
-  for (i = 0; Str1[i] != '\0'; i++) {
-    if (Str1[i] != Str2[i]) {
+  for (i = 0; Str2[i] != '\0'; i++) {
+    if (Str2[i] != Str1[i]) {
       return (false);
     }
   }

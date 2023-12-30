@@ -72,7 +72,6 @@ int main(void)
 {
   float *Num = ReadNumber("Enter a number: ");
   printCeiledNum((float*)Num);
-
   free(Num);
   return (0);
 }

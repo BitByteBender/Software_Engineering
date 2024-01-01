@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string.h>
+#include <string>
+#include <ctime>
 
 /**
  * Test (1):
@@ -87,7 +89,7 @@ using std::cin;
 using std::endl;
 using std::string;
 
-const uint16_t Max_Cmd_Length = 100;
+extern const uint16_t Max_Cmd_Length = 100;
 
 char *ReadCommand(const char *);
 bool strCmp(char *, const char *);
@@ -95,9 +97,39 @@ void onStart();
 void onTrigger();
 void onExit();
 
+enum enGameChoice{Rock = 1, Paper = 2, Scissors = 3};
+
+struct stBots{
+  string arrNames[3] = {"Maestro Bot", "God Mode", "Juan Wicked"};
+  uint16_t Score{0};
+  uint16_t Health{100};
+};
+
+struct stPlayer{
+  string inGameName{"Empty"};
+  uint16_t Score{0};
+  uint16_t Health{100};
+};
+
+struct stGameData{
+  const string gameName{"Play board"};
+  stPlayer Player;
+  stBots Bot;
+  uint16_t TotalScore = abs(Player.Score - Bot.Score);
+  enGameChoice gameChoice;
+  uint16_t Round {0};
+};
+
+stGameData DataReader(stGameData &Game, uint16_t &pos);
+
+void DisplayGameData(stGameData Game, uint16_t &pos);
+
+void playGame();
+
 int main(void)
 {
   onTrigger();
+  //playGame();
   return (0);
 }
 
@@ -108,10 +140,16 @@ void onStart()
   while (true) {
     char *Cmd = ReadCommand("> ");
 
+    /**
+     * how many rounds to play
+     */
     if (strCmp(Cmd, "run")) {
+      cout<<"Program is already running enter [play] or [close]\n";
       free(Cmd);
-      onStart();
-    } else if (strCmp(Cmd, "close")) {
+    } else if (strCmp(Cmd, "play")) {
+      free(Cmd);
+      playGame();
+    }else if (strCmp(Cmd, "close")) {
       free(Cmd);
       onExit();
     }
@@ -154,7 +192,7 @@ char *ReadCommand(const char *Msg)
  do {
     cout<<Msg;
     cin.getline(Cmd, Max_Cmd_Length);
-  } while (!(strCmp(Cmd, "close") || strCmp(Cmd, "run")));
+ } while (!(strCmp(Cmd, "close") || strCmp(Cmd, "run") || strCmp(Cmd, "play")));
 
   return (Cmd);
 }
@@ -170,4 +208,111 @@ bool strCmp(char *Str1, const char *Str2)
   }
 
   return (true);
+}
+
+void BotNamesDisplayer()
+{
+  cout<<"Choose Bot you want to play against (0->2): ";
+  cout<<"\n0:> Maestro Bot";
+  cout<<"\n1:> God Mode";
+  cout<<"\n2:> Juan Wicked";
+  cout<<"\n> ";
+}
+
+stGameData DataReader(stGameData &Game, uint16_t &pos)
+{
+  cout<<"Enter a name (or type +- to get a default name): ";
+  getline(cin, Game.Player.inGameName);
+
+  
+  BotNamesDisplayer();
+  cin >> pos;
+    
+  cin.ignore();
+  
+  return (Game);
+}
+
+inline uint16_t gameRandomizer(uint16_t From, uint16_t To)
+{
+  return (rand() % (To - From + 1) + From);
+}
+
+string checkGame(stGameData Game, uint16_t &choice)
+{
+  switch (static_cast<enGameChoice>(Game.gameChoice | choice)) {
+  case (enGameChoice::Rock):
+    return "Rock";
+  case (enGameChoice::Paper):
+    return "Paper";
+  case (enGameChoice::Scissors):
+    return "Scissors";
+  default:
+    return "Invalid";
+  }
+}
+
+void onBeginPlay(stGameData Game, uint16_t pos)
+{
+  uint16_t choicePicker{0}, rounds{0};
+
+  cout<<"How many rounds?: ";
+  cin>>rounds;
+
+  
+  if (Game.Player.inGameName == "+-")
+    Game.Player.inGameName = "Player1";
+
+  Game.Round = rounds;
+  
+  while (rounds != 0) {
+
+    uint16_t botChoice{0};
+    
+    cout<<Game.Player.inGameName<<": ";
+    cin>>choicePicker;
+    Game.gameChoice = (enGameChoice) choicePicker;
+
+    cin.ignore();
+
+    botChoice = gameRandomizer(1, 3);
+    cout<<Game.Bot.arrNames[pos]<<": "<<botChoice<<"\n";
+    
+    cout<<"\n["<<Game.Player.inGameName<<"] chosen >> ["<<checkGame(Game, choicePicker)<<"]"
+	<<" | "
+	<<"["<<Game.Bot.arrNames[pos]<<"] chosen >> ["<<checkGame(Game, botChoice)<<"]"
+	<<"\n****************************************************\n";
+  
+    rounds--;
+
+    cout<<endl;
+  }
+  
+  DisplayGameData(Game, pos);
+  
+}
+
+void DisplayGameData(stGameData Game, uint16_t &pos)
+{
+  cout<<"****************  Game Data  *****************\n";
+  
+  if (Game.Player.inGameName == "+-") {
+    Game.Player.inGameName = "Player1";
+  }
+  
+  cout<<Game.Player.inGameName<<" Vs "<<Game.Bot.arrNames[pos]<<"\n";
+  cout<<Game.Player.inGameName<<" Score: "<<Game.Player.Score<<"\n";
+  cout<<Game.Bot.arrNames[pos]<<" Score: "<<Game.Player.Score<<"\n";
+  cout<<Game.Round<<" Rounds played"<<"\n";
+  cout<<"****************  Game Ended  ****************"<<endl;
+}
+
+void playGame()
+{
+  stGameData Game;
+  uint16_t pos = 0;
+  srand((unsigned)time(nullptr));
+  
+  DataReader(Game, pos);
+  onBeginPlay(Game, pos);
 }

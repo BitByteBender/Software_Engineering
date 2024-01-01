@@ -238,9 +238,11 @@ inline uint16_t gameRandomizer(uint16_t From, uint16_t To)
   return (rand() % (To - From + 1) + From);
 }
 
-string checkGame(stGameData Game, uint16_t &choice)
+string checkGame(stGameData Game, uint16_t choice)
 {
-  switch (static_cast<enGameChoice>(Game.gameChoice | choice)) {
+  Game.gameChoice = (enGameChoice)choice;
+  
+  switch (Game.gameChoice) {
   case (enGameChoice::Rock):
     return "Rock";
   case (enGameChoice::Paper):
@@ -278,13 +280,29 @@ void onBeginPlay(stGameData Game, uint16_t pos)
     botChoice = gameRandomizer(1, 3);
     cout<<Game.Bot.arrNames[pos]<<": "<<botChoice<<"\n";
     
-    cout<<"\n["<<Game.Player.inGameName<<"] chosen >> ["<<checkGame(Game, choicePicker)<<"]"
+    cout<<"\nResult:\n>> "
+	<<"["<<Game.Player.inGameName<<"] chosen >> ["<<checkGame(Game, choicePicker)<<"]"
 	<<" | "
-	<<"["<<Game.Bot.arrNames[pos]<<"] chosen >> ["<<checkGame(Game, botChoice)<<"]"
-	<<"\n****************************************************\n";
-  
-    rounds--;
+	<<"["<<Game.Bot.arrNames[pos]<<"] chosen >> ["<<checkGame(Game, botChoice)<<"]";
 
+    if (!(choicePicker == botChoice)) {
+      cout<<"\n>> ";
+      if (choicePicker == 1 && botChoice == 3) {
+	cout<<"["<<Game.Player.inGameName<<"] won this round!";
+      } else if (choicePicker == 2 && botChoice == 1) {
+	cout<<"["<<Game.Player.inGameName<<"] won this round!";
+      } else if (choicePicker == 3 && botChoice == 2) {
+	cout<<"["<<Game.Player.inGameName<<"] won this round!";
+      } else {
+	cout<<"["<<Game.Bot.arrNames[pos]<<"] won this round!";
+      }
+      cout<<"\n";
+    } else {
+      cout<<"\nIt's a tie game!"<<"\n";
+    }
+    
+    rounds--;
+    
     cout<<endl;
   }
   

@@ -256,24 +256,27 @@ string checkGame(stGameData Game, uint16_t choice)
 
 void onBeginPlay(stGameData Game, uint16_t pos)
 {
-  uint16_t choicePicker{0}, rounds{0};
+  uint16_t choicePicker{0}, rounds{0}, playerScore{0}, botScore{0};
 
   cout<<"How many rounds?: ";
   cin>>rounds;
 
+  cout<<"{>>{Tips: [1] Rock, [2] Paper, [3] Scissors}<<}\n";
   
   if (Game.Player.inGameName == "+-")
     Game.Player.inGameName = "Player1";
 
-  Game.Round = rounds;
+  //Game.Round = rounds;
   
   while (rounds != 0) {
 
     uint16_t botChoice{0};
-    
+
+    cout<<"--------------------- *Round ["<<++Game.Round<<"] Started* ---------------------\n";
+							
     cout<<Game.Player.inGameName<<": ";
     cin>>choicePicker;
-    Game.gameChoice = (enGameChoice) choicePicker;
+    //Game.gameChoice = (enGameChoice) choicePicker;
 
     cin.ignore();
 
@@ -289,22 +292,29 @@ void onBeginPlay(stGameData Game, uint16_t pos)
       cout<<"\n>> ";
       if (choicePicker == 1 && botChoice == 3) {
 	cout<<"["<<Game.Player.inGameName<<"] won this round!";
+	++playerScore;
       } else if (choicePicker == 2 && botChoice == 1) {
 	cout<<"["<<Game.Player.inGameName<<"] won this round!";
+	++playerScore;
       } else if (choicePicker == 3 && botChoice == 2) {
 	cout<<"["<<Game.Player.inGameName<<"] won this round!";
+	++playerScore;
       } else {
 	cout<<"["<<Game.Bot.arrNames[pos]<<"] won this round!";
+	++botScore;
       }
       cout<<"\n";
     } else {
       cout<<"\nIt's a tie game!"<<"\n";
     }
-    
     rounds--;
-    
+
+    cout<<"---------------------- *Round ["<<Game.Round<<"] Ended* ----------------------\n";
     cout<<endl;
   }
+
+  Game.Player.Score = playerScore;
+  Game.Bot.Score = botScore;
   
   DisplayGameData(Game, pos);
   
@@ -318,9 +328,21 @@ void DisplayGameData(stGameData Game, uint16_t &pos)
     Game.Player.inGameName = "Player1";
   }
   
-  cout<<Game.Player.inGameName<<" Vs "<<Game.Bot.arrNames[pos]<<"\n";
+  cout<<Game.Player.inGameName<<" Vs "<<Game.Bot.arrNames[pos]<<"\n\n";
   cout<<Game.Player.inGameName<<" Score: "<<Game.Player.Score<<"\n";
-  cout<<Game.Bot.arrNames[pos]<<" Score: "<<Game.Player.Score<<"\n";
+  cout<<Game.Bot.arrNames[pos]<<" Score: "<<Game.Bot.Score<<"\n\n";
+
+  if (Game.Player.Score >= Game.Bot.Score) {
+    if (Game.Player.Score == Game.Bot.Score) {
+      cout<<"it's a tie game!\n";
+    }
+    else {
+      cout<<Game.Player.inGameName<<" is the winner!\n";
+    }
+  } else {
+    cout<<"You lost! ["<<Game.Bot.arrNames[pos]<<"] is the winner\n";
+  }
+  
   cout<<Game.Round<<" Rounds played"<<"\n";
   cout<<"****************  Game Ended  ****************"<<endl;
 }

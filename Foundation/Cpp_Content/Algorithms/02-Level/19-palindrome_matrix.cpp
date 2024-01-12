@@ -42,13 +42,11 @@ bool isPalindrome(uint16_t matrix[3][3], uint16_t rows, uint16_t cols)
   uint16_t i = 0, j = 0, start = 0, end = 0;
 
   for (i = 0; i < rows; i++) {
-    for (j = 0; j < cols; j++) {
+    for (j = 0; j < (cols / 2); j++) {
       start = matrix[i][j];
       end = matrix[i][cols - j - 1];
-      if (start != end) {
+      if (start != end)
 	return (false);
-      } else if (i == j)
-	break;
     }
   }
   return (true);

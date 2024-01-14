@@ -30,16 +30,15 @@ inline bool isLowerAlphabet(char letter)
   return (letter >= char(97) && letter <= char(122));
 }
 
-void printInverted(char Letter, const char *Msg)
+inline char invertLetter(char letter)
+{
+  return (isLowerAlphabet(letter) ? toUpper(letter) : toLower(letter));
+}
+
+void printInverted(char letter, const char *Msg)
 {
   cout<<Msg;
-
-  if (isLowerAlphabet(Letter)) {
-    cout<<toUpper(Letter);
-  }
-  else {
-    cout<<toLower(Letter);
-  }
+  cout<<invertLetter(letter);
   cout<<endl;
 }
 

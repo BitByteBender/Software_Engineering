@@ -5,16 +5,6 @@ using std::cin;
 using std::endl;
 using std::string;
 
-string readText()
-{
-  string Text{"empty"};
-
-  cout<<"Enter a text: ";
-  getline(cin, Text);
-
-  return (Text);
-}
-
 char readChar(const char *Msg)
 {
   char Letter{'x'};

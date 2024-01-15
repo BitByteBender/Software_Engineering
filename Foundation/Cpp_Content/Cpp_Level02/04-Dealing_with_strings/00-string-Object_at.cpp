@@ -18,7 +18,7 @@ int main(void)
     cout<<str1.at(i);
   }
 
-  cout<<endl;
+  cout<<'\n';
   
   if (str1.at(1) == 'y') {
     str1.at(1) = 'a';

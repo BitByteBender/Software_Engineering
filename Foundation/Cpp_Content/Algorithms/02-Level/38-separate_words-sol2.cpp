@@ -44,5 +44,6 @@ int main(void)
 {
   string Text = readText("Enter a text to check:\n");
   printWordsSeparated(Text);
+  
   return (0);
 }

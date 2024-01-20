@@ -7,7 +7,7 @@ using std::string;
 
 int main(void)
 {
-  string str1 = "My currently studying at Holberton";
+  string str1 = "I am currently studying at Holberton";
 
   cout<<"str1: "<<str1<<'\n';
   cout<<"length: "<<str1.length()<<'\n';
@@ -25,8 +25,8 @@ int main(void)
   } else {
     cout<<"Holberton is found at pos[";
     cout<<str1.find("Holberton")<<"]["<<str1.find("n ")<<"].\n";
-    cout<<"at pos 25->"<<str1.at(str1.find("Holberton"))<<'\n'
-	<<"at pos 33->"<<str1.at(str1.find("n "))<<'\n';
+    cout<<"at pos 27->"<<str1.at(str1.find("Holberton"))<<'\n'
+	<<"at pos 35->"<<str1.at(str1.find("n "))<<'\n';
   }
 
   str1.clear();

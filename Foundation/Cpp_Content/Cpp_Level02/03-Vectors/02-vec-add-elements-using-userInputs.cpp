@@ -46,7 +46,8 @@ void readNum(vector <uint16_t> &vNums)
   } while (cond);
 }
 
-void printNumsInVec(vector <uint16_t> vNums)
+//used by ref so we dont copy the full vector, just the adr
+void printNumsInVec(vector <uint16_t> &vNums)
 {
   cout<<"Vector elements are: ";
   

@@ -25,7 +25,7 @@ string trimRight(string Text, char DELIMITER)
     pos--;
   }
 
-  sWord = Text.substr(0, pos);
+  sWord = Text.substr(0, pos + 1);
   return (sWord);
 }
 

@@ -35,10 +35,8 @@ vector <string> splitString(string Text, string DELIMITER)
       Text.erase(0, pos + DELIMITER.length());
   }
 
-  word = Text.substr(0, pos);
-  
-  if (word != "") {
-    vWords.push_back(word);
+  if (Text != "") {
+    vWords.push_back(Text);
   }
   
   return (vWords);

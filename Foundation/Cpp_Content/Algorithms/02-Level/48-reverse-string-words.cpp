@@ -18,17 +18,17 @@ string readText(const char *Msg)
 
 uint16_t countLength(string Text)
 {
-  string DELIMITER = " \n\t,/:;", Word = "", arrWords[100];
-  string oscilator = "";
+  string DELIMITER = " \n\t,/:;.", Word = "", arrWords[100];
+  string isolator = "";
   uint16_t i = 0, j = 0, length = 0;
   
   for (i = 0; i < Text.length(); i++) {
     for (j = 0; j < DELIMITER.length(); j++) {
       if (Text[i] == DELIMITER[j]) {
-	oscilator += DELIMITER[j];
+	isolator += DELIMITER[j];
       }
     }
-    if (oscilator == "") {
+    if (isolator == "") {
       Word += Text.at(i);
     } else {
       if (!Word.empty()) {
@@ -36,9 +36,9 @@ uint16_t countLength(string Text)
 	Word.clear();
 	++length;
       }
-      if (!oscilator.empty()) {
-	arrWords[length] = oscilator;
-	oscilator.clear();
+      if (!isolator.empty()) {
+	arrWords[length] = isolator;
+	isolator.clear();
 	++length;
       }
     }
@@ -48,14 +48,14 @@ uint16_t countLength(string Text)
     arrWords[length] = Word;
     Word.clear();
   }
-
+  
   return (length);
 }
 
 void reverse(string Text, uint16_t length, string arrWords[])
 {
-  string DELIMITER = " \n\t,/:;", Word = "";
-  string oscilator = "";
+  string DELIMITER = " \n\t,/:;.", Word = "";
+  string isolator = "";
   uint16_t i = 0, j = 0;
 
   length = 0;
@@ -63,10 +63,10 @@ void reverse(string Text, uint16_t length, string arrWords[])
   for (i = 0; i < Text.length(); i++) {
     for (j = 0; j < DELIMITER.length(); j++) {
       if (Text[i] == DELIMITER[j]) {
-	oscilator += DELIMITER[j];
+	isolator += DELIMITER[j];
       }
     }
-    if (oscilator == "") {
+    if (isolator == "") {
       Word += Text.at(i);
     } else {
       if (!Word.empty()) {
@@ -74,9 +74,9 @@ void reverse(string Text, uint16_t length, string arrWords[])
 	Word.clear();
 	++length;
       }
-      if (!oscilator.empty()) {
-	arrWords[length] = oscilator;
-	oscilator.clear();
+      if (!isolator.empty()) {
+	arrWords[length] = isolator;
+	isolator.clear();
 	++length;
       }
     }
@@ -85,6 +85,12 @@ void reverse(string Text, uint16_t length, string arrWords[])
   if (!Word.empty()) {
     arrWords[length] = Word;
     Word.clear();
+  }
+
+  if (!isolator.empty()) {
+    ++length;
+    arrWords[length] = isolator;
+    isolator.clear();
   }
 }
 

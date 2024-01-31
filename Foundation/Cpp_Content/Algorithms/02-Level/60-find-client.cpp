@@ -103,11 +103,7 @@ bool checkAccNum(vector <stClientData> &vClients, string Text, stClientData &Cli
   
   for (stClientData &Clt : vClients) {
     if (Text == Clt.AccNum) {
-      ClientDt.AccNum = Clt.AccNum;
-      ClientDt.PinCode = Clt.PinCode;
-      ClientDt.Fullname = Clt.Fullname;
-      ClientDt.PhoneNum = Clt.PhoneNum;
-      ClientDt.AccBalance = Clt.AccBalance;
+      ClientDt = Clt;
       return (true);
     }
   }
@@ -127,7 +123,6 @@ void printClient(vector <stClientData> &vClients, string Text, stClientData Clie
   } else {
     cout<<"\nClient with this Account number ("<<Text<<") is not Found!"<<endl;
   }
-  
 }
 
 int main(void)

@@ -67,7 +67,7 @@ uint16_t wordCounter(string Text)
   return (counter);
 }
 
-bool formatChecker(string text)
+bool nameFormatChecker(string text)
 {
   uint16_t i = 0, j = 0;
 
@@ -77,7 +77,7 @@ bool formatChecker(string text)
       return (false);
     }
     
-    if (isLetter(text[i - 2]) && text[i - 1] == ' ' && isLetter(text[i])) {
+    if (text[i - 1] == ' ' && isLetter(text[i])) {
       for (j = 0; j < text.length(); j++) {
 	if (text[j] != ' ' && isLetter(text[j]) == false) {
 	  cout<<"Wrong format no numbers are allowed in names\n";
@@ -94,38 +94,88 @@ bool formatChecker(string text)
   return (false);
 }
 
+bool accBalanceFormatChecker(string text)
+{
+  uint16_t i = 0;
+  
+  for (i = 0; i < text.length(); ++i) {
+    if (isLetter(text[i])) {
+      cout<<"Account Balance should be a number\n";
+      return (false);
+    }
+  }
+  return (true);
+}
+
 stClients readClientData()
 {
   stClients Client;
-
+  string AccBalance;
+  
   cout<<"Adding New client window:\n\n";
-  Client.AccountNumber = prompt("Enter an account number: ");
+  
+  do {
+    Client.AccountNumber = prompt("Enter an account number: ");
+  } while (!isUpper(Client.AccountNumber[0]) || wordCounter(Client.AccountNumber) < 4);
+
   Client.PinCode = stoi(prompt("Enter a pin code: "));
   
   do {
     Client.Fullname = prompt("Enter your full name: ");
-  } while (!formatChecker(Client.Fullname));
+  } while (!nameFormatChecker(Client.Fullname));
 
   Client.PhoneNumber = prompt("Enter your phone number: ");
-  Client.AccountBalance = stod(prompt("Enter your initial deposit: "));
+
+  do {
+   AccBalance = prompt("Enter your initial deposit: ");
+  } while (!accBalanceFormatChecker(AccBalance));
+
+  Client.AccountBalance = stod(AccBalance);
   
   return (Client);
 }
 
+vector <stClients> vecFillerWithClients(stClients &Client, bool CheckCase=false)
+{
+  vector <stClients> vClients;
+  char operation = 'N';
+
+  do {
+    Client = readClientData();
+    vClients.push_back(Client);
+    
+    operation = char(prompt("Do you want to add more clients?")[0]);
+    
+    if (operation == 'y' || operation == 'Y') {
+      CheckCase = true;
+    } else {
+      CheckCase = false;
+    }
+  } while (CheckCase);
+  
+  return (vClients);
+}
+
 void printClient(stClients Client)
 {
-  cout<<Client.AccountNumber<<'\n';
-  cout<<Client.PinCode<<'\n';
-  cout<<Client.Fullname<<'\n';
-  cout<<Client.PhoneNumber<<'\n';
-  cout<<Client.AccountBalance<<endl;
+  cout<<"Account number: "<<Client.AccountNumber<<'\n';
+  cout<<"Pin code: "<<Client.PinCode<<'\n';
+  cout<<"Fullname: "<<Client.Fullname<<'\n';
+  cout<<"Phone number: "<<Client.PhoneNumber<<'\n';
+  cout<<"Account balance: "<<Client.AccountBalance<<endl;
 }
 
 int main(void)
 {
   stClients Client;
+  vector <stClients> vClients;
   
-  Client = readClientData();
-  printClient(Client);
+  vClients = vecFillerWithClients(Client);
+
+  for (const stClients &C : vClients) {
+    printClient(C);
+    cout<<endl;
+  }
+  
   return (0);
 }

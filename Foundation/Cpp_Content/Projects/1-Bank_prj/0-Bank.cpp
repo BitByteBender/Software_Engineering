@@ -67,7 +67,7 @@ uint16_t wordCounter(string Text)
   return (counter);
 }
 
-bool formatChecker(string text)
+bool nameFormatChecker(string text)
 {
   uint16_t i = 0, j = 0;
 
@@ -94,12 +94,26 @@ bool formatChecker(string text)
   return (false);
 }
 
+bool accBalanceFormatChecker(string text)
+{
+  uint16_t i = 0;
+  
+  for (i = 0; i < text.length(); ++i) {
+    if (isLetter(text[i])) {
+      cout<<"Account Balance should be a number\n";
+      return (false);
+    }
+  }
+  return (true);
+}
+
 stClients readClientData()
 {
   stClients Client;
-
+  string AccBalance;
+  
   cout<<"Adding New client window:\n\n";
-
+  
   do {
     Client.AccountNumber = prompt("Enter an account number: ");
   } while (!isUpper(Client.AccountNumber[0]) || wordCounter(Client.AccountNumber) < 4);
@@ -108,10 +122,15 @@ stClients readClientData()
   
   do {
     Client.Fullname = prompt("Enter your full name: ");
-  } while (!formatChecker(Client.Fullname));
+  } while (!nameFormatChecker(Client.Fullname));
 
   Client.PhoneNumber = prompt("Enter your phone number: ");
-  Client.AccountBalance = stod(prompt("Enter your initial deposit: "));
+
+  do {
+    AccBalance = prompt("Enter your initial deposit: ");
+  } while (!accBalanceFormatChecker(AccBalance));
+
+  Client.AccountBalance = stod(AccBalance);
   
   return (Client);
 }

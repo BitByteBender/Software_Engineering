@@ -77,7 +77,7 @@ bool formatChecker(string text)
       return (false);
     }
     
-    if (isLetter(text[i - 2]) && text[i - 1] == ' ' && isLetter(text[i])) {
+    if (text[i - 1] == ' ' && isLetter(text[i])) {
       for (j = 0; j < text.length(); j++) {
 	if (text[j] != ' ' && isLetter(text[j]) == false) {
 	  cout<<"Wrong format no numbers are allowed in names\n";
@@ -99,7 +99,11 @@ stClients readClientData()
   stClients Client;
 
   cout<<"Adding New client window:\n\n";
-  Client.AccountNumber = prompt("Enter an account number: ");
+
+  do {
+    Client.AccountNumber = prompt("Enter an account number: ");
+  } while (!isUpper(Client.AccountNumber[0]) || wordCounter(Client.AccountNumber) < 4);
+
   Client.PinCode = stoi(prompt("Enter a pin code: "));
   
   do {

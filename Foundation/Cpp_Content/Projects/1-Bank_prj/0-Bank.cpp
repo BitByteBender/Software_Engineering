@@ -144,7 +144,8 @@ vector <stClients> vecFillerWithClients(stClients &Client, bool CheckCase=false)
     Client = readClientData();
     vClients.push_back(Client);
     
-    operation = char(prompt("Do you want to add more clients?")[0]);
+    operation = char(prompt("\nDo you want to add more clients?")[0]);
+    cout<<'\n';
     
     if (operation == 'y' || operation == 'Y') {
       CheckCase = true;
@@ -154,6 +155,47 @@ vector <stClients> vecFillerWithClients(stClients &Client, bool CheckCase=false)
   } while (CheckCase);
   
   return (vClients);
+}
+
+string convertToLine(stClients Client)
+{
+  string line, delim = "#/\\#";
+  
+  line += Client.AccountNumber + delim;
+  line += to_string(Client.PinCode) + delim;
+  line += Client.Fullname + delim;
+  line += Client.PhoneNumber + delim;
+  line += to_string(Client.AccountBalance);
+  
+  return (line);
+}
+
+vector <string> loadRecs(stClients &Client)
+{
+  vector <stClients> vClients = vecFillerWithClients(Client);
+  vector <string> vRecords;
+
+  for (const stClients &C : vClients) {
+    vRecords.push_back(convertToLine(C));
+  }
+
+  return (vRecords);
+}
+
+void saveRecordsToFile(const string filename, stClients Client)
+{
+  fstream file;
+  vector <string> vRecs;
+  
+  file.open(filename, ios::out);
+
+  if (file.is_open()) {
+    vRecs = loadRecs(Client);
+    for (const string &Rec : vRecs) {
+      file<<Rec<<'\n';
+    }
+    file.close();
+  }
 }
 
 void printClient(stClients Client)
@@ -169,13 +211,9 @@ int main(void)
 {
   stClients Client;
   vector <stClients> vClients;
-  
-  vClients = vecFillerWithClients(Client);
+  vector <string> vRecs;
+  const string filename{"Clients/Data"};
 
-  for (const stClients &C : vClients) {
-    printClient(C);
-    cout<<endl;
-  }
-  
+  saveRecordsToFile(filename, Client);
   return (0);
 }

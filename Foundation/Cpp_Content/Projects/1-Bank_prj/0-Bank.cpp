@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <iomanip>
 
 using std::cout;
 using std::cin;
@@ -12,6 +13,7 @@ using std::vector;
 using std::fstream;
 using std::ios;
 using std::ws;
+using std::setw;
 
 enum enFuncs
 {
@@ -144,7 +146,8 @@ vector <stClients> vecFillerWithClients(stClients &Client, bool CheckCase=false)
     Client = readClientData();
     vClients.push_back(Client);
     
-    operation = char(prompt("Do you want to add more clients?")[0]);
+    operation = char(prompt("\nDo you want to add more clients?")[0]);
+    cout<<'\n';
     
     if (operation == 'y' || operation == 'Y') {
       CheckCase = true;
@@ -156,7 +159,120 @@ vector <stClients> vecFillerWithClients(stClients &Client, bool CheckCase=false)
   return (vClients);
 }
 
-void printClient(stClients Client)
+string convertToLine(stClients Client)
+{
+  string line, delim = "#/\\#";
+  
+  line += Client.AccountNumber + delim;
+  line += to_string(Client.PinCode) + delim;
+  line += Client.Fullname + delim;
+  line += Client.PhoneNumber + delim;
+  line += to_string(Client.AccountBalance);
+  
+  return (line);
+}
+
+vector <string> saveRecs(stClients &Client)
+{
+  vector <stClients> vClients = vecFillerWithClients(Client);
+  vector <string> vRecs;
+
+  for (const stClients &C : vClients) {
+    vRecs.push_back(convertToLine(C));
+  }
+
+  return (vRecs);
+}
+
+void saveRecordsToFile(vector <string> vRecs, const string filename)
+{
+  fstream file;
+  
+  file.open(filename, ios::out);
+
+  if (file.is_open()) {
+    for (const string &Rec : vRecs) {
+      file<<Rec<<'\n';
+    }
+    file.close();
+  }
+}
+
+vector <string> loadRecsToVec(vector <string> &vRecs, const string filename)
+{
+  fstream file;
+
+  file.open(filename, ios::in);
+
+  if (file.is_open()) {
+    string line;
+    while (getline(file, line)) {
+      vRecs.push_back(line);
+    }
+  }
+  
+  return (vRecs); 
+}
+
+vector <string> splitString(string line, string delim="#/\\#")
+{
+  vector <string> vString;
+  short pos = line.find(delim);
+  
+  while (pos != string::npos) {
+    vString.push_back(line.substr(0, pos));
+    line.erase(0, pos + delim.length());
+    pos = line.find(delim);
+  }
+
+  if (line != "") {
+    vString.push_back(line);
+    line.clear();
+  }
+
+  return (vString);
+}
+
+
+stClients restructRec(vector <string> vString)
+{
+  stClients Client;
+  
+  Client.AccountNumber = vString[0];
+  Client.PinCode = stoi(vString[1]);
+  Client.Fullname = vString[2];
+  Client.PhoneNumber = vString[3];
+  Client.AccountBalance = stod(vString[4]);
+			       
+  return (Client);
+}
+
+vector <stClients> convertRecs(vector <stClients> &vClients, vector <string> &vRecs, stClients &Client)
+{
+
+  for (const string &rec : vRecs) {
+    Client = restructRec(splitString(rec));
+    vClients.push_back(Client);
+  }
+
+  return (vClients);
+}
+
+void tableHeader(uint16_t &count)
+{
+  cout<<"\nCurrent Clients Regsitered count("<<count<<")\n\n";
+  cout<<"____________________________________________________"
+      <<"___________________________________________________\n"
+      <<" | Account Number"<<setw(13)
+      <<" | Pin Code"<<setw(17)
+      <<" | Fullname"<<setw(25)
+      <<" | Phone Number"<<'\t'
+      <<" | Account Balance"<<'\n'
+      <<"____________________________________________________"
+      <<"____________________________________________________\n";
+}
+
+void printClients(stClients Client)
 {
   cout<<"Account number: "<<Client.AccountNumber<<'\n';
   cout<<"Pin code: "<<Client.PinCode<<'\n';
@@ -165,16 +281,57 @@ void printClient(stClients Client)
   cout<<"Account balance: "<<Client.AccountBalance<<endl;
 }
 
+string spacer(string text)
+{
+  uint16_t i = 0, count = 21;
+  string space = text;
+  
+  for (i = 0; i < (count - text.length()); i++) {
+    space += ' ';
+  }
+
+  return (space);
+}
+
+void showClients(stClients Client)
+{
+
+  cout<<" | "<<Client.AccountNumber<<setw(15);
+  cout<<" | "<<Client.PinCode<<setw(13);
+  cout<<" | "<<spacer(Client.Fullname);
+  cout<<" | "<<Client.PhoneNumber<<"\t";
+  cout<<" | "<<Client.AccountBalance<<endl;
+}
+
+void DisplayAllClient(vector <stClients> &vClients)
+{
+  uint16_t count;
+  vector <stClients>::iterator iter;
+  
+  tableHeader((count = vClients.size()));
+  
+  for (iter = vClients.begin(); iter != vClients.end(); iter++) {
+    showClients(*iter);
+  }
+  cout<<endl;
+}
+
 int main(void)
 {
   stClients Client;
   vector <stClients> vClients;
-  
-  vClients = vecFillerWithClients(Client);
+  vector <string> vRecs;
+  const string filename{"Clients/Data"};
 
-  for (const stClients &C : vClients) {
-    printClient(C);
-    cout<<endl;
+
+  vRecs = saveRecs(Client);
+  saveRecordsToFile(vRecs, filename);
+
+
+  vClients = convertRecs(vClients, vRecs, Client);
+  
+  for (const stClients &C:vClients) {
+    printClients(C);
   }
   
   return (0);

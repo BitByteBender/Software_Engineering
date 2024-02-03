@@ -233,7 +233,6 @@ vector <string> splitString(string line, string delim="#/\\#")
   return (vString);
 }
 
-
 stClients restructRec(vector <string> vString)
 {
   stClients Client;

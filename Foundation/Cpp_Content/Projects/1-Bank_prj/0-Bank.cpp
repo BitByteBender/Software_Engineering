@@ -259,7 +259,7 @@ vector <stClients> convertRecs(vector <stClients> &vClients, vector <string> &vR
 
 void tableHeader(uint16_t &count)
 {
-  cout<<"\nCurrent Clients Regsitered count("<<count<<")\n\n";
+  cout<<"\n\t\t\t\tCurrent Registered Clients (Count ["<<count<<"])\n\n";
   cout<<"____________________________________________________"
       <<"___________________________________________________\n"
       <<" | Account Number"<<setw(13)
@@ -271,14 +271,7 @@ void tableHeader(uint16_t &count)
       <<"____________________________________________________\n";
 }
 
-void printClients(stClients Client)
-{
-  cout<<"Account number: "<<Client.AccountNumber<<'\n';
-  cout<<"Pin code: "<<Client.PinCode<<'\n';
-  cout<<"Fullname: "<<Client.Fullname<<'\n';
-  cout<<"Phone number: "<<Client.PhoneNumber<<'\n';
-  cout<<"Account balance: "<<Client.AccountBalance<<endl;
-}
+
 
 string spacer(string text, uint16_t count)
 {
@@ -321,6 +314,36 @@ void DisplayAllClient()
   cout<<endl;
 }
 
+bool findClient(string AccNumber, stClients &Client, string filename="Clients/Data")
+{
+  vector <string> vRecs;
+  vector <stClients> vClients;
+  loadRecsToVec(vRecs, filename);
+  vClients = convertRecs(vClients, vRecs, Client);
+  
+  for (const stClients &C : vClients) {
+    if (AccNumber == C.AccountNumber) {
+      Client = C;
+      return (true);
+    }
+  }
+
+  return (false);
+}
+
+void printClient(string AccNumber, stClients &Client)
+{
+  if (findClient(AccNumber, Client)) {
+    cout<<"\n\nThe following are the client details: \n\n";
+    cout<<"Account number: "<<Client.AccountNumber<<'\n';
+    cout<<"Pin code: "<<Client.PinCode<<'\n';
+    cout<<"Fullname: "<<Client.Fullname<<'\n';
+    cout<<"Phone number: "<<Client.PhoneNumber<<'\n';
+    cout<<"Account balance: "<<Client.AccountBalance<<'\n'<<endl;
+  } else {
+    cout<<"\nClient with this account number ("<<AccNumber<<") is not found!\n"<<endl;
+  }
+}
 void headerDisplay()
 {
   cout<<"-----------------------------------------\n"
@@ -328,7 +351,7 @@ void headerDisplay()
       <<"[2]> Add New Clients\n"
       <<"[3]> Update Client(in-progress)\n"
       <<"[4]> Delete Client(in-progress)\n"
-      <<"[5]> Find Client(in-progress)\n"
+      <<"[5]> Find Client\n"
       <<"[6]> Exit\n"
       <<"-----------------------------------------\n\n";
   cout<<endl;
@@ -345,12 +368,11 @@ void funcsSwitcher(uint16_t &operationChoice)
   stClients Client;
   vector <string> vRecs;
   string filename = "Clients/Data";
-  
+  string AccNumber;
   
   switch (funcs = (enFuncs)operationChoice)
   {
   case (enFuncs::Display):
-    
     DisplayAllClient();
     break;
   case (enFuncs::Insert):
@@ -362,12 +384,15 @@ void funcsSwitcher(uint16_t &operationChoice)
   case (enFuncs::Delete):
     break;
   case (enFuncs::Find):
+    AccNumber = prompt("Enter the account number: ");
+    findClient(AccNumber, Client);
+    printClient(AccNumber, Client);
     break;
   case (enFuncs::Exit):
     onExit();
     break;
   default:
-    cout<<"Operation is non-existant\n";
+    cout<<"Operation is non-existant\n\n";
     break;
   }
 }
@@ -381,7 +406,7 @@ void onTrigger()
     operationChoice = stoi(prompt("Enter your choice? "));
     funcsSwitcher(operationChoice);
     
-    while (true) {
+    while (operationChoice >= 1 && operationChoice <= 6) {
       operationChoice = stoi(prompt("Do you wanna exit this mode (Hit 0 to go back)? "));
       if (operationChoice == 0)
 	break;

@@ -17,12 +17,12 @@ using std::setw;
 
 enum enFuncs
 {
-  Display = 0,
-  Insert = 1,
-  Update = 2,
-  Delete = 3,
-  Find = 4,
-  Exit = 5
+  Display = 1,
+  Insert = 2,
+  Update = 3,
+  Delete = 4,
+  Find = 5,
+  Exit = 6
 };
 
 struct stClients
@@ -188,7 +188,7 @@ void saveRecordsToFile(vector <string> vRecs, const string filename)
 {
   fstream file;
   
-  file.open(filename, ios::out);
+  file.open(filename, ios::out | ios::app);
 
   if (file.is_open()) {
     for (const string &Rec : vRecs) {
@@ -264,8 +264,8 @@ void tableHeader(uint16_t &count)
       <<"___________________________________________________\n"
       <<" | Account Number"<<setw(13)
       <<" | Pin Code"<<setw(17)
-      <<" | Fullname"<<setw(25)
-      <<" | Phone Number"<<'\t'
+      <<" | Fullname"<<setw(28)
+      <<" | Phone Number"<<setw(22)
       <<" | Account Balance"<<'\n'
       <<"____________________________________________________"
       <<"____________________________________________________\n";
@@ -280,9 +280,9 @@ void printClients(stClients Client)
   cout<<"Account balance: "<<Client.AccountBalance<<endl;
 }
 
-string spacer(string text)
+string spacer(string text, uint16_t count)
 {
-  uint16_t i = 0, count = 21;
+  uint16_t i = 0;
   string space = text;
   
   for (i = 0; i < (count - text.length()); i++) {
@@ -294,18 +294,24 @@ string spacer(string text)
 
 void showClients(stClients Client)
 {
-
   cout<<" | "<<Client.AccountNumber<<setw(15);
   cout<<" | "<<Client.PinCode<<setw(13);
-  cout<<" | "<<spacer(Client.Fullname);
-  cout<<" | "<<Client.PhoneNumber<<"\t";
+  cout<<" | "<<spacer(Client.Fullname, 21);
+  cout<<" | "<<spacer(Client.PhoneNumber, 16);
   cout<<" | "<<Client.AccountBalance<<endl;
 }
 
-void DisplayAllClient(vector <stClients> &vClients)
+void DisplayAllClient()
 {
   uint16_t count;
+  stClients Client;
+  vector <stClients> vClients;
+  vector <string> vRecs;
+  string filename = "Clients/Data";
   vector <stClients>::iterator iter;
+
+  loadRecsToVec(vRecs, filename);
+  vClients = convertRecs(vClients, vRecs, Client);
   
   tableHeader((count = vClients.size()));
   
@@ -315,6 +321,66 @@ void DisplayAllClient(vector <stClients> &vClients)
   cout<<endl;
 }
 
+void headerDisplay()
+{
+  cout<<"-----------------------------------------\n"
+      <<"[1]> Show Clients\n"
+      <<"[2]> Add New Clients\n"
+      <<"[3]> Update Client(in-progress)\n"
+      <<"[4]> Delete Client(in-progress)\n"
+      <<"[5]> Find Client(in-progress)\n"
+      <<"[6]> Exit\n"
+      <<"-----------------------------------------\n\n";
+  cout<<endl;
+}
+
+void onExit()
+{
+  exit(EXIT_FAILURE);
+}
+
+void funcsSwitcher()
+{
+  enFuncs funcs;
+  uint16_t operationChoice;
+  stClients Client;
+  vector <string> vRecs;
+  string filename = "Clients/Data";
+  
+  operationChoice = stoi(prompt("Enter your choice? "));
+  
+  
+  switch (funcs = (enFuncs)operationChoice)
+  {
+  case (enFuncs::Display):
+    
+    DisplayAllClient();
+    break;
+  case (enFuncs::Insert):
+    vRecs = saveRecs(Client);
+    saveRecordsToFile(vRecs, filename);
+    break;
+  case (enFuncs::Update):
+    break;
+  case (enFuncs::Delete):
+    break;
+  case (enFuncs::Find):
+    break;
+  case (enFuncs::Exit):
+    onExit();
+    break;
+  default:
+    cout<<"Operation is non-existant\n";
+    break;
+  }
+}
+
+void onTrigger()
+{
+  headerDisplay();
+  funcsSwitcher();
+}
+
 int main(void)
 {
   stClients Client;
@@ -322,16 +388,7 @@ int main(void)
   vector <string> vRecs;
   const string filename{"Clients/Data"};
 
+  onTrigger();
 
-  vRecs = saveRecs(Client);
-  saveRecordsToFile(vRecs, filename);
-
-
-  vClients = convertRecs(vClients, vRecs, Client);
-  
-  for (const stClients &C:vClients) {
-    printClients(C);
-  }
-  
   return (0);
 }

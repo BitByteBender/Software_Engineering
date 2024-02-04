@@ -339,15 +339,12 @@ void onExit()
   exit(EXIT_FAILURE);
 }
 
-void funcsSwitcher()
+void funcsSwitcher(uint16_t &operationChoice)
 {
   enFuncs funcs;
-  uint16_t operationChoice;
   stClients Client;
   vector <string> vRecs;
   string filename = "Clients/Data";
-  
-  operationChoice = stoi(prompt("Enter your choice? "));
   
   
   switch (funcs = (enFuncs)operationChoice)
@@ -377,8 +374,22 @@ void funcsSwitcher()
 
 void onTrigger()
 {
-  headerDisplay();
-  funcsSwitcher();
+  uint16_t operationChoice;
+  
+  while (true) {
+    headerDisplay();
+    operationChoice = stoi(prompt("Enter your choice? "));
+    funcsSwitcher(operationChoice);
+    
+    while (true) {
+      operationChoice = stoi(prompt("Do you wanna exit this mode (Hit 0 to go back)? "));
+      if (operationChoice == 0)
+	break;
+    }
+    
+    if (operationChoice == 6)
+      onExit();
+  }
 }
 
 int main(void)

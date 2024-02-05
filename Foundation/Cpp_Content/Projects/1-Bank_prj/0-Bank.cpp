@@ -33,6 +33,69 @@ struct stClients
   double AccountBalance;
 };
 
+string prompt(const char *Msg);
+
+char isUpper(char letter);
+
+char isLower(char letter);
+
+bool isLetter(char letter);
+
+uint16_t wordCounter(string Text);
+
+bool nameFormatChecker(string text);
+
+bool accBalanceFormatChecker(string text);
+
+stClients readClientData();
+
+vector <stClients> vecFillerWithClients(stClients &Client, bool);
+
+string convertToLine(stClients Client);
+
+vector <string> saveRecs(vector <stClients> &vClients);
+
+void saveRecordsToFile(vector <string> vRecs, const string filename);
+
+vector <string> loadRecsToVec(const string filename);
+
+vector <string> splitString(string line, string);
+
+stClients restructRec(vector <string> vString);
+
+vector <stClients> convertRecs(vector <string> &vRecs, stClients &Client);
+
+void tableHeader(uint16_t &count);
+
+string spacer(string text, uint16_t count);
+
+void showClients(stClients Client);
+
+void DisplayAllClient();
+
+bool findClient(string AccNumber, stClients &Client, string);
+
+void printClient(string AccNumber, stClients &Client);
+
+void headerDisplay();
+
+void onExit();
+
+bool approveDeletion(char getApproval);
+
+void funcsSwitcher(uint16_t &operationChoice);
+
+void onTrigger();
+
+vector <string> deleteClient(string AccNumber, string);
+
+int main(void)
+{
+  onTrigger();
+  return (0);
+}
+
+
 string prompt(const char *Msg)
 {
   string Text{"empty"};
@@ -120,7 +183,10 @@ stClients readClientData()
     Client.AccountNumber = prompt("Enter an account number: ");
   } while (!isUpper(Client.AccountNumber[0]) || wordCounter(Client.AccountNumber) < 4);
 
-  Client.PinCode = stoi(prompt("Enter a pin code: "));
+  do {
+    Client.PinCode = stoi(prompt("Enter a pin code: "));
+  } while (wordCounter(to_string(Client.PinCode)) < 4);
+
   
   do {
     Client.Fullname = prompt("Enter your full name: ");
@@ -172,9 +238,8 @@ string convertToLine(stClients Client)
   return (line);
 }
 
-vector <string> saveRecs(stClients &Client)
+vector <string> saveRecs(vector <stClients> &vClients)
 {
-  vector <stClients> vClients = vecFillerWithClients(Client);
   vector <string> vRecs;
 
   for (const stClients &C : vClients) {
@@ -198,10 +263,11 @@ void saveRecordsToFile(vector <string> vRecs, const string filename)
   }
 }
 
-vector <string> loadRecsToVec(vector <string> &vRecs, const string filename)
+vector <string> loadRecsToVec(const string filename)
 {
   fstream file;
-
+  vector <string> vRecs;
+  
   file.open(filename, ios::in);
 
   if (file.is_open()) {
@@ -246,9 +312,11 @@ stClients restructRec(vector <string> vString)
   return (Client);
 }
 
-vector <stClients> convertRecs(vector <stClients> &vClients, vector <string> &vRecs, stClients &Client)
+vector <stClients> convertRecs(vector <string> &vRecs, stClients &Client)
 {
 
+  vector <stClients> vClients;
+  
   for (const string &rec : vRecs) {
     Client = restructRec(splitString(rec));
     vClients.push_back(Client);
@@ -303,8 +371,8 @@ void DisplayAllClient()
   string filename = "Clients/Data";
   vector <stClients>::iterator iter;
 
-  loadRecsToVec(vRecs, filename);
-  vClients = convertRecs(vClients, vRecs, Client);
+  vRecs = loadRecsToVec(filename);
+  vClients = convertRecs(vRecs, Client);
   
   tableHeader((count = vClients.size()));
   
@@ -318,8 +386,8 @@ bool findClient(string AccNumber, stClients &Client, string filename="Clients/Da
 {
   vector <string> vRecs;
   vector <stClients> vClients;
-  loadRecsToVec(vRecs, filename);
-  vClients = convertRecs(vClients, vRecs, Client);
+  vRecs = loadRecsToVec(filename);
+  vClients = convertRecs(vRecs, Client);
   
   for (const stClients &C : vClients) {
     if (AccNumber == C.AccountNumber) {
@@ -344,6 +412,7 @@ void printClient(string AccNumber, stClients &Client)
     cout<<"\nClient with this account number ("<<AccNumber<<") is not found!\n"<<endl;
   }
 }
+
 void headerDisplay()
 {
   cout<<"-----------------------------------------\n"
@@ -362,11 +431,73 @@ void onExit()
   exit(EXIT_FAILURE);
 }
 
+
+bool approveDeletion(char getApproval)
+{
+  return (getApproval == 'y' || getApproval == 'Y');
+}
+
+vector <string> deleteClient(string AccNumber, string filename="Clients/Data")
+{
+  stClients Client;
+  char approval;
+  vector <string> vRecs;
+  vector <stClients> vClients;
+  vRecs = loadRecsToVec(filename);
+  vClients = convertRecs(vRecs, Client);
+
+  approval = char(prompt("Are you sure you want to delete this account?(Y/N)  ")[0]);
+  
+  if (approveDeletion(approval) == false) {
+    onTrigger();
+  }else{
+    vRecs.clear();
+  
+    cout<<"Start\n"<<vClients.size()<<'\n';
+  
+    for (stClients &C:vClients) {
+      if (AccNumber == C.AccountNumber) {
+	continue;
+      }
+      vRecs.push_back(convertToLine(C));
+    }
+    vClients.clear();
+  }
+  
+  for (const string &rec:vRecs) {
+    cout<<rec<<'\n';
+  }
+  cout<<"end\n";
+  
+  return (vRecs);
+}
+
+vector <stClients> updateFile(vector <string> &vRecs, const string filename)
+{
+  fstream file;
+  stClients Client;
+  vector <stClients> vClients;
+  file.open(filename, ios::out);
+
+  if (file.is_open()) {
+
+    for (const string &rec : vRecs) {
+      Client = restructRec(splitString(rec));
+      vClients.push_back(Client);
+      file<<rec<<'\n';
+    }
+    file.close();
+  }
+
+  return (vClients);
+}
+
 void funcsSwitcher(uint16_t &operationChoice)
 {
   enFuncs funcs;
   stClients Client;
   vector <string> vRecs;
+  vector <stClients> vClients;
   string filename = "Clients/Data";
   string AccNumber;
   
@@ -376,12 +507,19 @@ void funcsSwitcher(uint16_t &operationChoice)
     DisplayAllClient();
     break;
   case (enFuncs::Insert):
-    vRecs = saveRecs(Client);
+    vClients = vecFillerWithClients(Client);
+    vRecs = saveRecs(vClients);
     saveRecordsToFile(vRecs, filename);
     break;
   case (enFuncs::Update):
     break;
   case (enFuncs::Delete):
+    do {
+      AccNumber = prompt("Enter the account number: ");
+      printClient(AccNumber, Client);
+    } while (findClient(AccNumber, Client) == false);
+    vRecs = deleteClient(AccNumber);
+    vClients = updateFile(vRecs, filename);
     break;
   case (enFuncs::Find):
     AccNumber = prompt("Enter the account number: ");
@@ -415,16 +553,4 @@ void onTrigger()
     if (operationChoice == 6)
       onExit();
   }
-}
-
-int main(void)
-{
-  stClients Client;
-  vector <stClients> vClients;
-  vector <string> vRecs;
-  const string filename{"Clients/Data"};
-
-  onTrigger();
-
-  return (0);
 }

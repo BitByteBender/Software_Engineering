@@ -81,7 +81,11 @@ void headerDisplay();
 
 void onExit();
 
-bool approveDeletion(char getApproval);
+bool getApproval(char getApproval);
+
+vector <string> getAccNumbers(string AccNumber);
+
+bool doesExist(string AccNumber);
 
 void funcsSwitcher(uint16_t &operationChoice);
 
@@ -172,17 +176,18 @@ bool accBalanceFormatChecker(string text)
   return (true);
 }
 
-stClients readClientData()
+stClients readClientData(bool skipAccNumber=false)
 {
   stClients Client;
   string AccBalance;
-  
-  cout<<"Adding New client window:\n\n";
-  
-  do {
-    Client.AccountNumber = prompt("Enter an account number: ");
-  } while (!isUpper(Client.AccountNumber[0]) || wordCounter(Client.AccountNumber) < 4);
 
+  if (skipAccNumber == false) {
+    do {
+      Client.AccountNumber = prompt("Enter an account number: ");
+      
+    } while (doesExist(Client.AccountNumber) == true || !isUpper(Client.AccountNumber[0]) || wordCounter(Client.AccountNumber) < 4);
+  }
+  
   do {
     Client.PinCode = stoi(prompt("Enter a pin code: "));
   } while (wordCounter(to_string(Client.PinCode)) < 4);
@@ -209,7 +214,8 @@ vector <stClients> vecFillerWithClients(stClients &Client, bool CheckCase=false)
   char operation = 'N';
 
   do {
-    Client = readClientData();
+    Client = readClientData(false);
+    
     vClients.push_back(Client);
     
     operation = char(prompt("\nDo you want to add more clients?")[0]);
@@ -221,7 +227,7 @@ vector <stClients> vecFillerWithClients(stClients &Client, bool CheckCase=false)
       CheckCase = false;
     }
   } while (CheckCase);
-  
+
   return (vClients);
 }
 
@@ -339,8 +345,6 @@ void tableHeader(uint16_t &count)
       <<"____________________________________________________\n";
 }
 
-
-
 string spacer(string text, uint16_t count)
 {
   uint16_t i = 0;
@@ -418,7 +422,7 @@ void headerDisplay()
   cout<<"-----------------------------------------\n"
       <<"[1]> Show Clients\n"
       <<"[2]> Add New Clients\n"
-      <<"[3]> Update Client(in-progress)\n"
+      <<"[3]> Update Client\n"
       <<"[4]> Delete Client\n"
       <<"[5]> Find Client\n"
       <<"[6]> Exit\n"
@@ -432,7 +436,7 @@ void onExit()
 }
 
 
-bool approveDeletion(char getApproval)
+bool getApproval(char getApproval)
 {
   return (getApproval == 'y' || getApproval == 'Y');
 }
@@ -448,7 +452,7 @@ vector <string> deleteClient(string AccNumber, string filename="Clients/Data")
 
   approval = char(prompt("Are you sure you want to delete this account?(Y/N)  ")[0]);
   
-  if (approveDeletion(approval) == false) {
+  if (getApproval(approval) == false) {
     onTrigger();
   }else{
     vRecs.clear();
@@ -486,6 +490,69 @@ vector <stClients> updateFile(vector <string> &vRecs, const string filename)
   return (vClients);
 }
 
+vector <string> updateClient(string AccNumber, string filename="Clients/Data", bool open=false)
+{
+  char approval;
+  vector <string> vRecs;
+  vector <stClients> vClients;
+  
+  vRecs = loadRecsToVec(filename);
+  vClients = updateFile(vRecs, filename);
+
+  if (open == true) {
+    approval = char(prompt("Are you sure you want to update this account?(Y/N)  ")[0]);
+  }
+  
+  if (getApproval(approval) == false) {
+    onTrigger();
+  }else{
+    vRecs.clear();
+    
+    for (stClients &C:vClients) {
+      if (AccNumber == C.AccountNumber) {
+	cout<<"Updating Account Number ("<<AccNumber<<") Client details...\n\n";
+	C = readClientData(true);
+	C.AccountNumber = AccNumber;
+      }
+      vRecs.push_back(convertToLine(C));
+    }
+    
+    vClients = updateFile(vRecs, filename);
+  }
+  
+  return (vRecs);
+}
+
+vector <string> getAccNumbers()
+{
+  vector <string> vAccNums;
+  vector <string> vRecs;
+  short pos;
+
+  vRecs = loadRecsToVec("Clients/Data");
+  
+  for (const string &AccNums : vRecs) {
+    pos = AccNums.find("#/\\#");
+    vAccNums.push_back(AccNums.substr(0, pos));
+  }
+
+  return (vAccNums);
+}
+
+bool doesExist(string AccNumber)
+{
+  vector <string> vAccNums = getAccNumbers();
+
+  for (const string &Acc : vAccNums) {
+    if (AccNumber == Acc) {
+      cout<<"This account number does already exist\n\nre-";
+      return (true);
+    }
+  }
+
+  return (false);
+}
+
 void funcsSwitcher(uint16_t &operationChoice)
 {
   enFuncs funcs;
@@ -501,11 +568,18 @@ void funcsSwitcher(uint16_t &operationChoice)
     DisplayAllClient();
     break;
   case (enFuncs::Insert):
+    cout<<"Adding New client window:\n\n";
     vClients = vecFillerWithClients(Client);
     vRecs = saveRecs(vClients);
     saveRecordsToFile(vRecs, filename);
     break;
   case (enFuncs::Update):
+    do {
+      AccNumber = prompt("Enter the account number: ");
+      printClient(AccNumber, Client);
+    } while (findClient(AccNumber, Client) == false);
+    vRecs = updateClient(AccNumber, filename, true);
+    cout<<"\n\nClient details have been successfully updated\n"<<endl;
     break;
   case (enFuncs::Delete):
     do {

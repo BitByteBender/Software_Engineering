@@ -419,7 +419,7 @@ void headerDisplay()
       <<"[1]> Show Clients\n"
       <<"[2]> Add New Clients\n"
       <<"[3]> Update Client(in-progress)\n"
-      <<"[4]> Delete Client(in-progress)\n"
+      <<"[4]> Delete Client\n"
       <<"[5]> Find Client\n"
       <<"[6]> Exit\n"
       <<"-----------------------------------------\n\n";
@@ -470,6 +470,7 @@ vector <stClients> updateFile(vector <string> &vRecs, const string filename)
   fstream file;
   stClients Client;
   vector <stClients> vClients;
+  
   file.open(filename, ios::out);
 
   if (file.is_open()) {
@@ -512,6 +513,7 @@ void funcsSwitcher(uint16_t &operationChoice)
       printClient(AccNumber, Client);
     } while (findClient(AccNumber, Client) == false);
     vRecs = deleteClient(AccNumber);
+    cout<<"\nClient with the account number ("<<AccNumber<<") has been deleted\n"<<endl;
     vClients = updateFile(vRecs, filename);
     break;
   case (enFuncs::Find):

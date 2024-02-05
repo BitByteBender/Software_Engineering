@@ -452,9 +452,7 @@ vector <string> deleteClient(string AccNumber, string filename="Clients/Data")
     onTrigger();
   }else{
     vRecs.clear();
-  
-    cout<<"Start\n"<<vClients.size()<<'\n';
-  
+    
     for (stClients &C:vClients) {
       if (AccNumber == C.AccountNumber) {
 	continue;
@@ -463,11 +461,6 @@ vector <string> deleteClient(string AccNumber, string filename="Clients/Data")
     }
     vClients.clear();
   }
-  
-  for (const string &rec:vRecs) {
-    cout<<rec<<'\n';
-  }
-  cout<<"end\n";
   
   return (vRecs);
 }

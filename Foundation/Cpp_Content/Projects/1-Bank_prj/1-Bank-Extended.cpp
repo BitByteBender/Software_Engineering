@@ -22,7 +22,8 @@ enum enFuncs
   Update = 3,
   Delete = 4,
   Find = 5,
-  Exit = 6
+  Transaction = 6,
+  Exit = 7
 };
 
 struct stClients
@@ -77,7 +78,9 @@ bool findClient(string AccNumber, stClients &Client, string);
 
 void printClient(string AccNumber, stClients &Client);
 
-void headerDisplay();
+void mainMenuDisplay();
+
+void transactionsMenuDisplay();
 
 void onExit();
 
@@ -417,15 +420,31 @@ void printClient(string AccNumber, stClients &Client)
   }
 }
 
-void headerDisplay()
+void mainMenuDisplay()
 {
   cout<<"-----------------------------------------\n"
+      <<setw(25)<<"Main Menu"
+      <<"\n-----------------------------------------\n"
       <<"[1]> Show Clients\n"
       <<"[2]> Add New Clients\n"
       <<"[3]> Update Client\n"
       <<"[4]> Delete Client\n"
       <<"[5]> Find Client\n"
-      <<"[6]> Exit\n"
+      <<"[6]> Transactions\n"
+      <<"[7]> Exit\n"
+      <<"-----------------------------------------\n\n";
+  cout<<endl;
+}
+
+void transactionsMenuDisplay()
+{
+  cout<<"-----------------------------------------\n"
+      <<setw(30)<<"Transactions Menu"
+      <<"\n-----------------------------------------\n"
+      <<"[1]> Deposit\n"
+      <<"[2]> Withdraw\n"
+      <<"[3]> Total Balance\n"
+      <<"[4]> Main Menu\n"
       <<"-----------------------------------------\n\n";
   cout<<endl;
 }
@@ -595,6 +614,9 @@ void funcsSwitcher(uint16_t &operationChoice)
     findClient(AccNumber, Client);
     printClient(AccNumber, Client);
     break;
+  case (enFuncs::Transaction):
+    transactionsMenuDisplay();
+    break;
   case (enFuncs::Exit):
     onExit();
     break;
@@ -609,12 +631,12 @@ void onTrigger()
   uint16_t operationChoice;
   
   while (true) {
-    headerDisplay();
+    mainMenuDisplay();
     operationChoice = stoi(prompt("Enter your choice? "));
     funcsSwitcher(operationChoice);
     
-    while (operationChoice >= 1 && operationChoice <= 6) {
-      operationChoice = stoi(prompt("Do you wanna exit this mode (Hit 0 to go back)? "));
+    while (operationChoice >= 1 && operationChoice <= 7) {
+      operationChoice = stoi(prompt("Hit [0] to go back...  "));
       if (operationChoice == 0)
 	break;
     }

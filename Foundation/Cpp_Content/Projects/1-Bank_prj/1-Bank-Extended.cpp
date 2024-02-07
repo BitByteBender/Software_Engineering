@@ -451,7 +451,7 @@ void transactionsMenuDisplay()
       <<"\n-----------------------------------------\n"
       <<"[1]> Deposit\n"
       <<"[2]> Withdraw\n"
-      <<"[3]> Total Balance\n"
+      <<"[3]> Total Balance (WIP)\n"
       <<"[4]> Main Menu\n"
       <<"-----------------------------------------\n\n";
   cout<<endl;
@@ -580,25 +580,47 @@ bool doesExist(string AccNumber)
   return (false);
 }
 
-vector <string> depositInterface(uint16_t &amount, string &AccNumber, string filename="Clients/Data")
+string isValid(uint16_t &amount, stClients &Client, const char *Msg, string filename="Clients/Data")
+{
+  string AccNumber;
+  
+    do {
+      AccNumber = prompt("Enter the account number: ");
+      printClient(AccNumber, Client);
+    
+      if (AccNumber == Client.AccountNumber) {
+	cout<<Client.AccountNumber<<' '<<AccNumber<<'\n';
+	amount = stod(prompt(Msg));
+      }
+    } while (!findClient(AccNumber, Client, filename));
+
+    return (AccNumber);
+}
+
+void printTransactionMsg(uint16_t amount, string AccNumber, vector <stClients> vClients, const string Msg)
+{
+  for (const stClients &c:vClients) {
+    if (AccNumber == c.AccountNumber) {
+      cout<<Msg<<": ["<<amount<<"]\n";
+      cout<<"Your account balance is: ["<<c.AccountBalance<<"]\n";
+      cout<<"Account balance has been updated successfully\n"<<endl;
+      break;
+    }
+  }
+}
+
+vector <string> depositInterface(string filename="Clients/Data")
 {
   stClients Client;
   vector <stClients> vClients;
   vector <string> vRecs;
-
+  uint16_t amount;
+  string AccNumber;
+  
   vRecs = loadRecsToVec(filename);
   vClients = updateFile(vRecs, filename);
-
-  do {
-    AccNumber = prompt("Enter the account number: ");
-    printClient(AccNumber, Client);
-    
-    if (AccNumber == Client.AccountNumber) {
-      cout<<Client.AccountNumber<<' '<<AccNumber<<'\n';
-      amount = stod(prompt("Enter the amount you want to deposit: "));
-    }
-  } while (!findClient(AccNumber, Client, filename));
-
+  AccNumber = isValid(amount, Client, "Enter the amount you want to deposit: ");
+  
   while (amount < 100) {
     cout<<"Amount is too low, it should be greater than or equal 100\n";
     amount = stod(prompt("re-Enter the amount you want to deposit: "));
@@ -616,32 +638,75 @@ vector <string> depositInterface(uint16_t &amount, string &AccNumber, string fil
       
       for (stClients &c:vClients) {
 	if (c.AccountNumber == AccNumber) {
-	  cout<<"test\n";
 	  c.AccountBalance += amount;
-	  cout<<c.AccountBalance<<'\n';
 	}
 	vRecs.push_back(convertToLine(c));
       }
       vClients = updateFile(vRecs, filename);
     }
+    printTransactionMsg(amount, AccNumber, vClients, "\nYou have successfully deposited");
   }
 
   return (vRecs);
 }
 
-void transactionsHandler(uint16_t operationChoice, string AccNumber)
+vector <string> withdrawInterface(string filename="Clients/Data")
+{
+  stClients Client;
+  vector <stClients> vClients;
+  vector <string> vRecs;
+  uint16_t amount;
+  string AccNumber;
+  
+  vRecs = loadRecsToVec(filename);
+  vClients = updateFile(vRecs, filename);
+  AccNumber = isValid(amount, Client, "Enter the amount you want to withdraw: ");
+  
+  while (amount > Client.AccountBalance) {
+    cout<<"The entered amount ("<<amount<<") exceeds this account balance ("<<Client.AccountBalance<<")\n";
+    amount = stod(prompt("re-Enter the amount you want to withdraw\n(make sure it doesn't exceed the account balance): "));
+    
+  }
+
+  if (amount < Client.AccountBalance) {
+    char approval;
+    
+    approval = char(prompt("Are you sure you want to perfom this transaction? (Y/N): ")[0]);
+
+    if (getApproval(approval) == false) {
+      transactionsMenuDisplay();
+    } else {
+      vRecs.clear();
+      
+      for (stClients &c:vClients) {
+	if (c.AccountNumber == AccNumber) {
+	  c.AccountBalance -= amount;
+	}
+	vRecs.push_back(convertToLine(c));
+      }
+      vClients = updateFile(vRecs, filename);
+    }
+
+    printTransactionMsg(amount, AccNumber, vClients, "\nYou have successfully withdrawn");
+  }
+
+  return (vRecs);
+}
+
+
+void transactionsHandler(uint16_t operationChoice)
 {
   enTrx Trx;
-  uint16_t amount;
   
   operationChoice = stoi(prompt("Choose an option: "));
   
   switch (Trx = (enTrx)operationChoice)
   {
   case (enTrx::Deposit):
-    depositInterface(amount, AccNumber);
+    depositInterface();
     break;
   case (enTrx::Withdraw):
+    withdrawInterface();
     break;
   case (enTrx::Balance):
     break;
@@ -697,8 +762,10 @@ void funcsSwitcher(uint16_t &operationChoice)
     printClient(AccNumber, Client);
     break;
   case (enFuncs::Transaction):
-    transactionsMenuDisplay();
-    transactionsHandler(operationChoice, AccNumber);
+    while (operationChoice != 0) {
+      transactionsMenuDisplay();
+      transactionsHandler(operationChoice);
+    }
     break;
   case (enFuncs::Exit):
     onExit();
@@ -724,7 +791,7 @@ void onTrigger()
 	break;
     }
     
-    if (operationChoice == 6)
+    if (operationChoice == 7)
       onExit();
   }
 }

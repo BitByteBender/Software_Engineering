@@ -26,6 +26,14 @@ enum enFuncs
   Exit = 7
 };
 
+enum enTrx
+{
+  Deposit = 1,
+  Withdraw = 2,
+  Balance = 3,
+  MainMenu = 4
+};
+
 struct stClients
 {
   string AccountNumber;
@@ -572,6 +580,80 @@ bool doesExist(string AccNumber)
   return (false);
 }
 
+vector <string> depositInterface(uint16_t &amount, string &AccNumber, string filename="Clients/Data")
+{
+  stClients Client;
+  vector <stClients> vClients;
+  vector <string> vRecs;
+
+  vRecs = loadRecsToVec(filename);
+  vClients = updateFile(vRecs, filename);
+
+  do {
+    AccNumber = prompt("Enter the account number: ");
+    printClient(AccNumber, Client);
+    
+    if (AccNumber == Client.AccountNumber) {
+      cout<<Client.AccountNumber<<' '<<AccNumber<<'\n';
+      amount = stod(prompt("Enter the amount you want to deposit: "));
+    }
+  } while (!findClient(AccNumber, Client, filename));
+
+  while (amount < 100) {
+    cout<<"Amount is too low, it should be greater than or equal 100\n";
+    amount = stod(prompt("re-Enter the amount you want to deposit: "));
+  }
+
+  if (amount >= 100) {
+    char approval;
+    
+    approval = char(prompt("Are you sure you want to perfom this transaction? (Y/N): ")[0]);
+
+    if (getApproval(approval) == false) {
+      transactionsMenuDisplay();
+    } else {
+      vRecs.clear();
+      
+      for (stClients &c:vClients) {
+	if (c.AccountNumber == AccNumber) {
+	  cout<<"test\n";
+	  c.AccountBalance += amount;
+	  cout<<c.AccountBalance<<'\n';
+	}
+	vRecs.push_back(convertToLine(c));
+      }
+      vClients = updateFile(vRecs, filename);
+    }
+  }
+
+  return (vRecs);
+}
+
+void transactionsHandler(uint16_t operationChoice, string AccNumber)
+{
+  enTrx Trx;
+  uint16_t amount;
+  
+  operationChoice = stoi(prompt("Choose an option: "));
+  
+  switch (Trx = (enTrx)operationChoice)
+  {
+  case (enTrx::Deposit):
+    depositInterface(amount, AccNumber);
+    break;
+  case (enTrx::Withdraw):
+    break;
+  case (enTrx::Balance):
+    break;
+  case (enTrx::MainMenu):
+    onTrigger();
+    break;
+  default:
+    cout<<"Not an option\n";
+    break;
+  }
+}
+
 void funcsSwitcher(uint16_t &operationChoice)
 {
   enFuncs funcs;
@@ -616,6 +698,7 @@ void funcsSwitcher(uint16_t &operationChoice)
     break;
   case (enFuncs::Transaction):
     transactionsMenuDisplay();
+    transactionsHandler(operationChoice, AccNumber);
     break;
   case (enFuncs::Exit):
     onExit();

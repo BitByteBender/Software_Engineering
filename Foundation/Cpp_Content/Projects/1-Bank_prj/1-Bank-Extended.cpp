@@ -98,6 +98,18 @@ vector <string> getAccNumbers(string AccNumber);
 
 bool doesExist(string AccNumber);
 
+void printTransactionMsg(uint16_t amount, string AccNumber, vector <stClients> vClients, const string Msg);
+
+vector <string> depositInterface(string filename);
+
+vector <string> withdrawInterface(string filename);
+
+void tableCore(stClients Client);
+
+void displayBalanceTable(string filename);
+
+void transactionsHandler(uint16_t operationChoice);
+
 void funcsSwitcher(uint16_t &operationChoice);
 
 void onTrigger();
@@ -444,19 +456,6 @@ void mainMenuDisplay()
   cout<<endl;
 }
 
-void transactionsMenuDisplay()
-{
-  cout<<"-----------------------------------------\n"
-      <<setw(30)<<"Transactions Menu"
-      <<"\n-----------------------------------------\n"
-      <<"[1]> Deposit\n"
-      <<"[2]> Withdraw\n"
-      <<"[3]> Total Balance (WIP)\n"
-      <<"[4]> Main Menu\n"
-      <<"-----------------------------------------\n\n";
-  cout<<endl;
-}
-
 void onExit()
 {
   exit(EXIT_FAILURE);
@@ -580,6 +579,19 @@ bool doesExist(string AccNumber)
   return (false);
 }
 
+void transactionsMenuDisplay()
+{
+  cout<<"-----------------------------------------\n"
+      <<setw(30)<<"Transactions Menu"
+      <<"\n-----------------------------------------\n"
+      <<"[1]> Deposit\n"
+      <<"[2]> Withdraw\n"
+      <<"[3]> Total Balance\n"
+      <<"[4]> Main Menu\n"
+      <<"-----------------------------------------\n\n";
+  cout<<endl;
+}
+
 string isValid(uint16_t &amount, stClients &Client, const char *Msg, string filename="Clients/Data")
 {
   string AccNumber;
@@ -589,7 +601,6 @@ string isValid(uint16_t &amount, stClients &Client, const char *Msg, string file
       printClient(AccNumber, Client);
     
       if (AccNumber == Client.AccountNumber) {
-	cout<<Client.AccountNumber<<' '<<AccNumber<<'\n';
 	amount = stod(prompt(Msg));
       }
     } while (!findClient(AccNumber, Client, filename));
@@ -693,6 +704,48 @@ vector <string> withdrawInterface(string filename="Clients/Data")
   return (vRecs);
 }
 
+void tableHeader(uint16_t count)
+{
+  cout<<"\n\t\t\t\tBalances List ["<<count<<"]Client(s)\n\n";
+  cout<<"____________________________________________________"
+      <<"_____________________________________________\n\n"
+      <<" | Account Number"<<setw(22)
+      <<" | Fullname"<<setw(45)
+      <<" | Account Balance"<<'\n'
+      <<"____________________________________________________"
+      <<"_____________________________________________\n";
+}
+
+void tableCore(stClients Client)
+{
+  cout<<" | "<<Client.AccountNumber<<setw(24)
+      <<" | "<<spacer(Client.Fullname, 35)
+      <<" | "<<Client.AccountBalance<<'\n';
+}
+
+void displayBalanceTable(string filename="Clients/Data")
+{
+  vector <string> vRecs;
+  vector <stClients> vClients;
+  vector <stClients>::iterator iter;
+  double TotalBalance{0.0};
+
+  vRecs = loadRecsToVec(filename);
+  vClients = updateFile(vRecs, filename);
+
+  tableHeader(vClients.size());
+  
+  for (iter = vClients.begin(); iter != vClients.end(); iter++) {
+    tableCore(*iter);
+    TotalBalance += double((*iter).AccountBalance);
+  }
+
+  cout<<"____________________________________________________"
+      <<"_____________________________________________\n"
+      <<"\n\t\t\t\t  Total Balance [$ "<<to_string(TotalBalance)<<"]\n"
+      <<"____________________________________________________"
+      <<"_____________________________________________\n"<<endl;
+}
 
 void transactionsHandler(uint16_t operationChoice)
 {
@@ -709,6 +762,7 @@ void transactionsHandler(uint16_t operationChoice)
     withdrawInterface();
     break;
   case (enTrx::Balance):
+    displayBalanceTable();
     break;
   case (enTrx::MainMenu):
     onTrigger();

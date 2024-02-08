@@ -586,7 +586,7 @@ void transactionsMenuDisplay()
       <<"\n-----------------------------------------\n"
       <<"[1]> Deposit\n"
       <<"[2]> Withdraw\n"
-      <<"[3]> Total Balance (WIP)\n"
+      <<"[3]> Total Balance\n"
       <<"[4]> Main Menu\n"
       <<"-----------------------------------------\n\n";
   cout<<endl;

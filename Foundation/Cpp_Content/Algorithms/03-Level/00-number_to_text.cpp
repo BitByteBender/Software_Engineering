@@ -68,7 +68,7 @@ string convertNumToText(unsigned long long num)
       }
     } else {
       if (digits == 2 && dgt >= 1) {
-	if (dgt > 2) {
+	if (dgt >= 2) {
 	  Text += patterns[2][dgt - 1] + "-";
 	  Remaining = (num % unsigned(pow(10, digits - 1)));
 	  num = Remaining;
@@ -80,10 +80,15 @@ string convertNumToText(unsigned long long num)
 	  num = Remaining;
 	  digits--;
 	  dgt = num / pow(10, digits - 1);
-	  Text += patterns[1][dgt - 1];
+	  if (dgt == 0) {
+	    Text += "and Ten";
+	  } else {
+	    Text += patterns[1][dgt - 1];
+	  }
+	  
 	}
       } else {
-	if (digits == 1) {
+	if (digits == 1 && dgt != 0) {
 	  Text += "and " + patterns[0][dgt - 1]; 
 	}
       }

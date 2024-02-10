@@ -31,7 +31,7 @@ unsigned long long calc(unsigned long long num, unsigned long long Remaining, ui
 
 string convertNumToText(unsigned long long num)
 {
-  uint16_t digits = digitCount(num), dgt = 0;
+  uint16_t digits = digitCount(num), dgt = 0, nextDgt = 0, prevDgt = 0;
   unsigned long long Remaining = 0;
   string patterns[3][10] = {
     {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eigth", "Nine"},
@@ -61,19 +61,24 @@ string convertNumToText(unsigned long long num)
 	  if (digits == 5 && dgt >= 1) {
 	    cout<<num<<'\n';
 	    digits--;
-	    uint16_t nextDgt = num / pow(10, digits - 1);
+	    nextDgt = num / pow(10, digits - 1);
 	    cout<<nextDgt<<'\n'<<dgt<<'\n'<<num<<'\n';
 	    if (dgt == 1 && nextDgt != 0) {
 	      Text += patterns[1][nextDgt - 1] + " Thousands ";
 	      num = calc(num, Remaining, digits);
 	      cout<<dgt<<'\n'<<num<<'\n'<<digits<<'\n';
+	      nextDgt = 0;
 	    } else {
 	      Text += patterns[2][dgt - 1];
 	      digits++;
 	    }
 	  } else {
 	    if (dgt != 0 && digits == 4) {
-	      Text += '-' + patterns[0][dgt - 1] + " Thousands ";
+	      if (nextDgt != 0) {
+		Text += '-' + patterns[0][dgt - 1] + " Thousands ";
+	      } else
+		Text += patterns[0][dgt - 1] + " Thousands ";
+
 	    } else {
 	      if (digits == 4)
 		Text += " Thousands ";

@@ -31,8 +31,10 @@ unsigned long long calc(unsigned long long num, unsigned long long Remaining, ui
 
 string convertNumToText(unsigned long long num)
 {
-  uint16_t digits = digitCount(num), dgt = 0, nextDgt = 0, prevDgt = 0, headDgt = num;
+  uint16_t digits = digitCount(num), dgt = 0, nextDgt = 0, prevDgt = 0, tailDgt = 0, headDgt = num;
   unsigned long long Remaining = 0;
+  bool unlock = true;
+  
   string patterns[3][10] = {
     {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eigth", "Nine"},
     {"Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"},
@@ -56,9 +58,24 @@ string convertNumToText(unsigned long long num)
       */
       if (digits < 7 && digits >= 4) {
 	if (digits == 6) {
-	  Text += patterns[0][dgt - 1] + "-hundred ";
+	  uint16_t next_nextDgt, temp;
+
+	  temp = calc(num, Remaining, (digits - 1));
+	  next_nextDgt = temp / pow(10, digits - 3);
+	  Text += patterns[0][dgt - 1] + "-hundred";
+	  
+	  if (prevDgt == 0 && next_nextDgt != 0) {
+	      Text += " and ";
+	      unlock = false;
+	    }
+	    
 	} else {
 	  if (digits == 5 && dgt >= 1) {
+
+	    if (prevDgt != 0 && unlock == true) {
+	      Text += " and ";
+	    }
+	    
 	    digits--;
 	    nextDgt = num / pow(10, digits - 1);
 	    if (dgt == 1 && nextDgt != 0) {
@@ -70,8 +87,11 @@ string convertNumToText(unsigned long long num)
 	      digits++;
 	    }
 	  } else {
+	    
 	    if (dgt != 0 && digits == 4) {
+
 	      if (nextDgt != 0) {
+		
 		Text += '-' + patterns[0][dgt - 1] + " Thousands";
 	      } else
 		Text += patterns[0][dgt - 1] + " Thousands";
@@ -96,7 +116,7 @@ string convertNumToText(unsigned long long num)
       }
     } else {
 
-      uint16_t prevDgt = dgt, tailDgt = num % 10;
+      prevDgt = dgt, tailDgt = num % 10;
 
       if (prevDgt == 0 && tailDgt == 0) {
 	digits = 0;

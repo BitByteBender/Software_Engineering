@@ -23,6 +23,12 @@ uint16_t digitCount(unsigned long long num)
   return (to_string(num).length()); 
 }
 
+unsigned long long calc(unsigned long long num, unsigned long long Remaining, uint16_t digits)
+{
+  Remaining = (num % unsigned(pow(10, digits - 1)));
+  return (num = Remaining);
+}
+
 string convertNumToText(unsigned long long num)
 {
   uint16_t digits = digitCount(num), dgt = 0;
@@ -36,6 +42,7 @@ string convertNumToText(unsigned long long num)
 
   while (digits != 0) {
     dgt = num / pow(10, digits - 1);
+    num = calc(num, Remaining, digits);
     
     if (!(digits < 3)) {
       /*
@@ -52,32 +59,42 @@ string convertNumToText(unsigned long long num)
 	  Text += patterns[0][dgt - 1] + "-hundred ";
 	} else {
 	  if (digits == 5 && dgt >= 1) {
-	    Text += patterns[2][dgt - 1];
-	  } else {
-	    if (dgt == 0) {
-	      Text += " Thousands ";
+	    cout<<num<<'\n';
+	    digits--;
+	    uint16_t nextDgt = num / pow(10, digits - 1);
+	    cout<<nextDgt<<'\n'<<dgt<<'\n'<<num<<'\n';
+	    if (dgt == 1 && nextDgt != 0) {
+	      Text += patterns[1][nextDgt - 1] + " Thousands ";
+	      num = calc(num, Remaining, digits);
+	      cout<<dgt<<'\n'<<num<<'\n'<<digits<<'\n';
 	    } else {
-	      Text += '-' + patterns[0][dgt - 1] + " Thousands "; 
+	      Text += patterns[2][dgt - 1];
+	      digits++;
+	    }
+	  } else {
+	    if (dgt != 0 && digits == 4) {
+	      Text += '-' + patterns[0][dgt - 1] + " Thousands ";
+	    } else {
+	      if (digits == 4)
+		Text += " Thousands ";
 	    }
 	  }
 	}
       }
 
       if (digits == 3 && dgt >= 1) {
-	Text += patterns[0][dgt - 1]+ " Hundreds ";
+	Text += patterns[0][dgt - 1] + " Hundred ";
       }
     } else {
       if (digits == 2 && dgt >= 1) {
 	if (dgt >= 2) {
-	  Text += patterns[2][dgt - 1] + "-";
-	  Remaining = (num % unsigned(pow(10, digits - 1)));
-	  num = Remaining;
+	  Text += "and ";
+	  Text += patterns[2][dgt - 1];
 	  digits--;
 	  dgt = num / pow(10, digits - 1);
-	  Text += patterns[0][dgt - 1]; 
+	  if (dgt != 0)
+	    Text += '-' + patterns[0][dgt - 1]; 
 	} else {
-	  Remaining = (num % unsigned(pow(10, digits - 1)));
-	  num = Remaining;
 	  digits--;
 	  dgt = num / pow(10, digits - 1);
 	  if (dgt == 0) {
@@ -89,13 +106,11 @@ string convertNumToText(unsigned long long num)
 	}
       } else {
 	if (digits == 1 && dgt != 0) {
-	  Text += "and " + patterns[0][dgt - 1]; 
+	  Text += " and " + patterns[0][dgt - 1]; 
 	}
       }
     }
 
-    Remaining = (num % unsigned(pow(10, digits - 1)));
-    num = Remaining;
     digits--;
   }
   

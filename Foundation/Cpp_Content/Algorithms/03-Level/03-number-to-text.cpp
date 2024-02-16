@@ -69,19 +69,42 @@ string triggerOrdersOfMagnitude(uint16_t digits)
   return (Text);
 }
 
+
+string replaceWord(string Text, string rWord, string newWord)
+{
+  string newStr;
+  short pos = Text.find(rWord);
+
+  while (pos != std::string::npos) {
+
+    newStr += Text.substr(0, pos);
+    newStr += newWord;
+
+    Text = Text.erase(0, pos + rWord.length());
+    pos = Text.find(rWord);
+  }
+
+  if (Text != "") {
+    newStr += Text;
+  }
+
+  return (newStr);
+}
+
 string convertNumToText(unsigned long long number)
 {
-  uint16_t digits = to_string(number).length();
+  uint16_t digits = to_string(number).length(), originalDigits = digits;
   string Text;
   string patterns[3][10] = {
     {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eigth", "Nine"},
     {"Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"},
     {"Ten", "Twenty", "Thirty", "Fourty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"}
   };
+
+  bool unlock = false;
   
   while (digits != 0) {
-    uint16_t tailDgt;
-    uint16_t dgt;
+    uint16_t tailDgt, dgt;
     
     dgt = number / pow(10, digits - 1);
 
@@ -92,8 +115,6 @@ string convertNumToText(unsigned long long number)
     if (restDigits(number) == 48)
       lock = true;
 
-    //cout<<"(Start)\n>>>>>> tempNum: "<<tempNum<<'\n';
-
     tempNum = calculate(tempNum, digits);
     temp = digits;
     temp--;
@@ -103,18 +124,7 @@ string convertNumToText(unsigned long long number)
       Text += ' ';
     }
 
-    /*
-    cout<<">>>>>> temp: "<<temp<<'\n';
-    cout<<">>>>>> tempNum: "<<tempNum<<'\n';
-    cout<<">>>>>> Lock: "<<lock<<'\n';
-    */
     number = calculate(number, digits);
-    /*
-    cout<<">>>>>> Comparison dgt: "<<dgt<<" | tailDgt: "<<tailDgt<<'\n';
-    cout<<">>>>>> Digits: "<<digits<<'\n';
-    cout<<">>>>>> (Digits + 2 % 3): "<<(digits + 2) % 3<<'\n';
-    cout<<">>>>>> Num: "<<number<<"\n\n";
-    */
     
     if (dgt > 1 && lock == false && (digits + 2) % 3 != 0 && digits % 3 != 0) {
       if (tailDgt == 0) {
@@ -131,30 +141,20 @@ string convertNumToText(unsigned long long number)
       }
       lock = true;
     }
-    /*
-    cout<<">>>>>> Text: "<<Text<<'\n';
-    cout<<">>>>>> Comparison dgt: "<<dgt<<" | tailDgt: "<<tailDgt<<'\n';
-    */
-    
+
     if (lock == true) {
       Text += ' ' + triggerOrdersOfMagnitude(digits);
       digits--;
       dgt = tailDgt;
       number = calculate(number, digits);
       digits--;
-      // cout<<"-----> check\n";
+
       if (restDigits(number) == 48) {
 	return (Text);
       } else
 	continue;
     }
-    /*
-    cout<<">>>>>> Text: "<<Text<<'\n';
-    cout<<">>>>>> num: "<<number<<" | tempNum: "<<tempNum<<'\n';
-    cout<<">>>>>> Comparison dgt: "<<dgt<<" | tailDgt: "<<tailDgt<<'\n';
-    cout<<">>>>>> Digits: "<<digits<<'\n';
-    cout<<">>>>>> Lock: "<<lock<<'\n';
-    */
+
     if (dgt != 0 && digits != 0) {
       Text += patterns[0][dgt - 1];
       
@@ -167,33 +167,26 @@ string convertNumToText(unsigned long long number)
       }
 
     }
+
     
+    if ((restDigits(number) <= 59 && originalDigits >= 4)) {
+      unlock = true;
+    }
 
     if (restDigits(number) <= 59) {
-      /*string Str, Delim = " Thousands ";
-      short pos = Text.find(Delim);
-
-      Str += Text.substr(0, pos);
-      Text.clear();
       
-      cout<<Str<<'\n';
-      Text += Str + ' ' + "Thousands ";*/
-
-      Text += " Thousands ";
-      if (number != 0) {
-	Text += patterns[0][number - 1];
+      if (unlock == true) {
+	Text = replaceWord(Text, " Thousands", "");
+	Text += " Thousands";
       }
+      
+      if (number != 0)
+	Text += ' ' + patterns[0][number - 1];
+      
       return (Text);
     }
 
-    /*
-    cout<<"Text: "<<Text<<'\n';
-    cout<<"2-dgt: "<<dgt<<" | tailDgt: "<<tailDgt<<"\n3-num: "<<number<<"\nlock: "<<lock<<'\n';
-    cout<<"Digits: "<<digits<<" | Temp: "<<temp<<'\n';
-    */
-    
     if (Text[Text.length() - 1] != ' ' && restDigits(number) != 48) {
-      //cout<<">>>"<<Text[Text.length() - 1]<<'\n';
       Text += ' ';
     }
     

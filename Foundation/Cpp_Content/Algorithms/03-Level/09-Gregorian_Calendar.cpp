@@ -93,7 +93,7 @@ string displayDays(uint16_t Spacer)
 
 void calendarHeader(string Month)
 {
-  cout<<setw(20)<<Month<<'\n';
+  cout<<"\n\n"<<setw(18)<<Month<<'\n';
   cout<<"_________________________________\n\n";
   cout<<displayDays(2)<<'\n';
   cout<<"_________________________________\n";
@@ -206,7 +206,7 @@ void printCalendar(stCalendar Cal)
     }
     i++;
   }
-  cout<<endl;
+  cout<<"\n_________________________________\n"<<endl;
 }
 
 int main(void)

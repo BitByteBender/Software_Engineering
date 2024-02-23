@@ -190,19 +190,21 @@ std::string getMonth(uint16_t Month)
 
 void printBirthday(stCalendar Cal)
 {
-  uint16_t i = 0, count = gregorianCalc(Cal.Year, Cal.Month, Cal.Day);
+  uint16_t i = 0, count = gregorianCalc(Cal.Year, Cal.Month, Cal.Day + 1);
 
   calendarHeader(getMonth(Cal.Month));
 
-  while (i != monthSwitcher(Cal.Month, Cal.Year) + count + 1) {
-    if ((count > 0 && i <= count)) {
+  while (i != monthSwitcher(Cal.Month, Cal.Year) + count) {
+    if ((count > 0 && i < count)) {
       cout<<((i + 1) % 7 == 0 ? "\n" : "     ");
-    } else if (count) {
-      
-      if ((i - count) / 10 == 0) {
-	cout<<"  "<<(i - count);
+    } else {
+
+      uint16_t Adjust = (count == 0 ? (i + 1) : (i - count + 1));
+
+      if (Adjust / 10 == 0) {
+	cout<<"  "<<Adjust;
       }else {
-	cout<<' '<<(i - count);
+	cout<<' '<<Adjust;
       }
 
       cout<<((i + 1) % 7 == 0 ? "\n" : "  ");

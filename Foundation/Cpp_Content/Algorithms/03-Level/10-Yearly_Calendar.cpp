@@ -210,8 +210,10 @@ void printMonthlyCalendar(stCalendar Cal, uint16_t Month)
 void printYearlyCalendar(stCalendar Cal)
 {
   uint16_t i = 0;
-  
-  printf("\n\n___________%s: [%d]__________\n\n\n", "Year", Cal.Year);
+
+  cout<<"\n\n_________________________________\n";
+  printf("\n         %s[%d]          \n", "Calendar - ", Cal.Year);
+  cout<<"_________________________________\n\n\n";
 
   for (i = 1; i <= 12; ++i) {
     printMonthlyCalendar(Cal, i);

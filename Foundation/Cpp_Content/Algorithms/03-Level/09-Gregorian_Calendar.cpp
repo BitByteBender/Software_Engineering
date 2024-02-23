@@ -188,7 +188,7 @@ std::string getMonth(uint16_t Month)
   }
 }
 
-void printBirthday(stCalendar Cal)
+void printCalendar(stCalendar Cal)
 {
   uint16_t i = 0, count = gregorianCalc(Cal.Year, Cal.Month, Cal.Day + 1);
 
@@ -213,6 +213,6 @@ int main(void)
 {
   stCalendar Cal = readRec();
 
-  printBirthday(Cal);
+  printCalendar(Cal);
   return (0);
 }

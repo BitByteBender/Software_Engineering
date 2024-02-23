@@ -201,12 +201,7 @@ void printBirthday(stCalendar Cal)
 
       uint16_t Adjust = (count == 0 ? (i + 1) : (i - count + 1));
 
-      if (Adjust / 10 == 0) {
-	cout<<"  "<<Adjust;
-      }else {
-	cout<<' '<<Adjust;
-      }
-
+      cout<<(Adjust / 10 == 0 ? "  " : " ")<<Adjust;
       cout<<((i + 1) % 7 == 0 ? "\n" : "  ");
     }
     i++;

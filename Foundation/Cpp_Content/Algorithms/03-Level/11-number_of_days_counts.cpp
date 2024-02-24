@@ -41,7 +41,7 @@ uint16_t secondMonth(uint16_t Year)
   return (isleapYear(Year) ? 29 : 28);
 }
 
-uint16_t monthSwitcher(uint16_t Month)
+uint16_t monthSwitcher(uint16_t Year, uint16_t Month)
 {
   if (Month < 1 || Month > 12) {
     return (0);
@@ -49,7 +49,7 @@ uint16_t monthSwitcher(uint16_t Month)
   
   uint16_t arrOfMonths[7] = {1, 3, 5, 7, 8, 10, 12};
 
-  return (arrOfMonths[(Month / 2)] == Month ? 31 : ((Month == 2) ? secondMonth(Month) : 30));
+  return (arrOfMonths[(Month / 2)] == Month ? 31 : ((Month == 2) ? secondMonth(Year) : 30));
 }
 
 uint16_t daysInYear(uint16_t Year)
@@ -62,7 +62,7 @@ uint16_t daysCount(uint16_t Day, uint16_t Month, uint16_t Year)
   uint16_t i = 0, total = 0;
 
   for (i = 12; i >= Month; i--)
-    total += monthSwitcher(i);
+    total += monthSwitcher(Year, i);
   
   return (daysInYear(Year) - total + Day);
 }

@@ -150,7 +150,6 @@ int main(void)
 {
   stData dt = readData();
   uint16_t extraDays = readNum("How many more days? ");
-
   
   printReversed(dt, extraDays);
   return (0);

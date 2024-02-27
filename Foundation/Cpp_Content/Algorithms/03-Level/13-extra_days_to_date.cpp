@@ -4,7 +4,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-
 struct stData
 {
   uint16_t Day, Month, Year;

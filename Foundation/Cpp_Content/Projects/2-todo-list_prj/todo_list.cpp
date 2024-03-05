@@ -97,9 +97,5 @@ vector <stTickets> saveTickets(char loader='y')
 int main(void)
 {
   vector <stTickets> t = saveTickets();
-
-  for (const stTickets &T:t) {
-    cout<<"id: "<<T.ticketId<<endl;
-  }
   return (0);
 }

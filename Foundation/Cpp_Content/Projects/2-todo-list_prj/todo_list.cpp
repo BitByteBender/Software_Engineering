@@ -23,6 +23,7 @@ struct stUsers
   enRoles Role;
 };
 */
+
 struct stContents
 {
   string Id;

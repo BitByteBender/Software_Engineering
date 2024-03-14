@@ -33,7 +33,6 @@ struct stContents
 struct stTickets
 {
   string ticketId;
-  //string ticketEditor;
   stContents Content;
   string date;
 };

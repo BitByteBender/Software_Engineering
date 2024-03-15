@@ -58,7 +58,6 @@ bool isIdUnique(vector <stTickets> &vTickets, string ticketId)
   return (true);
 }
 
-
 stTickets readTicket(vector <stTickets> &vTickets)
 {
   stTickets Ticket;

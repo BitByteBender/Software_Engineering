@@ -10,20 +10,6 @@ using std::vector;
 using std::ios;
 using std::ws;
 
-/*
-enum enRoles
-{
-  Lead = 1,
-  Editor = 2,
-};
-
-struct stUsers
-{
-  string fullname;
-  enRoles Role;
-};
-*/
-
 struct stContents
 {
   string Id;

@@ -96,5 +96,6 @@ vector <stTickets> saveTickets(char loader='y')
 int main(void)
 {
   vector <stTickets> t = saveTickets();
+  
   return (0);
 }

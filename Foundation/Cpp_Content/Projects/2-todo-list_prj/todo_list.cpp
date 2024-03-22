@@ -23,6 +23,7 @@ struct stUsers
   enRoles Role;
 };
 */
+
 struct stContents
 {
   string Id;
@@ -101,5 +102,6 @@ int main(void)
   for (const stTickets &T:t) {
     cout<<"id: "<<T.ticketId<<endl;
   }
+  
   return (0);
 }

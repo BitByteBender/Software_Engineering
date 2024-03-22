@@ -16,7 +16,7 @@ string extraORNot(string build, bool extra)
   }
 }
 
-string tableauBuilder(string style, uint16_t extender, bool extra=false)
+string menuBuilder(string style, uint16_t extender, bool extra=false)
 {
   uint16_t i = 0;
   string build;
@@ -30,9 +30,9 @@ string tableauBuilder(string style, uint16_t extender, bool extra=false)
 
 void DisplayMainMenu(string style, uint16_t extender)
 {
-  string build = tableauBuilder(style, extender, true);
+  string build = menuBuilder(style, extender, true);
 
-  cout<<tableauBuilder(style, extender, false)
+  cout<<menuBuilder(style, extender, false)
       <<"\t\t\t\t    Main Menu"
       <<build;
 

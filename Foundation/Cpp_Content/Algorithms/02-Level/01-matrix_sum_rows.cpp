@@ -2,7 +2,6 @@
 #include <ctime>
 #include <iomanip>
 
-
 using std::cout;
 using std::endl;
 using std::setw;

@@ -10,20 +10,6 @@ using std::vector;
 using std::ios;
 using std::ws;
 
-/*
-enum enRoles
-{
-  Lead = 1,
-  Editor = 2,
-};
-
-struct stUsers
-{
-  string fullname;
-  enRoles Role;
-};
-*/
-
 struct stContents
 {
   string Id;
@@ -33,7 +19,6 @@ struct stContents
 struct stTickets
 {
   string ticketId;
-  //string ticketEditor;
   stContents Content;
   string date;
 };
@@ -58,7 +43,6 @@ bool isIdUnique(vector <stTickets> &vTickets, string ticketId)
   
   return (true);
 }
-
 
 stTickets readTicket(vector <stTickets> &vTickets)
 {
@@ -98,10 +82,6 @@ vector <stTickets> saveTickets(char loader='y')
 int main(void)
 {
   vector <stTickets> t = saveTickets();
-
-  for (const stTickets &T:t) {
-    cout<<"id: "<<T.ticketId<<endl;
-  }
   
   return (0);
 }

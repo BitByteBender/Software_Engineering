@@ -4,7 +4,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-
 struct stData
 {
   uint16_t Day, Month, Year;
@@ -151,7 +150,6 @@ int main(void)
 {
   stData dt = readData();
   uint16_t extraDays = readNum("How many more days? ");
-
   
   printReversed(dt, extraDays);
   return (0);

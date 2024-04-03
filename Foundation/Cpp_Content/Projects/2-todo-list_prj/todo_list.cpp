@@ -1,87 +1,97 @@
 #include <iostream>
 #include <string>
-#include <vector>
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
-using std::vector;
-using std::ios;
 using std::ws;
 
-struct stContents
+enum enMainMenu
 {
-  string Id;
-  string Description;
-};
-  
-struct stTickets
-{
-  string ticketId;
-  stContents Content;
-  string date;
+  View = 1,
+  Add = 2,
+  Del = 3,
+  Update = 4,
+  Exit = 5
 };
 
-string promptReader(const char *Msg)
+string extraORNot(string build, bool extra)
 {
-  string Prompt{"empty"};
-
-  cout<<Msg;
-  getline(cin >> ws, Prompt);
-
-  return (Prompt);
+  if (extra) {
+    return (build = '\n' + build + '\n');
+  } else {
+    return (build = build + '\n');
+  }
 }
 
-bool isIdUnique(vector <stTickets> &vTickets, string ticketId)
+string menuBuilder(string style, uint16_t extender, bool extra=false)
 {
+  uint16_t i = 0;
+  string build;
 
-  for (const stTickets &Cnt:vTickets) {
-    if (Cnt.ticketId == ticketId)
-      return (false);
+  for (i = 0; i < extender; i++) {
+    build = build + style;
   }
   
-  return (true);
+  return (extraORNot(build, extra));
 }
 
-stTickets readTicket(vector <stTickets> &vTickets)
+void DisplayMainMenu(string style, uint16_t extender)
 {
-  stTickets Ticket;
+  string build = menuBuilder(style, extender, true);
 
-  Ticket.ticketId = promptReader("Enter a ticket id: ");
+  cout<<menuBuilder(style, extender, false)
+      <<"\t\t\t\t    Main Menu"
+      <<build;
+
+  cout<<"\n\t\t1# View"
+      <<" | 2# Add"
+      <<" | 3# Delete"
+      <<" | 4# Update"
+      <<" | 5# Exit"
+      <<build
+      <<endl;
+}
+
+string prompt(const char* Message)
+{
+  string Input{"empty"};
+
+  cout<<Message;
+  getline(cin >> ws, Input);
   
-  while (!isIdUnique(vTickets, Ticket.ticketId)) {
-      cout<<"Ticket ID is not unique!\n";
-      Ticket.ticketId = promptReader(">> re-Enter a fresh ticket id: ");
+  return (Input);
+}
+
+void switchTo()
+{
+  char Entry = stoi(prompt("[@usr-name] Entry>>: "));
+  
+  switch ((enMainMenu)Entry) {
+  case (enMainMenu::View):
+    cout<<">> MainMenu > View > Data\n";
+    break;
+  case (enMainMenu::Add):
+    cout<<">> MainMenu > Add > Data\n";
+    break;
+  case (enMainMenu::Del):
+    cout<<">> MainMenu > Delete > Data\n";
+    break;
+  case (enMainMenu::Update):
+    cout<<">> MainMenu > Update > Data\n";
+    break;
+  case (enMainMenu::Exit):
+    cout<<"Program Terminated\n";
+    break;
+  default:
+    cout<<"Wrong Entry\n";
   }
-  
-  Ticket.Content.Description = promptReader("Enter a content: ");
-  Ticket.date = promptReader("Enter a date: ");
-  
-  return (Ticket);
-}
-
-vector <stTickets> saveTickets(char loader='y')
-{
-  stTickets Ticket;
-  vector <stTickets> vTickets;
-  
-  do {
-    Ticket = readTicket(vTickets);
-    
-    vTickets.push_back(Ticket);
-    
-    loader = char(promptReader("Do you want to keep saving?(y | n): ")[0]);
-    cout<<'\n';
-  } while (loader == 'y' || loader == 'Y');
-
-
-  return (vTickets);
 }
 
 int main(void)
 {
-  vector <stTickets> t = saveTickets();
-  
+  DisplayMainMenu("_", 82);
+  switchTo();
   return (0);
 }

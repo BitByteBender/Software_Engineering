@@ -7,6 +7,15 @@ using std::endl;
 using std::string;
 using std::ws;
 
+enum enMainMenu
+{
+  View = 1,
+  Add = 2,
+  Del = 3,
+  Update = 4,
+  Exit = 5
+};
+
 string extraORNot(string build, bool extra)
 {
   if (extra) {
@@ -55,8 +64,34 @@ string prompt(const char* Message)
   return (Input);
 }
 
+void switchTo()
+{
+  char Entry = stoi(prompt("[@usr-name] Entry>>: "));
+  
+  switch ((enMainMenu)Entry) {
+  case (enMainMenu::View):
+    cout<<">> MainMenu > View > Data\n";
+    break;
+  case (enMainMenu::Add):
+    cout<<">> MainMenu > Add > Data\n";
+    break;
+  case (enMainMenu::Del):
+    cout<<">> MainMenu > Delete > Data\n";
+    break;
+  case (enMainMenu::Update):
+    cout<<">> MainMenu > Update > Data\n";
+    break;
+  case (enMainMenu::Exit):
+    cout<<"Program Terminated\n";
+    break;
+  default:
+    cout<<"Wrong Entry\n";
+  }
+}
+
 int main(void)
 {
   DisplayMainMenu("_", 82);
+  switchTo();
   return (0);
 }

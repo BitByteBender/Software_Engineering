@@ -138,6 +138,6 @@ int main(void)
   printRoundedNum((float*)Num);
 
   free(Num);
-  return 0;
+  return (0);
 }
 

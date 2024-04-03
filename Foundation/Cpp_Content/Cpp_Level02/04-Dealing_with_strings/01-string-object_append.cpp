@@ -31,5 +31,6 @@ int main(void)
   }
 
   cout<<str1<<endl;
+  
   return (0);
 }

@@ -22,8 +22,32 @@ struct stPersonData {
   enColors FavColor;
 };
 
+string dataReader(const char *Message)
+{
+  string Input{"Empty"};
+
+  cout<<Message;
+  getline(cin >> ws, Input);
+  
+  return (Input);
+}
+
+
 int main(void)
 {
+  string testArr[5];
+  uint16_t i = 0, counter = 0;
+
+  for (i = 0; i < 5; ++i) {
+    cout<<'['<<i<<']';
+    testArr[i] = dataReader("enter a test: ");
+  }
+
+  while (i != 0) {
+    cout<<'['<<counter<<"]: "<<testArr[counter]<<endl;
+    counter++;
+    i--;
+  }
   
   return (0);
 }

@@ -19,6 +19,7 @@ enum enColors {
   Gray = 3,
   Blue = 4,
   Yellow = 5,
+  Green = 6
 };
 
 struct stPersonData {
@@ -40,7 +41,8 @@ string dataReader(const char *Message)
 void ColorsDisplayer()
 {
   cout<<"[Color's Menu]:"
-      <<"\n[[0]> Red, [1]> Black, [2]> White]\n[[3]> Gray, [4]> Blue, [5]> Yellow]\n"
+      <<"\n[[0]> Red, [1]> Black, [2]> White], [3]> Gray]]\n"
+      <<"[[4]> Blue, [5]> Yellow, [6]> Green, [7]> None]]\n"
       <<endl;
 }
 
@@ -53,7 +55,11 @@ stPersonData PersonRecord()
   Person.Age = stoi(dataReader("How old are you?: "));
 
   ColorsDisplayer();
-  ColorPicker = stoi(dataReader("What's your favourite color?: "));
+
+  do {
+    ColorPicker = stoi(dataReader("What's your favourite color?: "));
+  } while (ColorPicker > 7);
+  
   Person.FavColor = (enColors) ColorPicker;
   
   return (Person);
@@ -119,7 +125,6 @@ vector <string> parseRecs(vector <stPersonData> PrsRecs)
   
   for (const stPersonData &PR:PrsRecs) {
       LineRecs.push_back(lineRecs(PR));
-      
   }
   
   return (LineRecs);
@@ -127,15 +132,15 @@ vector <string> parseRecs(vector <stPersonData> PrsRecs)
 
 void DisplayRecordsFromVector(vector <stPersonData> &PrsRecs, vector <string> &LineRecs)
 {
-   for (const stPersonData &rec:PrsRecs) {
+  for (const stPersonData &rec:PrsRecs) {
     cout<<"Fullname: "<<rec.Fullname<<'\n';
     cout<<"Age: "<<rec.Age<<'\n';
     cout<<"Fav-Color: "<<ColorPicker(rec.FavColor)<<'\n'<<endl;
   }
-
-   for (string &lr:LineRecs) {
-       cout<<lr<<endl;
-   }
+   
+  for (string &lr:LineRecs) {
+    cout<<lr<<endl;
+  }
 }
 
 int main(void)

@@ -2,12 +2,15 @@
 #include <string.h>
 #include <vector>
 
+#define DELIM "#--#";
+
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
 using std::ws;
 using std::vector;
+using std::to_string;
 
 enum enColors {
   Red = 0,
@@ -99,20 +102,51 @@ vector <stPersonData> PersonsRecords()
   return (PrsRecs);
 }
 
-void DisplayRecordsFromVector(vector <stPersonData> &PrsRecs)
+string lineRecs(stPersonData Person)
+{
+  string line;
+
+  line = Person.Fullname + DELIM;
+  line += to_string(Person.Age) + DELIM;
+  line += ColorPicker(Person.FavColor);
+  
+  return (line);
+}
+
+vector <string> parseRecs(vector <stPersonData> PrsRecs)
+{
+  vector <string> LineRecs;
+  
+  for (const stPersonData &PR:PrsRecs) {
+      LineRecs.push_back(lineRecs(PR));
+      
+  }
+  
+  return (LineRecs);
+}
+
+void DisplayRecordsFromVector(vector <stPersonData> &PrsRecs, vector <string> &LineRecs)
 {
    for (const stPersonData &rec:PrsRecs) {
     cout<<"Fullname: "<<rec.Fullname<<'\n';
     cout<<"Age: "<<rec.Age<<'\n';
     cout<<"Fav-Color: "<<ColorPicker(rec.FavColor)<<'\n'<<endl;
   }
+
+   for (string &lr:LineRecs) {
+       cout<<lr<<endl;
+   }
 }
 
 int main(void)
 {
   vector <stPersonData> PrsRecs;
-  PrsRecs = PersonsRecords();
+  vector <string> LineRecs;
   
-  DisplayRecordsFromVector(PrsRecs);
+  PrsRecs = PersonsRecords();
+  LineRecs = parseRecs(PrsRecs);
+  
+  DisplayRecordsFromVector(PrsRecs, LineRecs);
+
   return (0);
 }

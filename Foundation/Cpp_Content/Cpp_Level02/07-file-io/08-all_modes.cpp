@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string.h>
+#include <vector>
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
 using std::ws;
+using std::vector;
 
 enum enColors {
   Red = 0,
@@ -84,20 +86,33 @@ string ColorPicker(enColors Color)
   return (ColorPicker);
 }
 
+vector <stPersonData> PersonsRecords()
+{
+  vector <stPersonData> PrsRecs;
+  char Decision = 'N';
+  
+  do {
+    PrsRecs.push_back(PersonRecord());
+    Decision = dataReader("Do you want to create another record? (Y/N): ")[0];
+  } while (Decision == 'Y' || Decision == 'y');
+
+  return (PrsRecs);
+}
+
+void DisplayRecordsFromVector(vector <stPersonData> &PrsRecs)
+{
+   for (const stPersonData &rec:PrsRecs) {
+    cout<<"Fullname: "<<rec.Fullname<<'\n';
+    cout<<"Age: "<<rec.Age<<'\n';
+    cout<<"Fav-Color: "<<ColorPicker(rec.FavColor)<<'\n'<<endl;
+  }
+}
+
 int main(void)
 {
-  stPersonData Persons[3];
-  uint16_t i = 0;
+  vector <stPersonData> PrsRecs;
+  PrsRecs = PersonsRecords();
   
-  for (i = 0; i < 3; ++i) {
-    Persons[i] = PersonRecord();
-  }
-  
-  for (const stPersonData &P : Persons) {
-    cout<<"Fullname: "<<P.Fullname<<'\n'
-	<<"Age: "<<P.Age<<'\n'
-	<<"Favourite Color: "<<ColorPicker(P.FavColor)<<'\n'<<endl;
-  }
-  
+  DisplayRecordsFromVector(PrsRecs);
   return (0);
 }

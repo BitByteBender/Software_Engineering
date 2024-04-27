@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
+#include <fstream>
 
 #define DELIM "#--#";
 
@@ -11,6 +12,8 @@ using std::string;
 using std::ws;
 using std::vector;
 using std::to_string;
+using std::fstream;
+using std::ios;
 
 enum enColors {
   Red = 0,
@@ -130,6 +133,20 @@ vector <string> parseRecs(vector <stPersonData> PrsRecs)
   return (LineRecs);
 }
 
+void overrideRecords(vector <string> LineRecs, string PATH="tests/test07")
+{
+  fstream FILE;
+  
+  FILE.open(PATH, ios::out);
+  
+  if (FILE.is_open()) {
+    for (const string &Recs:LineRecs) {
+      FILE<<Recs<<'\n';
+    }
+    FILE.close();
+  }
+}
+
 void DisplayRecordsFromVector(vector <stPersonData> &PrsRecs, vector <string> &LineRecs)
 {
   for (const stPersonData &rec:PrsRecs) {
@@ -150,7 +167,8 @@ int main(void)
   
   PrsRecs = PersonsRecords();
   LineRecs = parseRecs(PrsRecs);
-  
+
+  overrideRecords(LineRecs);
   DisplayRecordsFromVector(PrsRecs, LineRecs);
 
   return (0);

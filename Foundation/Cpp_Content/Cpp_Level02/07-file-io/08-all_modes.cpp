@@ -147,6 +147,23 @@ void overrideRecords(vector <string> LineRecs, string PATH="tests/test07")
   }
 }
 
+void loadRecords(string PATH="tests/test07")
+{
+  fstream FILE;
+  string line;
+  
+  FILE.open(PATH, ios::in);
+
+  if (FILE.is_open()) {
+    while (getline(FILE, line)) {
+      if (!line.empty()) {
+	cout<<line<<'\n';
+      }
+    }
+    FILE.close();
+  }
+}
+
 void DisplayRecordsFromVector(vector <stPersonData> &PrsRecs, vector <string> &LineRecs)
 {
   for (const stPersonData &rec:PrsRecs) {
@@ -169,7 +186,8 @@ int main(void)
   LineRecs = parseRecs(PrsRecs);
 
   overrideRecords(LineRecs);
-  DisplayRecordsFromVector(PrsRecs, LineRecs);
+  loadRecords();
+  //DisplayRecordsFromVector(PrsRecs, LineRecs);
 
   return (0);
 }

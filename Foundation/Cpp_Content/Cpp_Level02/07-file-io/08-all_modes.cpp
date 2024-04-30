@@ -22,7 +22,8 @@ enum enColors {
   Gray = 3,
   Blue = 4,
   Yellow = 5,
-  Green = 6
+  Green = 6,
+  None = 7
 };
 
 struct stPersonData {
@@ -91,6 +92,9 @@ string ColorPicker(enColors Color)
   case (enColors::Yellow):
     ColorPicker = "Yellow";
     break;
+  case (enColors::Green):
+    ColorPicker = "Green";
+    break;
   default:
     ColorPicker = "None";
   }
@@ -147,6 +151,93 @@ void overrideRecords(vector <string> LineRecs, string PATH="tests/test07")
   }
 }
 
+vector <string> loadLineRecords(string PATH="tests/test07")
+{
+  fstream FILE;
+  string line;
+  vector <string> vRecs;
+  
+  FILE.open(PATH, ios::in);
+
+  if (FILE.is_open()) {
+    while (getline(FILE, line)) {
+      if (!line.empty()) {
+	vRecs.push_back(line);
+	cout<<line<<'\n';
+      }
+    }
+    FILE.close();
+  }
+
+  return (vRecs);
+}
+
+vector <string> splitString(string line, string DELIMITER)
+{
+  vector <string> vPerson;
+  short pos = 0;
+
+  while ((pos = line.find(DELIMITER)) != string::npos) {
+    vPerson.push_back(line.substr(0, pos));
+    line.erase(0, pos + DELIMITER.length());
+  }
+
+  if (!line.empty()) {
+    vPerson.push_back(line);
+    line.clear();
+  }
+
+  return (vPerson);
+}
+
+enColors ColorRebase(string strColor)
+{
+  enColors OriginalColor;
+  
+  if (strColor == "Red") {
+    OriginalColor = enColors::Red;
+  } else if (strColor == "Black") {
+    OriginalColor = enColors::Black;
+  } else if (strColor == "White") {
+    OriginalColor = enColors::White;
+  } else if (strColor == "Gray") {
+    OriginalColor = enColors::Gray;
+  } else if (strColor == "Blue") {
+    OriginalColor = enColors::Blue;
+  } else if (strColor == "Yellow") {
+    OriginalColor = enColors::Yellow;
+  } else if (strColor == "Green") {
+    OriginalColor = enColors::Green;
+  } else {
+    OriginalColor = enColors::None;
+  }
+
+  return (OriginalColor);
+}
+
+stPersonData DataFiller(vector <string> vPerson)
+{
+  stPersonData Person;
+
+  Person.Fullname = vPerson[0];
+  Person.Age = stoi(vPerson[1]);
+  Person.FavColor = ColorRebase(vPerson[2]);
+
+  return (Person);
+}
+
+vector <stPersonData> PersonsDataRecs(vector <string> &vPerson, stPersonData &Person)
+{
+  vector <stPersonData> vecPerson;
+
+  for (const string &prs:vPerson) {
+    Person = DataFiller(splitString(prs, "#--#"));
+    vecPerson.push_back(Person);
+  }
+
+  return (vecPerson);
+}
+
 void DisplayRecordsFromVector(vector <stPersonData> &PrsRecs, vector <string> &LineRecs)
 {
   for (const stPersonData &rec:PrsRecs) {
@@ -162,14 +253,24 @@ void DisplayRecordsFromVector(vector <stPersonData> &PrsRecs, vector <string> &L
 
 int main(void)
 {
+  stPersonData Person;
   vector <stPersonData> PrsRecs;
   vector <string> LineRecs;
+  vector <stPersonData> vPersons;
   
   PrsRecs = PersonsRecords();
   LineRecs = parseRecs(PrsRecs);
 
   overrideRecords(LineRecs);
-  DisplayRecordsFromVector(PrsRecs, LineRecs);
+  LineRecs = loadLineRecords();
 
+  vPersons = PersonsDataRecs(LineRecs, Person);
+  
+  for (const stPersonData &prs:vPersons) {
+    cout<<"Fullname: "<<prs.Fullname<<'\n';
+    cout<<"Age: "<<prs.Age<<'\n';
+    cout<<"Color: "<<ColorPicker(prs.FavColor)<<" <[Code: "<<prs.FavColor<<']'<<"\n\n";
+  }
+  
   return (0);
 }

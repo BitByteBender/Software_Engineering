@@ -99,6 +99,11 @@ stDate ConvertDaysToDate(stDate &Date, uint16_t TotalDays)
     } else {
       Month += 1;
       Days -= getDays(Date.Year, Month);
+      if (Month == 2 && Days <= 31) {
+	Days -= getDays(Date.Year, Month);
+	Month += 1;
+	break;
+      }
     }
   }
 
@@ -117,6 +122,7 @@ int main(void)
   stDate Date = stPrompt();
   uint16_t AddExtra = PromptNum("How many days to add? ");
   uint16_t TotalDays = ExtraDays(AddExtra, getInitialYearDays(Date.Day, Date.Month, Date.Year));
+  
   Date = ConvertDaysToDate(Date, TotalDays);
   DisplayDate(Date, AddExtra);
   

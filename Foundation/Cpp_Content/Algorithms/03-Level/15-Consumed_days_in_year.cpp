@@ -22,11 +22,6 @@ uint16_t PromptNum(string Msg)
   return (Num);
 }
 
-uint16_t isleapYear(uint16_t Year)
-{
-  return (Year % 400 == 0 || (Year % 4 == 0 && Year % 100 != 0) ? 366 : 365);
-}
-
 bool DaysChecker(uint16_t Day)
 {
   return (Day >= 1 && Day <= 31);
@@ -66,11 +61,42 @@ stDate stPrompt()
   return (Date);
 }
 
+uint16_t isleapYear(uint16_t Year)
+{
+  return (Year % 400 == 0 || (Year % 4 == 0 && Year % 100 != 0) ? 366 : 365);
+}
+
+uint16_t febChecker(uint16_t Year)
+{
+  return (isleapYear(Year) == 366 ? 29 : 28);
+}
+
+uint16_t getMonth(uint16_t Year, uint16_t Month)
+{
+  uint16_t arr[7] = {1, 3, 5, 7, 8, 10, 12};
+  return (Month == 2 ? febChecker(Year) : Month == arr[uint16_t(Month/2)] ? 31 : 30);
+}
+
+uint16_t getInitialYearDays(uint16_t Day, uint16_t Month, uint16_t Year)
+{
+  uint16_t i = 0, DaysCounter = Day;
+
+  for (i = 1; i < Month; i++) {
+    DaysCounter += getMonth(Year, i);
+  }
+
+  return (DaysCounter);
+}
+
+void DisplayInitialDaysOfYear(stDate &Date)
+{
+  cout<<"Number of Days from the begining of the year is "<<getInitialYearDays(Date.Day, Date.Month, Date.Year)<<endl;
+}
+
 int main(void)
 {
   stDate Date = stPrompt();
-
-  cout<<"Day: "<<Date.Day<<"\nMonth: "<<Date.Month<<"\nYear: "<<Date.Year<<endl;
+  DisplayInitialDaysOfYear(Date);
   return (0);
 }
 

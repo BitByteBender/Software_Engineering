@@ -37,7 +37,17 @@ uint16_t getDays(uint16_t Year, uint16_t Month)
   uint16_t arr[7] = {1, 3, 5, 7, 8, 10, 12};
   return (Month == 2 ? febChecker(Year) : Month == arr[uint16_t(Month/2)] ? 31 : 30);
 }
+/*
+bool DaysChecker(uint16_t Day)
+{
+  return (Day >= 1 && Day <= 31);
+}
 
+bool MonthChecker(uint16_t Day, uint16_t Month)
+{
+  return ((Month == 2 && Day <= 29) || (Month <= 12 && Month >= 1 && Month != 2 && DaysChecker(Day)));
+}
+*/
 bool MonthChecker(uint16_t Year, uint16_t Day, uint16_t Month)
 {
   return (getDays(Year, Month) >= Day);
@@ -83,41 +93,29 @@ uint16_t getInitialYearDays(uint16_t Day, uint16_t Month, uint16_t Year)
   return (DaysCounter);
 }
 
-inline uint16_t ExtraDays(uint16_t ExtraDays, uint16_t TotalDays)
+void DisplayInitialDaysOfYear(stDate &Date)
 {
-  return (ExtraDays += TotalDays);
+  cout<<"Number of Days from the beginning of the year is "<<getInitialYearDays(Date.Day, Date.Month, Date.Year)<<endl;
 }
 
-stDate ConvertDaysToDate(stDate &Date, uint16_t TotalDays)
+void ConvertDaysToDate(stDate &Date)
 {
-  uint16_t Days = TotalDays, Month = 1;
+  uint16_t i = 1, Days = getInitialYearDays(Date.Day, Date.Month, Date.Year), Day = Days, Month = 1, Year = 0;
 
-  while (Days > 31) {
-    if (Days >= isleapYear(Date.Year)) {
-      Date.Year += 1;
-      Days -= isleapYear(Date.Year - 1);
-    } else {
-      Month += 1;
-      Days -= getDays(Date.Year, Month);
-    }
+  while (Day > 31) {
+    Month++;
+    Day -= getDays(Date.Year, i);
+    i++;
   }
 
-  Date.Day = Days;
-  Date.Month = Month;
-  return (Date);
-}
-
-void DisplayDate(stDate &Date, uint16_t ExtraDays)
-{
-  cout<<"Date after adding ["<<ExtraDays<<"] days is: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  Year = Date.Year;
+  cout<<"Date for ["<<Days<<"] is : "<<Day<<"/"<<Month<<"/"<<Year<<'\n';
 }
 
 int main(void)
 {
   stDate Date = stPrompt();
-  uint16_t AddExtra = PromptNum("How many days to add? ");
-  uint16_t TotalDays = ExtraDays(AddExtra, getInitialYearDays(Date.Day, Date.Month, Date.Year));
-  Date = ConvertDaysToDate(Date, TotalDays);
-  DisplayDate(Date, AddExtra);
+  DisplayInitialDaysOfYear(Date);
+  ConvertDaysToDate(Date);
   return (0);
 }

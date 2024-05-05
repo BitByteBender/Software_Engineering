@@ -22,19 +22,30 @@ uint16_t PromptNum(string Msg)
   return (Num);
 }
 
-bool DaysChecker(uint16_t Day)
+uint16_t isleapYear(uint16_t Year)
 {
-  return (Day >= 1 && Day <= 31);
+  return (Year % 400 == 0 || (Year % 4 == 0 && Year % 100 != 0) ? 366 : 365);
 }
 
-bool MonthChecker(uint16_t Day, uint16_t Month)
+uint16_t febChecker(uint16_t Year)
 {
-  return ((Month == 2 && Day <= 29) || (Month <= 12 && Month >= 1 && Month != 2 && DaysChecker(Day)));
+  return (isleapYear(Year) == 366 ? 29 : 28);
+}
+
+uint16_t getDays(uint16_t Year, uint16_t Month)
+{
+  uint16_t arr[7] = {1, 3, 5, 7, 8, 10, 12};
+  return (Month == 2 ? febChecker(Year) : Month == arr[uint16_t(Month/2)] ? 31 : 30);
+}
+
+bool MonthChecker(uint16_t Year, uint16_t Day, uint16_t Month)
+{
+  return (getDays(Year, Month) >= Day);
 }
 
 bool YearChecker(uint16_t Year, uint16_t Month, uint16_t Day)
 {
-  return (Year <= 2024 && MonthChecker(Day, Month));
+  return (Year <= 2024 && MonthChecker(Year, Day, Month));
 }
 
 stDate stPrompt()
@@ -61,28 +72,12 @@ stDate stPrompt()
   return (Date);
 }
 
-uint16_t isleapYear(uint16_t Year)
-{
-  return (Year % 400 == 0 || (Year % 4 == 0 && Year % 100 != 0) ? 366 : 365);
-}
-
-uint16_t febChecker(uint16_t Year)
-{
-  return (isleapYear(Year) == 366 ? 29 : 28);
-}
-
-uint16_t getMonth(uint16_t Year, uint16_t Month)
-{
-  uint16_t arr[7] = {1, 3, 5, 7, 8, 10, 12};
-  return (Month == 2 ? febChecker(Year) : Month == arr[uint16_t(Month/2)] ? 31 : 30);
-}
-
 uint16_t getInitialYearDays(uint16_t Day, uint16_t Month, uint16_t Year)
 {
   uint16_t i = 0, DaysCounter = Day;
 
   for (i = 1; i < Month; i++) {
-    DaysCounter += getMonth(Year, i);
+    DaysCounter += getDays(Year, i);
   }
 
   return (DaysCounter);
@@ -99,4 +94,3 @@ int main(void)
   DisplayInitialDaysOfYear(Date);
   return (0);
 }
-

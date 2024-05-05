@@ -119,5 +119,6 @@ int main(void)
   uint16_t TotalDays = ExtraDays(AddExtra, getInitialYearDays(Date.Day, Date.Month, Date.Year));
   Date = ConvertDaysToDate(Date, TotalDays);
   DisplayDate(Date, AddExtra);
+  
   return (0);
 }

@@ -90,7 +90,7 @@ uint16_t getInitialYearDays(uint16_t Day, uint16_t Month, uint16_t Year)
 
 void DisplayInitialDaysOfYear(stDate &Date)
 {
-  cout<<"Number of Days from the begining of the year is "<<getInitialYearDays(Date.Day, Date.Month, Date.Year)<<endl;
+  cout<<"Number of Days from the beginning of the year is "<<getInitialYearDays(Date.Day, Date.Month, Date.Year)<<endl;
 }
 
 int main(void)

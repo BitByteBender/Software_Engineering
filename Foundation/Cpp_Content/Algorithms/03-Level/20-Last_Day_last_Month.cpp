@@ -46,12 +46,12 @@ stDate promptData()
 
 uint16_t isleapYear(uint16_t Year)
 {
-  return (Year % 400 || (Year % 4 == 0 && Year % 100 != 0) ? 366 : 365);
+  return (Year % 400 == 0 || (Year % 4 == 0 && Year % 100 != 0) ? 366 : 365);
 }
 
 uint16_t febCheck(uint16_t Year)
 {
-  return (isleapYear(Year) ? 29 : 28);
+  return (isleapYear(Year) == 366 ? 29 : 28);
 }
 
 uint16_t getDays(uint16_t Year, uint16_t Month)

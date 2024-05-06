@@ -13,32 +13,26 @@ struct stDate
   uint16_t Year;
 };
 
-uint16_t *PromptNum(const char *Message)
+void PromptNum(const char *Message, uint16_t *Num)
 {
-  uint16_t *Num = (uint16_t *)malloc(sizeof(uint16_t));
-
   cout<<Message;
   cin>>*Num;
-
-  return (Num);
 }
 
 stDate promptData()
 {
   stDate dt;
-  uint16_t *ptrNum;
+  uint16_t Num;
   
-  ptrNum = PromptNum("Enter a Day: ");
-  dt.Day = *ptrNum;
-  free(ptrNum);
+  PromptNum("Enter a Day: ", &Num);
+  dt.Day = Num;
   
-  ptrNum = PromptNum("Enter a Month: ");
-  dt.Month = *ptrNum;
-  free(ptrNum);
+  PromptNum("Enter a Month: ", &Num);
+  dt.Month = Num;
   
-  ptrNum = PromptNum("Enter a year: ");
-  dt.Year = *ptrNum;
-  free(ptrNum);
+  PromptNum("Enter a year: ", &Num);
+  dt.Year = Num;
+
   cout<<'\n';
   
   return (dt);

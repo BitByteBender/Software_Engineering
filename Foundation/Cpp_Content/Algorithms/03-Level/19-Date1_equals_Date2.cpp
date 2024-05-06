@@ -26,11 +26,19 @@ uint16_t *PromptNum(const char *Message)
 stDate promptData()
 {
   stDate dt;
-
-  dt.Day = *PromptNum("Enter a Day: ");
-  dt.Month = *PromptNum("Enter a Month: ");
-  dt.Year = *PromptNum("Enter a year: ");
+  uint16_t *ptrNum;
   
+  ptrNum = PromptNum("Enter a Day: ");
+  dt.Day = *ptrNum;
+  free(ptrNum);
+  
+  ptrNum = PromptNum("Enter a Month: ");
+  dt.Month = *ptrNum;
+  free(ptrNum);
+  
+  ptrNum = PromptNum("Enter a year: ");
+  dt.Year = *ptrNum;
+  free(ptrNum);
   cout<<'\n';
   
   return (dt);

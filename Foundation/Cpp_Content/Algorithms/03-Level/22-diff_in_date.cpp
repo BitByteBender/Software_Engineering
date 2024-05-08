@@ -48,6 +48,12 @@ uint16_t getDays(uint16_t Year, uint16_t Month)
   return (Month == 2 ? febCheck(Year) : Month != arrMonths[uint16_t(Month / 2)] ? 30 : 31);
 }
 
+uint16_t YearsInDays(uint16_t Year1, uint16_t Year2)
+{
+  uint16_t Calc = abs(isleapYear(Year1) * (Year1 - Year2) + ((Year1 - Year2) / 4));
+  return (Calc);
+}
+
 uint16_t CalcDays(stDate Date)
 {
   uint16_t i = 0, Days = Date.Day;
@@ -58,9 +64,11 @@ uint16_t CalcDays(stDate Date)
   return (Days);
 }
 
-inline uint16_t CalcDiff(uint16_t arrDates[2])
+uint16_t CalcDiff(uint16_t arrDates[2], uint16_t Year1, uint16_t Year2)
 {
-  return (arrDates[0] < arrDates[1] ? (arrDates[1] - arrDates[0]) : (arrDates[0] - arrDates[1]));
+  uint16_t YearDiff = YearsInDays(Year1, Year2);
+
+  return (abs(arrDates[0] - arrDates[1]) + YearDiff);
 }
 
 void DisplayResult(uint16_t DiffNum)
@@ -77,6 +85,6 @@ int main(void)
   Date0 = storeDate(), Date1 = storeDate();
   arrDates[0] = CalcDays(Date0), arrDates[1] = CalcDays(Date1);
   
-  DisplayResult(CalcDiff(arrDates));
+  DisplayResult(CalcDiff(arrDates, Date0.Year, Date1.Year));
   return (0);
 }

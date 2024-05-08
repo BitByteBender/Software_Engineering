@@ -50,8 +50,8 @@ uint16_t getDays(uint16_t Year, uint16_t Month)
 
 uint16_t YearsInDays(uint16_t Year1, uint16_t Year2)
 {
-  uint16_t Calc = abs(isleapYear(Year1) * (Year1 - Year2) + ((Year1 - Year2) / 4));
-  return (Calc);
+  uint16_t Calc = abs(365 * (Year1 - Year2) + ((Year1 - Year2) / 4));
+  return (isleapYear(Year1) == 366 ? Calc : (Calc++));
 }
 
 uint16_t CalcDays(stDate Date)

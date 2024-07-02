@@ -106,16 +106,9 @@ int main(void)
   
   stDate Dates[2] = {Date1, Date2};
   
-  /*
-  cout<<DaysInYear(Date1.Year)<<'\n'<<DaysInFebruary(Date1.Year)<<'\n'<<DaysInMonth(Date1.Year, Date1.Month)<<endl;
-
-  cout<<DaysInYear(Date2.Year)<<'\n'<<DaysInFebruary(Date2.Year)<<'\n'<<DaysInMonth(Date2.Year, Date2.Month)<<endl;
-  */
   cout<<GetRemainingDays(Date1.Year, Date1.Month, Date1.Day)<<endl;
   cout<<DiffCheck(Date1.Year, Date2.Year)<<endl;
 
-  //cout<<CountDaysInYearsDiff(Dates)<<endl;
-  //cout<<Dates[0].Year<<'\n'<<Dates[1].Year<<'\n';
   DisplayResult(Dates);
   return (0);
 }

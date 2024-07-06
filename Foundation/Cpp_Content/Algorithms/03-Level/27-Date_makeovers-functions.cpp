@@ -88,6 +88,13 @@ stDate IncreaseDateByXDays(stDate &Date, uint16_t ExtraDays)
   return (Date);
 }
 
+stDate IncreaseByOneWeek(stDate Date)
+{
+  Date = IncreaseDateByXDays(Date, 7);
+
+  return (Date);
+}
+
 int main(void)
 {
   stDate Date = promptCall();
@@ -95,8 +102,12 @@ int main(void)
   
   Date = IncreaseDateByOneDay(Date);
   cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  
   ExtraDays = prompt("Enter the ExtraDays: ");
   Date = IncreaseDateByXDays(Date, ExtraDays);
+  cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  
+  Date = IncreaseByOneWeek(Date);
   cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   return (0);
 }

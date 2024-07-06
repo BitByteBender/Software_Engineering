@@ -146,15 +146,30 @@ stDate IncreaseDateByXMonths(stDate Date, uint16_t ExtraMonths)
 
   for (i = 0; i < ExtraMonths; ++i) {
     Date = IncreaseDateByOneMonth(Date);
+    if (Date.Month > 12) {
+      Date.Month = 1;
+      Date.Year++;
+    }
   }
 
+  return (Date);
+}
+
+stDate IncreaseDateByOneYear(stDate Date)
+{
+  uint16_t prevYear = Date.Year;
+  
+  Date = IncreaseDateByXMonths(Date, 12);
+
+  (isLeapYear(prevYear) == 366 ? Date.Day += 1 : Date.Day);
+  
   return (Date);
 }
 
 int main(void)
 {
   stDate Date = promptCall();
-  uint16_t ExtraDays{0}, ExtraWeeks{0}, ExtraMonths{0};
+  uint16_t ExtraDays{0}, ExtraWeeks{0}, ExtraMonths{0}, ExtraYear{0};
   
   Date = IncreaseDateByOneDay(Date);
   cout<<"Increasing Date By One Day: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
@@ -176,5 +191,8 @@ int main(void)
   ExtraMonths = prompt("Enter the ExtraMonths: ");
   Date = IncreaseDateByXMonths(Date, ExtraMonths);
   cout<<"Increasing Date By "<<ExtraMonths<<" Months: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  Date = IncreaseDateByOneYear(Date);
+  cout<<"Increasing Date By One Year: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   return (0);
 }

@@ -95,10 +95,30 @@ stDate IncreaseByOneWeek(stDate Date)
   return (Date);
 }
 
+stDate IncreaseDateByXWeeks(stDate Date, uint16_t ExtraWeeks)
+{
+  while (ExtraWeeks != 0) {
+    if (Date.Day <= (DaysInMonth(Date.Month, Date.Year) - 7)) {
+      Date.Day += 7;
+    } else {
+      Date.Day = abs(DaysInMonth(Date.Month, Date.Year) - (Date.Day + 7));
+      Date.Month++;
+
+      if (Date.Month > 12) {
+	Date.Month = 1;
+	Date.Year++;
+      }
+    }
+    ExtraWeeks--;
+  }
+
+  return (Date);
+}
+
 int main(void)
 {
   stDate Date = promptCall();
-  uint16_t ExtraDays{0};
+  uint16_t ExtraDays{0}, ExtraWeeks{0};
   
   Date = IncreaseDateByOneDay(Date);
   cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
@@ -108,6 +128,10 @@ int main(void)
   cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   
   Date = IncreaseByOneWeek(Date);
+  cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  ExtraWeeks = prompt("Enter the ExtraWeeks: ");
+  Date = IncreaseDateByXWeeks(Date, ExtraWeeks);
   cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   return (0);
 }

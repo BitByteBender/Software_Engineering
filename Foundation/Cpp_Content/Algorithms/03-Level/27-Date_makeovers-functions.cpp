@@ -140,26 +140,41 @@ stDate IncreaseDateByOneMonth(stDate Date)
   return (Date);
 }
 
+stDate IncreaseDateByXMonths(stDate Date, uint16_t ExtraMonths)
+{
+  uint16_t i = 0;
+
+  for (i = 0; i < ExtraMonths; ++i) {
+    Date = IncreaseDateByOneMonth(Date);
+  }
+
+  return (Date);
+}
+
 int main(void)
 {
   stDate Date = promptCall();
-  uint16_t ExtraDays{0}, ExtraWeeks{0};
+  uint16_t ExtraDays{0}, ExtraWeeks{0}, ExtraMonths{0};
   
   Date = IncreaseDateByOneDay(Date);
-  cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  cout<<"Increasing Date By One Day: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   
   ExtraDays = prompt("Enter the ExtraDays: ");
   Date = IncreaseDateByXDays(Date, ExtraDays);
-  cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  cout<<"Increasing Date By "<<ExtraDays<<" Days: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   
   Date = IncreaseByOneWeek(Date);
-  cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  cout<<"Increasing Date By One Week: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
 
   ExtraWeeks = prompt("Enter the ExtraWeeks: ");
   Date = IncreaseDateByXWeeks(Date, ExtraWeeks);
-  cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  cout<<"Increasing Date By "<<ExtraWeeks<<" Weeks: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
 
   Date = IncreaseDateByOneMonth(Date);
-  cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  cout<<"Increasing Date By One Month: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  ExtraMonths = prompt("Enter the ExtraMonths: ");
+  Date = IncreaseDateByXMonths(Date, ExtraMonths);
+  cout<<"Increasing Date By "<<ExtraMonths<<" Months: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   return (0);
 }

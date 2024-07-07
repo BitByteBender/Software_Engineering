@@ -141,7 +141,7 @@ stDate IncreaseDateByXWeeks(stDate Date, uint16_t ExtraWeeks)
 }
 */
 
-const uint16_t defaultDay(const uint16_t Day)
+uint16_t defaultDay(const uint16_t Day)
 {
   return (Day);
 }
@@ -174,6 +174,9 @@ stDate IncreaseDateByOneYear(stDate Date)
   uint16_t Day = Date.Day;
   
   Date = IncreaseDateByXMonths(Date, 12);
+
+  if (isLeapYear(Date.Year) && Date.Month == 2)
+    Day++;
 
   Date.Day = Day;
   

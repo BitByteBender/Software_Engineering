@@ -48,7 +48,7 @@ uint16_t DaysInMonth(uint16_t Month, uint16_t Year)
   return (Month == 2 ? FebCheck(Year) : Month == arrMonths[Month/2] ? 31 : 30);
 }
 
-stDate IncreaseDateByOneDay(stDate &Date)
+stDate IncreaseDateByOneDay(stDate Date)
 {
   uint16_t Day = Date.Day, Month = Date.Month, Year = Date.Year;
 
@@ -62,7 +62,7 @@ stDate IncreaseDateByOneDay(stDate &Date)
     }
   } else {
     Day += 1;
-    if (Month == 12) {
+    if (Month > 12) {
       Month = 1;
       Year++;
     }
@@ -75,7 +75,19 @@ stDate IncreaseDateByOneDay(stDate &Date)
   return (Date);
 }
 
-stDate IncreaseDateByXDays(stDate &Date, uint16_t ExtraDays)
+stDate IncreaseDateByXDays(stDate Date, uint16_t ExtraDays)
+{
+  uint16_t i = 0;
+
+  for (i = 0; i < ExtraDays; ++i) {
+    Date = IncreaseDateByOneDay(Date);
+  }
+
+  return (Date);
+}
+
+/** -- Another Method --
+stDate IncreaseDateByXDays(stDate Date, uint16_t ExtraDays)
 {
   uint16_t Day = Date.Day + ExtraDays;
 
@@ -87,11 +99,11 @@ stDate IncreaseDateByXDays(stDate &Date, uint16_t ExtraDays)
   Date.Day = Day;
   return (Date);
 }
+**/
 
 stDate IncreaseByOneWeek(stDate Date)
 {
   Date = IncreaseDateByXDays(Date, 7);
-
   return (Date);
 }
 
@@ -129,47 +141,61 @@ stDate IncreaseDateByXWeeks(stDate Date, uint16_t ExtraWeeks)
 }
 */
 
+const uint16_t defaultDay(const uint16_t Day)
+{
+  return (Day);
+}
+
 stDate IncreaseDateByOneMonth(stDate Date)
 {
   uint16_t Day = Date.Day;
   
   Date = IncreaseDateByXWeeks(Date, 4);
-
   Date.Day = (Day > DaysInMonth(Date.Month, Date.Year) ? DaysInMonth(Date.Month, Date.Year) : Day);
-
+  
   return (Date);
 }
 
-stDate IncreaseDateByXMonths(stDate Date, uint16_t ExtraMonths)
+stDate IncreaseDateByXMonths(stDate Date, uint16_t ExtraMonths, const uint16_t Default=0)
 {
   uint16_t i = 0;
 
   for (i = 0; i < ExtraMonths; ++i) {
     Date = IncreaseDateByOneMonth(Date);
-    if (Date.Month > 12) {
-      Date.Month = 1;
-      Date.Year++;
-    }
+  }
+  
+  Date.Day = (Default > DaysInMonth(Date.Month, Date.Year) ? DaysInMonth(Date.Month, Date.Year) : Default);
+  return (Date);
+}
+
+
+stDate IncreaseDateByOneYear(stDate Date)
+{
+  uint16_t Day = Date.Day;
+  
+  Date = IncreaseDateByXMonths(Date, 12);
+
+  Date.Day = Day;
+  
+  return (Date);
+}
+
+/*
+stDate IncreaseDateByXYears(stDate Date, uint16_t ExtraYears)
+{
+  uint16_t i = 0;
+
+  for (i = 0; i < ExtraYears; ++i) {
+    Date = IncreaseDateByOneYear(Date);
   }
 
   return (Date);
 }
-
-stDate IncreaseDateByOneYear(stDate Date)
-{
-  uint16_t prevYear = Date.Year;
-  
-  Date = IncreaseDateByXMonths(Date, 12);
-
-  (isLeapYear(prevYear) == 366 ? Date.Day += 1 : Date.Day);
-  
-  return (Date);
-}
-
+*/
 int main(void)
 {
   stDate Date = promptCall();
-  uint16_t ExtraDays{0}, ExtraWeeks{0}, ExtraMonths{0}, ExtraYear{0};
+  uint16_t ExtraDays{0}, ExtraWeeks{0}, ExtraMonths{0}, ExtraYears{0};
   
   Date = IncreaseDateByOneDay(Date);
   cout<<"Increasing Date By One Day: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
@@ -185,14 +211,21 @@ int main(void)
   Date = IncreaseDateByXWeeks(Date, ExtraWeeks);
   cout<<"Increasing Date By "<<ExtraWeeks<<" Weeks: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
 
+  const uint16_t Default = defaultDay(Date.Day);
   Date = IncreaseDateByOneMonth(Date);
   cout<<"Increasing Date By One Month: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
 
   ExtraMonths = prompt("Enter the ExtraMonths: ");
-  Date = IncreaseDateByXMonths(Date, ExtraMonths);
+  Date = IncreaseDateByXMonths(Date, ExtraMonths, Default);
   cout<<"Increasing Date By "<<ExtraMonths<<" Months: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
-
+  
   Date = IncreaseDateByOneYear(Date);
   cout<<"Increasing Date By One Year: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  /*
+  ExtraYears = prompt("Enter the ExtraYears: ");
+  Date = IncreaseDateByXYears(Date, ExtraYears);
+  cout<<"Increasing Date By "<<ExtraYears<<" Years: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  */
   return (0);
 }

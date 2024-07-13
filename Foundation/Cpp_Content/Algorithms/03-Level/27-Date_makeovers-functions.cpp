@@ -206,12 +206,18 @@ stDate IncreaseDateByXYears(stDate Date, uint16_t ExtraYears, const uint16_t def
 
 stDate IncreaseDateByXYearsFaster(stDate Date, uint16_t ExtraYears, const uint16_t defaultDay)
 {
-  uint16_t Day = defaultDay, Year = Date.Year + ExtraYears;
+  uint16_t Year = Date.Year + ExtraYears;
   
   Date.Year = Year;
   
   Date.Day = (defaultDay > DaysInMonth(Date.Month, Date.Year) ? DaysInMonth(Date.Month, Date.Year) : defaultDay);
 
+  return (Date);
+}
+
+stDate IncreaseDateByOneDecade(stDate Date, const uint16_t defaultDay)
+{
+  Date = IncreaseDateByXYearsFaster(Date, 10, defaultDay);
   return (Date);
 }
 
@@ -253,5 +259,7 @@ int main(void)
   Date = IncreaseDateByXYearsFaster(Date, ExtraYears, Default);
   cout<<"Increasing Date By "<<ExtraYears<<" Years(Faster): "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
 
+  Date = IncreaseDateByOneDecade(Date, Default);
+  cout<<"Increasing Date By One Decade: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   return (0);
 }

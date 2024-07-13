@@ -221,10 +221,30 @@ stDate IncreaseDateByOneDecade(stDate Date, const uint16_t defaultDay)
   return (Date);
 }
 
+stDate IncreaseDateByXDecades(stDate Date, uint16_t ExtraDecades, const uint16_t defaultDay)
+{
+  uint16_t i = 0;
+
+  for (i = 0; i < ExtraDecades; ++i) {
+    Date = IncreaseDateByOneDecade(Date, defaultDay);
+  }
+
+  return (Date);
+}
+
+stDate IncreaseDateByXDecadesFaster(stDate Date, uint16_t ExtraDecades, const uint16_t defaultDay)
+{
+  uint16_t Year = Date.Year + (ExtraDecades * 10);
+  Date.Year = Year;
+  Date.Day = (defaultDay < DaysInMonth(Date.Month, Date.Year) ? defaultDay : DaysInMonth(Date.Month, Date.Year));
+  
+  return (Date);
+}
+
 int main(void)
 {
   stDate Date = promptCall();
-  uint16_t ExtraDays{0}, ExtraWeeks{0}, ExtraMonths{0}, ExtraYears{0};
+  uint16_t ExtraDays{0}, ExtraWeeks{0}, ExtraMonths{0}, ExtraYears{0}, ExtraDecades{0};
   
   Date = IncreaseDateByOneDay(Date);
   cout<<"Increasing Date By One Day: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
@@ -261,5 +281,13 @@ int main(void)
 
   Date = IncreaseDateByOneDecade(Date, Default);
   cout<<"Increasing Date By One Decade: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  ExtraDecades = prompt("Enter the ExtraDecades: ");
+  Date = IncreaseDateByXDecades(Date, ExtraDecades, Default);
+  cout<<"Increasing Date By "<<ExtraDecades<<" Decades: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  ExtraDecades = prompt("Enter the ExtraDecades: ");
+  Date = IncreaseDateByXDecadesFaster(Date, ExtraDecades, Default);
+  cout<<"Increasing Date By "<<ExtraDecades<<" Decades(Faster): "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   return (0);
 }

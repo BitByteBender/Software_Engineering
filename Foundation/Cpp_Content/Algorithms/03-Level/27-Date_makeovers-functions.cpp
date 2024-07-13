@@ -162,40 +162,55 @@ stDate IncreaseDateByOneMonth(stDate Date)
 
 stDate IncreaseDateByXMonths(stDate Date, uint16_t ExtraMonths, const uint16_t Default=0)
 {
-  uint16_t i = 0;
+  uint16_t i = 0, Month = Date.Month;
 
   for (i = 0; i < ExtraMonths; ++i) {
     Date = IncreaseDateByOneMonth(Date);
   }
+
+  if (Date.Month < abs((Month + ExtraMonths) - 12))
+    Date.Month++;
   
   Date.Day = (Default > DaysInMonth(Date.Month, Date.Year) ? DaysInMonth(Date.Month, Date.Year) : Default);
   return (Date);
 }
 
-
-stDate IncreaseDateByOneYear(stDate Date)
+stDate IncreaseDateByOneYear(stDate Date, const uint16_t defaultDay)
 {
-  uint16_t Day = Date.Day;
+  uint16_t Day = defaultDay, Month = Date.Month;
   
   Date = IncreaseDateByXMonths(Date, 12);
 
-  if (isLeapYear(Date.Year) == 366 && Date.Month == 2)
+  if (isLeapYear(Date.Year) == 366 && Date.Month == 2 && Day < DaysInMonth(Date.Month, Date.Year))
     Day++;
-  else if (isLeapYear(Date.Year) == 365 && Date.Month == 2)
+  else if (isLeapYear(Date.Year) == 365 && Date.Month == 2 && Day > DaysInMonth(Date.Month, Date.Year))
     Day--;
   
   Date.Day = Day;
+  Date.Month = Month;
   
   return (Date);
 }
 
-stDate IncreaseDateByXYears(stDate Date, uint16_t ExtraYears)
+stDate IncreaseDateByXYears(stDate Date, uint16_t ExtraYears, const uint16_t defaultDay)
 {
   uint16_t i = 0;
 
   for (i = 0; i < ExtraYears; ++i) {
-    Date = IncreaseDateByOneYear(Date);
+    Date = IncreaseDateByOneYear(Date, defaultDay);
   }
+
+  Date.Day = (defaultDay > DaysInMonth(Date.Month, Date.Year) ? DaysInMonth(Date.Month, Date.Year) : defaultDay);
+  return (Date);
+}
+
+stDate IncreaseDateByXYearsFaster(stDate Date, uint16_t ExtraYears, const uint16_t defaultDay)
+{
+  uint16_t Day = defaultDay, Year = Date.Year + ExtraYears;
+  
+  Date.Year = Year;
+  
+  Date.Day = (defaultDay > DaysInMonth(Date.Month, Date.Year) ? DaysInMonth(Date.Month, Date.Year) : defaultDay);
 
   return (Date);
 }
@@ -227,12 +242,16 @@ int main(void)
   Date = IncreaseDateByXMonths(Date, ExtraMonths, Default);
   cout<<"Increasing Date By "<<ExtraMonths<<" Months: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
 
-  Date = IncreaseDateByOneYear(Date);
+  Date = IncreaseDateByOneYear(Date, Default);
   cout<<"Increasing Date By One Year: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
 
   ExtraYears = prompt("Enter the ExtraYears: ");
-  Date = IncreaseDateByXYears(Date, ExtraYears);
+  Date = IncreaseDateByXYears(Date, ExtraYears, Default);
   cout<<"Increasing Date By "<<ExtraYears<<" Years: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  ExtraYears = prompt("Enter ExtraYears: ");
+  Date = IncreaseDateByXYearsFaster(Date, ExtraYears, Default);
+  cout<<"Increasing Date By "<<ExtraYears<<" Years(Faster): "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
 
   return (0);
 }

@@ -59,10 +59,11 @@ uint16_t YearsDiff(uint16_t BirthYear, uint16_t YearNow)
   return (isleap(BirthYear) == 366 ? (Calc-1) : Calc);
 }
 
+
 uint16_t CalcDays(uint16_t Year, uint16_t Month, uint16_t Day)
 {
   uint16_t i = 1, Days = Day;
-
+  
   for (; i < Month; i++) {
     Days += DaysInMonth(Year, i);
   }

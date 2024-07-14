@@ -241,6 +241,22 @@ stDate IncreaseDateByXDecadesFaster(stDate Date, uint16_t ExtraDecades, const ui
   return (Date);
 }
 
+stDate IncreaseDateByOneCentury(stDate Date, const uint16_t defaultDay)
+{
+  Date.Year += 100;
+  Date.Day = (defaultDay < DaysInMonth(Date.Month, Date.Year) ? defaultDay : DaysInMonth(Date.Month, Date.Year));
+  
+  return (Date);
+}
+
+stDate IncreaseDateByOneMillennium(stDate Date, const uint16_t defaultDay)
+{
+  Date.Year += 1000;
+  Date.Day = (defaultDay < DaysInMonth(Date.Month, Date.Year) ? defaultDay : DaysInMonth(Date.Month, Date.Year));
+  
+  return (Date);
+}
+
 int main(void)
 {
   stDate Date = promptCall();
@@ -289,5 +305,11 @@ int main(void)
   ExtraDecades = prompt("Enter the ExtraDecades: ");
   Date = IncreaseDateByXDecadesFaster(Date, ExtraDecades, Default);
   cout<<"Increasing Date By "<<ExtraDecades<<" Decades(Faster): "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  Date = IncreaseDateByOneCentury(Date, Default);
+  cout<<"Increasing Date By One Century: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  Date = IncreaseDateByOneMillennium(Date, Default);
+  cout<<"Increasing Date By One Millennium: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   return (0);
 }

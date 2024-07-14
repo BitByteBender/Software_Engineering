@@ -75,7 +75,6 @@ uint16_t CalcDays(uint16_t Year, uint16_t Month, uint16_t Day, bool Reverse=fals
     i++;
     cond = (Reverse ? (i <= 12) : (i < Month));
   }
-
   
   return (Reverse ? (Days - Day) : Days);
 }
@@ -106,6 +105,6 @@ void DisplayAgeInDays(string Msg)
 
 int main(void)
 {
-  DisplayAgeInDays("Please enter your date of birth:\n");
+  DisplayAgeInDays("Please enter your date of birth:\n\n");
   return (0);
 }

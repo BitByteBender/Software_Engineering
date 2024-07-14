@@ -82,11 +82,11 @@ void DisplayResult(stDate Dates[2])
 
   if (Dates[0].Year > Dates[1].Year) {
     Diff = CountDaysInYearsDiff(Dates);
-    cout<<"\nDiffrence is: -"
-	<<Diff;
+    cout<<"\nDiffrence is: "
+	<<Diff * (-1);
 
-    cout<<"\nDiffrence (Including End Day) is: -"
-	<<Diff + 1<<endl;
+    cout<<"\nDiffrence (Including End Day) is: "
+	<<(Diff + 1) * (-1)<<endl;
   } else {
     Diff = CountDaysInYearsDiff(Dates);
     cout<<"\nDiffrence is: "

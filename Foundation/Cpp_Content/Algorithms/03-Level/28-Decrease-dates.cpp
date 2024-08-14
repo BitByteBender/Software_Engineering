@@ -1,5 +1,5 @@
 #include <iostream>
-#include "math.h"
+#include <cmath>
 
 using std::cout;
 using std::cin;
@@ -7,9 +7,9 @@ using std::endl;
 
 struct stDate
 {
-  uint16_t Day;
-  uint16_t Month;
-  uint16_t Year;
+  int16_t Day;
+  int16_t Month;
+  int16_t Year;
 };
 
 uint16_t *DataPrompt(const char *Message)
@@ -60,9 +60,9 @@ uint16_t DaysInMonth(uint16_t Month, uint16_t Year)
   return (Month == 2 ? FebCheck(Year) : Month == arr[uint16_t(round(Month / 3.0f) - 1)] ? 30 : 31);
 }
 
-uint16_t TotalDays(uint16_t Day, uint16_t Month, uint16_t Year)
+int16_t TotalDays(uint16_t Day, uint16_t Month, uint16_t Year)
 {
-  uint16_t TotalDays = Day;
+  int16_t TotalDays = Day;
 
   while (Month != 1) {
     TotalDays += DaysInMonth(--Month, Year);
@@ -73,46 +73,71 @@ uint16_t TotalDays(uint16_t Day, uint16_t Month, uint16_t Year)
 
 stDate DateGenerator(stDate Date)
 {
-  uint16_t i = 0, Remainder = abs(DaysInYear(Date.Year) - Date.Day);
+  uint16_t i = 1;
 
-  cout<<"<func>Days: "<<Date.Day<<endl;
-  cout<<"<func>Remainder: "<<Remainder<<endl;
-  cout<<"<func>Month Calc: "<<DaysInMonth(Date.Month, Date.Year)<<endl;
+  cout<<"Generator:\n";
+  cout<<"Before Days: "<<Date.Day<<'\n';
   
-  if (Remainder >= DaysInMonth(Date.Month, Date.Year)) {
-    uint16_t counter = Remainder / DaysInMonth(Date.Month, Date.Year);
-    Date.Month -= counter;
-    cout<<"<func 1> Date Month: "<<Date.Month<<endl;
+  if (Date.Day < 0) {
+    Date.Day *= -1;
+    double counter = ceil((double)Date.Day / DaysInYear(Date.Year));
+    cout<<"counter: "<<counter<<'\n';
+    Date.Year -= counter;
+    while (counter != 0) {
+      Date.Day = abs(Date.Day - DaysInYear((Date.Year + 1) - --counter)); 
+    }
+    cout<<"Remaining Days: "<<Date.Day<<endl;
+    if (Date.Day <= 31) {
+      Date.Month = 1;
+    } else {
+      while (Date.Day > DaysInMonth(i, Date.Year)) {
+	Date.Day -= DaysInMonth(++i, Date.Year);
+	Date.Month = i;
+      }
+    }
+  }
+    
+  if (Date.Day == 0) {
+    if (Date.Month == 1) {
+      Date.Month = 12;
+      Date.Year--;
+    } else {
+      Date.Month--;
+    }
+    Date.Day = DaysInMonth(Date.Month, Date.Year);
   }
 
   i = Date.Month;
   
   while (Date.Day > DaysInMonth(i, Date.Year)) {
-    cout<<"<func 2>Date Month: "<<i<<endl;
     Date.Day -= DaysInMonth(--i, Date.Year);
   }
+ 
   
+  cout<<"After Days: "<<Date.Day<<'\n';
   return (Date);
 }
-
 
 stDate DecreaseOneDay(stDate Date)
 {
+  cout<<"TotalDays: "<<TotalDays(Date.Day, Date.Month, Date.Year)<<endl;
   Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - 1;
+  cout<<"Days: "<<Date.Day<<'\n';
+  
   Date = DateGenerator(Date);
   
   return (Date);
 }
 
-stDate DecreaseDays(stDate Date, uint16_t Days)
+stDate DecreaseDateByXDays(stDate Date, uint16_t Days)
 {
-  cout<<"<func> check Day: "<<Date.Day<<endl;
-  Date.Day = abs(TotalDays(Date.Day, Date.Month, Date.Year) - Days);
+  cout<<"TotalDays: "<<TotalDays(Date.Day, Date.Month, Date.Year)<<endl;
+  Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - Days;
+  cout<<"Days by "<<Days<<": "<<Date.Day<<'\n';
   
-  cout<<"<func>Day: "<<Date.Day<<'/'<<" Month: "<<Date.Month<<endl;
   Date = DateGenerator(Date);
   
-  return (Date);
+  return Date;
 }
 
 int main(void)
@@ -121,22 +146,16 @@ int main(void)
   uint16_t *Value = new uint16_t;
   
   Date = InsertDate();
-  cout<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  cout<<"Default Date: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
 
-  cout<<DaysInMonth(Date.Month, Date.Year)<<endl;
-
-  //cout<<TotalDays(Date.Day, Date.Month, Date.Year)<<endl;
-
-  //Date = DateGenerator(Date);
-  //cout<<"Date Generator: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
-
+  cout<<"Days in month(Default Date): "<<DaysInMonth(Date.Month, Date.Year)<<endl;
+  
   Date = DecreaseOneDay(Date);
   cout<<"Decrease Date By 1 Day: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
-  
   Value = DataPrompt("Enter amount of days to be decreased: ");
   
-  Date = DecreaseDays(Date, *Value);
+  Date = DecreaseDateByXDays(Date, *Value);
   cout<<"Decrease Date By "<<(*Value)<<" Days: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
-  
+ 
   return (0);
 }

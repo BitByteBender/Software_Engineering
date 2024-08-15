@@ -87,33 +87,23 @@ stDate DateGenerator(stDate Date)
       Date.Day = abs(Date.Day - DaysInYear((Date.Year + 1) - --counter)); 
     }
     cout<<"Remaining Days: "<<Date.Day<<endl;
-    if (Date.Day <= 31) {
-      Date.Month = 1;
-    } else {
-      while (Date.Day > DaysInMonth(i, Date.Year)) {
-	Date.Day -= DaysInMonth(++i, Date.Year);
-	Date.Month = i;
-      }
-    }
   }
     
   if (Date.Day == 0) {
     if (Date.Month == 1) {
       Date.Month = 12;
       Date.Year--;
-    } else {
+    } else
       Date.Month--;
-    }
     Date.Day = DaysInMonth(Date.Month, Date.Year);
   }
 
-  i = Date.Month;
-  
   while (Date.Day > DaysInMonth(i, Date.Year)) {
-    Date.Day -= DaysInMonth(--i, Date.Year);
+    Date.Day -= DaysInMonth(i, Date.Year);
+    i++;
   }
- 
   
+  Date.Month = i;
   cout<<"After Days: "<<Date.Day<<'\n';
   return (Date);
 }
@@ -152,6 +142,7 @@ int main(void)
   
   Date = DecreaseOneDay(Date);
   cout<<"Decrease Date By 1 Day: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  
   Value = DataPrompt("Enter amount of days to be decreased: ");
   
   Date = DecreaseDateByXDays(Date, *Value);

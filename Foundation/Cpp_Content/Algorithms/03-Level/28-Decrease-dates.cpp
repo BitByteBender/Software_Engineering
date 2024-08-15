@@ -74,19 +74,14 @@ int16_t TotalDays(uint16_t Day, uint16_t Month, uint16_t Year)
 stDate DateGenerator(stDate Date)
 {
   uint16_t i = 1;
-
-  cout<<"Generator:\n";
-  cout<<"Before Days: "<<Date.Day<<'\n';
   
   if (Date.Day < 0) {
     Date.Day *= -1;
     double counter = ceil((double)Date.Day / DaysInYear(Date.Year));
-    cout<<"counter: "<<counter<<'\n';
     Date.Year -= counter;
-    while (counter != 0) {
+    
+    while (counter != 0)
       Date.Day = abs(Date.Day - DaysInYear((Date.Year + 1) - --counter)); 
-    }
-    cout<<"Remaining Days: "<<Date.Day<<endl;
   }
     
   if (Date.Day == 0) {
@@ -98,22 +93,17 @@ stDate DateGenerator(stDate Date)
     Date.Day = DaysInMonth(Date.Month, Date.Year);
   }
 
-  while (Date.Day > DaysInMonth(i, Date.Year)) {
-    Date.Day -= DaysInMonth(i, Date.Year);
-    i++;
-  }
+  while (Date.Day > DaysInMonth(i, Date.Year))
+    Date.Day -= DaysInMonth(i++, Date.Year);
   
   Date.Month = i;
-  cout<<"After Days: "<<Date.Day<<'\n';
+
   return (Date);
 }
 
 stDate DecreaseOneDay(stDate Date)
 {
-  cout<<"TotalDays: "<<TotalDays(Date.Day, Date.Month, Date.Year)<<endl;
-  Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - 1;
-  cout<<"Days: "<<Date.Day<<'\n';
-  
+  Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - 1;  
   Date = DateGenerator(Date);
   
   return (Date);
@@ -121,10 +111,7 @@ stDate DecreaseOneDay(stDate Date)
 
 stDate DecreaseDateByXDays(stDate Date, uint16_t Days)
 {
-  cout<<"TotalDays: "<<TotalDays(Date.Day, Date.Month, Date.Year)<<endl;
   Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - Days;
-  cout<<"Days by "<<Days<<": "<<Date.Day<<'\n';
-  
   Date = DateGenerator(Date);
   
   return Date;
@@ -133,7 +120,7 @@ stDate DecreaseDateByXDays(stDate Date, uint16_t Days)
 int main(void)
 {
   stDate Date;
-  uint16_t *Value = new uint16_t;
+  uint16_t *Value = nullptr;
   
   Date = InsertDate();
   cout<<"Default Date: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
@@ -147,6 +134,7 @@ int main(void)
   
   Date = DecreaseDateByXDays(Date, *Value);
   cout<<"Decrease Date By "<<(*Value)<<" Days: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
- 
+
+  delete Value;
   return (0);
 }

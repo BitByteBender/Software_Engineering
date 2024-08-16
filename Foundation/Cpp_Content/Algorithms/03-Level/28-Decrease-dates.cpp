@@ -104,6 +104,8 @@ stDate DateGenerator(stDate Date)
     Date.Day -= DaysInMonth(i++, Date.Year);
     Date.Month = i;
   }
+  
+  Date.Day = ((Date.Month > 2 && DaysInYear(Date.Year) == 366) ? (Date.Day += 1) : Date.Day);
 
   return (Date);
 }
@@ -134,9 +136,12 @@ stDate DecreaseDateByOneWeek(stDate Date)
 
 stDate DecreaseDateByXWeeks(stDate Date, uint16_t Weeks)
 {
+  cout<<"Total Days: "<<TotalDays(Date.Day, Date.Month, Date.Year)<<'\n';
+  cout<<"Date.Day: "<<Date.Day<<'\n';
   Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - (Weeks * 7);
+  cout<<"Date.Day: "<<Date.Day<<'\n';
   Date = DateGenerator(Date);
-  
+
   return (Date);
 }
 

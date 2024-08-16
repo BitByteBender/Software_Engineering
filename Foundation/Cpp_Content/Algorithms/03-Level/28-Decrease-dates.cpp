@@ -71,6 +71,17 @@ int16_t TotalDays(uint16_t Day, uint16_t Month, uint16_t Year)
   return (TotalDays);
 }
 
+stDate DateChecker(stDate Date)
+{
+  if (Date.Month == 1) {
+      Date.Month = 12;
+      Date.Year--;
+    } else
+      Date.Month--;
+
+  return (Date);
+}
+
 stDate DateGenerator(stDate Date)
 {
   uint16_t i = 1;
@@ -78,24 +89,21 @@ stDate DateGenerator(stDate Date)
   if (Date.Day < 0) {
     Date.Day *= -1;
     double counter = ceil((double)Date.Day / DaysInYear(Date.Year));
-    Date.Year -= counter;
-    while (counter != 0)
-      Date.Day = abs(Date.Day - DaysInYear((Date.Year + 1) - --counter)); 
+    while (counter != 0) {
+      Date.Day = abs(Date.Day - DaysInYear(Date.Year--));
+      --counter;
+    }
   }
     
   if (Date.Day == 0) {
-    if (Date.Month == 1) {
-      Date.Month = 12;
-      Date.Year--;
-    } else
-      Date.Month--;
+    Date = DateChecker(Date);
     Date.Day = DaysInMonth(Date.Month, Date.Year);
   }
 
-  while (Date.Day > DaysInMonth(i, Date.Year))
+  while (Date.Day > DaysInMonth(i, Date.Year)) {
     Date.Day -= DaysInMonth(i++, Date.Year);
-  
-  Date.Month = i;
+    Date.Month = i;
+  }
 
   return (Date);
 }
@@ -135,11 +143,28 @@ stDate DecreaseDateByXWeeks(stDate Date, uint16_t Weeks)
 stDate DecreaseDateByOneMonth(stDate Date)
 {
   uint16_t Days = 0;
-  
+
   Date.Month -= 1;
+
+  if (Date.Month == 0) {
+    Date.Month = 12;
+    Date.Year--;
+  }
+  
   Days = DaysInMonth(Date.Month, Date.Year);
-    
   Date.Day = (Date.Day > Days ? Days : Date.Day);
+  
+  return (Date);
+}
+
+stDate DecreaseDateByXMonths(stDate Date, uint16_t Months)
+{
+  uint16_t i = 0, Days = DaysInMonth(Date.Month, Date.Year);
+
+  for (; i < Months; ++i)
+    Date = DateChecker(Date);
+
+  Date.Day = (Date.Day == Days ? DaysInMonth(Date.Month, Date.Year) : Date.Day);
   
   return (Date);
 }
@@ -174,6 +199,12 @@ int main(void)
 
   Date = DecreaseDateByOneMonth(Date);
   cout<<"--> Decrease Date By One Month: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  Value = DataPrompt("Enter total of months to be decreased: ");
+
+  Date = DecreaseDateByXMonths(Date, *Value);
+  cout<<"--> Decrease Date By "<<(*Value)<<" Months: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   
+  delete Value;
   return (0);
 }

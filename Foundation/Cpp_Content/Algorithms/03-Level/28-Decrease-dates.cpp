@@ -132,6 +132,18 @@ stDate DecreaseDateByXWeeks(stDate Date, uint16_t Weeks)
   return (Date);
 }
 
+stDate DecreaseDateByOneMonth(stDate Date)
+{
+  uint16_t Days = 0;
+  
+  Date.Month -= 1;
+  Days = DaysInMonth(Date.Month, Date.Year);
+    
+  Date.Day = (Date.Day > Days ? Days : Date.Day);
+  
+  return (Date);
+}
+
 int main(void)
 {
   stDate Date;
@@ -160,6 +172,8 @@ int main(void)
   
   delete Value;
 
+  Date = DecreaseDateByOneMonth(Date);
+  cout<<"--> Decrease Date By One Month: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   
   return (0);
 }

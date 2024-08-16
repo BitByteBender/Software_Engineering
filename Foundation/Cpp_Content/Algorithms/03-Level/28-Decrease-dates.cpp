@@ -74,12 +74,11 @@ int16_t TotalDays(uint16_t Day, uint16_t Month, uint16_t Year)
 stDate DateGenerator(stDate Date)
 {
   uint16_t i = 1;
-  
+
   if (Date.Day < 0) {
     Date.Day *= -1;
     double counter = ceil((double)Date.Day / DaysInYear(Date.Year));
     Date.Year -= counter;
-    
     while (counter != 0)
       Date.Day = abs(Date.Day - DaysInYear((Date.Year + 1) - --counter)); 
   }
@@ -103,7 +102,7 @@ stDate DateGenerator(stDate Date)
 
 stDate DecreaseOneDay(stDate Date)
 {
-  Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - 1;  
+  Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - 1;
   Date = DateGenerator(Date);
   
   return (Date);
@@ -117,6 +116,22 @@ stDate DecreaseDateByXDays(stDate Date, uint16_t Days)
   return Date;
 }
 
+stDate DecreaseDateByOneWeek(stDate Date)
+{
+  Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - 7;
+  Date = DateGenerator(Date);
+
+  return (Date);
+}
+
+stDate DecreaseDateByXWeeks(stDate Date, uint16_t Weeks)
+{
+  Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - (Weeks * 7);
+  Date = DateGenerator(Date);
+  
+  return (Date);
+}
+
 int main(void)
 {
   stDate Date;
@@ -128,13 +143,23 @@ int main(void)
   cout<<"Days in month(Default Date): "<<DaysInMonth(Date.Month, Date.Year)<<endl;
   
   Date = DecreaseOneDay(Date);
-  cout<<"Decrease Date By 1 Day: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  cout<<"--> Decrease Date By 1 Day: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   
   Value = DataPrompt("Enter amount of days to be decreased: ");
   
   Date = DecreaseDateByXDays(Date, *Value);
-  cout<<"Decrease Date By "<<(*Value)<<" Days: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
-
+  cout<<"--> Decrease Date By "<<(*Value)<<" Days: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   delete Value;
+  
+  Date = DecreaseDateByOneWeek(Date);
+  cout<<"--> Decrease Date By 1 Week: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
+  Value = DataPrompt("Enter total of weeks to be decreased: ");
+  Date = DecreaseDateByXWeeks(Date, *Value);
+  cout<<"--> Decrease Date By "<<(*Value)<<" Weeks: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  
+  delete Value;
+
+  
   return (0);
 }

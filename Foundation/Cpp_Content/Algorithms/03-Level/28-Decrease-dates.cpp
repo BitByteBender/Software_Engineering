@@ -136,10 +136,10 @@ stDate DecreaseDateByOneWeek(stDate Date)
 
 stDate DecreaseDateByXWeeks(stDate Date, uint16_t Weeks)
 {
-  cout<<"Total Days: "<<TotalDays(Date.Day, Date.Month, Date.Year)<<'\n';
-  cout<<"Date.Day: "<<Date.Day<<'\n';
+  //cout<<"Total Days: "<<TotalDays(Date.Day, Date.Month, Date.Year)<<'\n';
+  //cout<<"Date.Day: "<<Date.Day<<'\n';
   Date.Day = TotalDays(Date.Day, Date.Month, Date.Year) - (Weeks * 7);
-  cout<<"Date.Day: "<<Date.Day<<'\n';
+  //cout<<"Date.Day: "<<Date.Day<<'\n';
   Date = DateGenerator(Date);
 
   return (Date);
@@ -171,6 +171,12 @@ stDate DecreaseDateByXMonths(stDate Date, uint16_t Months)
 
   Date.Day = (Date.Day == Days ? DaysInMonth(Date.Month, Date.Year) : Date.Day);
   
+  return (Date);
+}
+
+stDate DecreaseDateByOneYear(stDate Date)
+{
+  Date = DecreaseDateByXMonths(Date, 12);
   return (Date);
 }
 
@@ -211,5 +217,9 @@ int main(void)
   cout<<"--> Decrease Date By "<<(*Value)<<" Months: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
   
   delete Value;
+
+  Date = DecreaseDateByOneYear(Date);
+  cout<<"--> Decrease Date By One Year: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+
   return (0);
 }

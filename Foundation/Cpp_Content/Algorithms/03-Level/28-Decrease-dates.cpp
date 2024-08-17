@@ -180,6 +180,16 @@ stDate DecreaseDateByOneYear(stDate Date)
   return (Date);
 }
 
+stDate DecreaseDateByXYears(stDate Date, uint16_t Year)
+{
+  uint16_t i = 0;
+  
+  for (; i < Year; i++)
+    Date = DecreaseDateByOneYear(Date);
+  
+  return (Date);
+}
+
 int main(void)
 {
   stDate Date;
@@ -221,5 +231,10 @@ int main(void)
   Date = DecreaseDateByOneYear(Date);
   cout<<"--> Decrease Date By One Year: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
 
+  Value = DataPrompt("Enter total of years to be decreased: ");
+  Date = DecreaseDateByXYears(Date, *Value);
+  cout<<"--> Decrease Date By "<<(*Value)<<" Years: "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<endl;
+  delete Value;
+  
   return (0);
 }

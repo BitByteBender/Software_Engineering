@@ -85,6 +85,47 @@ string IsBusinessDay(enWeekDaysMapper WD)
   return (!IsWeekEnd(WD) ? "Yes, It is a business day." : "No, It is NOT a business day.");
 }
 
+inline uint16_t DaysUntilTheEndOfWeek(stDate Date)
+{
+  return (7 - (GregorianCalc(Date) + 1));
+}
+
+uint16_t IsLeapYear(uint16_t Year)
+{
+  return (Year % 400 == 0 || (Year % 4 == 0 && Year % 100 != 0) ? 366 : 365);
+}
+
+uint16_t FebChecker(uint16_t Year)
+{
+  return (IsLeapYear(Year) == 366 ? 29 : 28);
+}
+
+uint16_t DaysInMonth(uint16_t Month, uint16_t Year)
+{
+  uint16_t arr[7] = {1, 3, 5, 7, 8, 10, 12};
+  
+  return (Month == 2 ? FebChecker(Year) : Month == arr[Month/2] ? 31 : 30);
+}
+
+uint16_t DaysUntilTheEndOfMonth(stDate Date)
+{
+  uint16_t RemainingDays = 0;
+
+  RemainingDays = abs(DaysInMonth(Date.Month, Date.Year) - Date.Day);
+  
+  return (RemainingDays);
+}
+
+uint16_t DaysUntilTheEndOfYear(stDate Date)
+{
+  uint16_t RemainingDays = Date.Day;
+
+  while (Date.Month > 1)
+    RemainingDays += DaysInMonth(--Date.Month, Date.Year);
+  
+  return (abs(RemainingDays - IsLeapYear(Date.Year)));
+}
+
 void DisplayInfo(stDate Date)
 {
   string DayMapper = DaysMapper(GregorianCalc(Date));
@@ -100,7 +141,22 @@ void DisplayInfo(stDate Date)
       <<"\n\n";
 
   cout<<"Is it Business Day?\n"
-      <<IsBusinessDay(WD)<<endl;
+      <<IsBusinessDay(WD)<<"\n\n";
+
+  cout<<"Days until end of week: "
+      <<DaysUntilTheEndOfWeek(Date)<<" Day(s).\n\n";
+
+  cout<<"Days until end of month: "
+      <<DaysUntilTheEndOfMonth(Date)<<" Day(s).\n\n";
+
+  cout<<"Days until end of month(After adding end day): "
+      <<DaysUntilTheEndOfMonth(Date) + 1<<" Day(s).\n\n";
+
+  cout<<"Days until end of year: "
+      <<DaysUntilTheEndOfYear(Date)<<" Day(s).\n\n";
+  
+  cout<<"Days until end of year(After adding end day): "
+      <<DaysUntilTheEndOfYear(Date) + 1<<" Day(s).\n\n";
 }
 
 int main(void)

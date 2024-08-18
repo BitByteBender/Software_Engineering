@@ -75,12 +75,14 @@ string IsEndOfWeek(string WeekDay)
   return (WeekDay != "Sunday" ? "No, Not end of week." : "Yes, It is.");
 }
 
-string IsWeekEnd(enWeekDaysMapper WD)
+bool IsWeekEnd(enWeekDaysMapper WD)
 {
-  if (WD == 0 || WD == 6)
-    return "Yes, it is a weekend.";
-  else
-    return "No, It is not!";
+  return (WD == 0 || WD == 6);
+}
+
+string IsBusinessDay(enWeekDaysMapper WD)
+{
+  return (!IsWeekEnd(WD) ? "Yes, It is a business day." : "No, It is NOT a business day.");
 }
 
 void DisplayInfo(stDate Date)
@@ -93,7 +95,12 @@ void DisplayInfo(stDate Date)
 
   cout<<"Is it End Of Week?\n"<<IsEndOfWeek(DayMapper)<<"\n\n";
 
-  cout<<"Is it Weekend?\n"<<IsWeekEnd(WD)<<"\n\n";
+  cout<<"Is it Weekend?\n"
+      <<(IsWeekEnd(WD) ? "Yes, its is a weekend" : "No, It is not!")
+      <<"\n\n";
+
+  cout<<"Is it Business Day?\n"
+      <<IsBusinessDay(WD)<<endl;
 }
 
 int main(void)

@@ -70,14 +70,38 @@ string DaysMapper(uint16_t Day)
   }
 }
 
+string IsEndOfWeek(string WeekDay)
+{
+  return (WeekDay != "Sunday" ? "No, Not end of week." : "Yes, It is.");
+}
+
+string IsWeekEnd(enWeekDaysMapper WD)
+{
+  if (WD == 0 || WD == 6)
+    return "Yes, it is a weekend.";
+  else
+    return "No, It is not!";
+}
+
+void DisplayInfo(stDate Date)
+{
+  string DayMapper = DaysMapper(GregorianCalc(Date));
+  enWeekDaysMapper WD = (enWeekDaysMapper) GregorianCalc(Date);
+  
+  cout<<"\nToday is "<<DayMapper<<", "
+      <<"DD:"<<Date.Day<<" MM:"<<Date.Month<<" YY:"<<Date.Year<<"\n\n";
+
+  cout<<"Is it End Of Week?\n"<<IsEndOfWeek(DayMapper)<<"\n\n";
+
+  cout<<"Is it Weekend?\n"<<IsWeekEnd(WD)<<"\n\n";
+}
+
 int main(void)
 {
   stDate Date;
   Date = FeedData();
 
-  cout<<"\nDate(Entry): "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<'\n'<<endl;
-  cout<<GregorianCalc(Date)<<endl;
-  cout<<"Today is "<<DaysMapper(GregorianCalc(Date))<<endl;
+  DisplayInfo(Date);
   
   return (0);
 }

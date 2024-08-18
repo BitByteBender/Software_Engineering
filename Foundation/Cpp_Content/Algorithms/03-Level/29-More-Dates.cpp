@@ -3,6 +3,9 @@
 using std::cout;
 using std::cin;
 using std::endl;
+using std::string;
+
+enum enWeekDaysMapper{Su = 0, Mo = 1, Tu = 2, We = 3, Th = 4, Fr = 5, Sa = 6};
 
 struct stDate
 {
@@ -34,7 +37,7 @@ stDate FeedData()
 
 uint16_t GregorianCalc(stDate Date)
 {
-  uint16_t a = 0, y = 0, m = 0, Day;
+  uint16_t a = 0, y = 0, m = 0, Day = 0;
 
   a = abs((14 - Date.Month) / 12);
   y = Date.Year - a;
@@ -45,6 +48,28 @@ uint16_t GregorianCalc(stDate Date)
   return (Day);
 }
 
+string DaysMapper(uint16_t Day)
+{ 
+  switch (Day) {
+  case (enWeekDaysMapper::Su):
+    return "Sunday";
+  case (enWeekDaysMapper::Mo):
+    return "Monday";
+  case (enWeekDaysMapper::Tu):
+    return "Tuesday";
+  case (enWeekDaysMapper::We):
+    return "Wednesday";
+  case (enWeekDaysMapper::Th):
+    return "Thursday";
+  case (enWeekDaysMapper::Fr):
+    return "Friday";
+  case (enWeekDaysMapper::Sa):
+    return "Saturday";
+  default:
+    return "Not a Weekday!";
+  }
+}
+
 int main(void)
 {
   stDate Date;
@@ -52,5 +77,7 @@ int main(void)
 
   cout<<"\nDate(Entry): "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<'\n'<<endl;
   cout<<GregorianCalc(Date)<<endl;
+  cout<<"Today is "<<DaysMapper(GregorianCalc(Date))<<endl;
+  
   return (0);
 }

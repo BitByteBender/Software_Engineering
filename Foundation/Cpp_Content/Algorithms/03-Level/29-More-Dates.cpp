@@ -32,12 +32,25 @@ stDate FeedData()
   return (Date);
 }
 
+uint16_t GregorianCalc(stDate Date)
+{
+  uint16_t a = 0, y = 0, m = 0, Day;
+
+  a = abs((14 - Date.Month) / 12);
+  y = Date.Year - a;
+  m = Date.Month + (12 * a) - 2;
+
+  Day = (Date.Day + y + abs(y/4) - abs(y/100) + abs(y/400) + abs((31 * m) / 12)) % 7;
+  
+  return (Day);
+}
+
 int main(void)
 {
   stDate Date;
   Date = FeedData();
 
   cout<<"\nDate(Entry): "<<Date.Day<<'/'<<Date.Month<<'/'<<Date.Year<<'\n'<<endl;
-  
+  cout<<GregorianCalc(Date)<<endl;
   return (0);
 }

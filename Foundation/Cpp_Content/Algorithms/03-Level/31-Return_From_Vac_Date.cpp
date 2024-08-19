@@ -121,11 +121,11 @@ stDateData CalcDifference(stDateData Dt, uint16_t &VacationDays)
 {
   uint16_t Day = VacationDays;
 
-  while (Day != 0) {
-    Dt = EndDayChecker(Dt);
-    
+  while (Day != 0) {    
     if (DaysConverter(GregorianCalc(Dt)) < 5)
       Day--;
+
+    Dt = EndDayChecker(Dt);   
   }
 
   return (Dt);

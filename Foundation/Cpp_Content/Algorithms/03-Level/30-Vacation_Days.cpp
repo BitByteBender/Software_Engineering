@@ -84,6 +84,55 @@ std::string DaysMapper(uint16_t Day)
   }
 }
 
+uint16_t IsLeapYear(uint16_t Year)
+{
+  return (Year % 400 == 0 || (Year % 4 == 0 && Year % 100 != 0) ? 366 : 365);
+}
+
+uint16_t FebChecker(uint16_t Year)
+{
+  return (IsLeapYear(Year) == 365 ? 28 : 29);
+}
+
+uint16_t DaysInMonth(uint16_t Month, uint16_t Year)
+{
+  uint16_t arr[7] = {1, 3, 5, 7, 8, 10, 12};
+  return (Month = 2 ? FebChecker(Year) : Month == arr[Month/2] ? 31 : 30);
+}
+
+stDateData EndDayChecker(stDateData Dt)
+{
+  if (Dt.Day == DaysInMonth(Dt.Month, Dt.Year)) {
+    if (Dt.Month == 12) {
+      Dt.Month = 1;
+      Dt.Year++;
+    } else {
+      Dt.Month++;
+    }
+    Dt.Day = 1;
+  } else {
+    Dt.Day++;
+  }
+
+  return (Dt);
+}
+
+uint16_t CalcDifference(stDateData Dt[2])
+{
+  uint16_t Day = 0;
+
+  while (Dt[0].Day != Dt[1].Day) {
+    Dt[0] = EndDayChecker(Dt[0]);
+    
+    if (DaysConverter(GregorianCalc(Dt[0])) >= 5)
+      continue;
+    
+    Day += 1;
+  }
+
+  return (Day);
+}
+
 void PrintInfo(stDateData Dt[2])
 {
   cout<<"Vacation Starts:\n";
@@ -99,8 +148,12 @@ void PrintInfo(stDateData Dt[2])
       <<Dt[0].Day<<'/'<<Dt[0].Month<<'/'<<Dt[0].Year<<'\n';
   
   cout<<"Vacation To: "
+    
       <<(DaysMapper(GregorianCalc(Dt[1])))<<", "
-      <<Dt[1].Day<<'/'<<Dt[1].Month<<'/'<<Dt[1].Year<<endl;
+      <<Dt[1].Day<<'/'<<Dt[1].Month<<'/'<<Dt[1].Year<<"\n\n";
+
+  cout<<"Actual Vacation Days (Excluding Weekends): "
+      <<(CalcDifference(Dt))<<endl;
 }
 
 int main(void)

@@ -46,8 +46,16 @@ void PrintInfo(stDateData Dt[2])
 
 int main(void)
 {
-  stDateData Dt[2] = {DataLoader(), DataLoader()};
-
+  stDateData Dt[2];
+  
+  cout<<"Vacation Starts:\n";
+  Dt[0] = DataLoader();
+  cout<<endl;
+  
+  cout<<"Vacation Ends:\n";
+  Dt[1] = DataLoader();
+  cout<<endl;
+  
   PrintInfo(Dt);
   
   return (0);

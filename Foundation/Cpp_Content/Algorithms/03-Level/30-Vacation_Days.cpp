@@ -38,11 +38,17 @@ stDateData DataLoader()
   return (Date);
 }
 
+void PrintInfo(stDateData Dt[2])
+{
+  cout<<"Vacation From: "<<Dt[0].Day<<'/'<<Dt[0].Month<<'/'<<Dt[0].Year<<endl;
+  cout<<"Vacation To: "<<Dt[1].Day<<'/'<<Dt[1].Month<<'/'<<Dt[1].Year<<endl;
+}
+
 int main(void)
 {
-  stDateData Dt;
-  Dt = DataLoader();
+  stDateData Dt[2] = {DataLoader(), DataLoader()};
 
-  cout<<"Vacation From: "<<Dt.Day<<'/'<<Dt.Month<<'/'<<Dt.Year<<endl;
+  PrintInfo(Dt);
+  
   return (0);
 }

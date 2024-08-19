@@ -124,10 +124,8 @@ uint16_t CalcDifference(stDateData Dt[2])
   while (Dt[0].Day != Dt[1].Day || Dt[0].Month != Dt[1].Month) {
     Dt[0] = EndDayChecker(Dt[0]);
     
-    if (DaysConverter(GregorianCalc(Dt[0])) >= 5)
-      continue;
-    
-    Day += 1;
+    if (DaysConverter(GregorianCalc(Dt[0])) < 5)
+      Day++;
   }
 
   return (Day);

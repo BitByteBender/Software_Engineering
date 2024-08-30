@@ -88,7 +88,7 @@ void DisplayResult(stDates dt)
     cout<<"Date "<<++i<<":> "<<dt.Day<<'/'<<dt.Month<<'/'<<dt.Year<<'\n';
   }
 
-  cout<<"\nDT 0: "<<Dt[1].Day<<'/'<<Dt[1].Month<<'/'<<Dt[1].Year<<'\n';
+  cout<<"\nDT 1: "<<Dt[1].Day<<'/'<<Dt[1].Month<<'/'<<Dt[1].Year<<'\n';
   cout<<"DT 2: "<<Dt[2].Day<<'/'<<Dt[2].Month<<'/'<<Dt[2].Year<<"\n\n";
   
   cout<<(IsDate1EqualDate2(Dt[1], Dt[2]) ? "Equal" : "Not Equal")<<'\n';

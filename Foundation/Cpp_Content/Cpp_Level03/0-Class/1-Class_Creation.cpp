@@ -78,7 +78,7 @@ private:
 
 public:
   clsClient(string AccAdr, string Fn, string Ln, uint16_t Age, double Bl, string Adr, string Country, string City, string Phone)
-  { 
+  {
     _AccAdr = AccAdr;
     _Firstname = Fn;
     _Lastname = Ln;
@@ -87,16 +87,29 @@ public:
     _Balance = Bl;
   }
 
+  void SetPhoneAdr(string Phone)
+  {
+    this->_Adr.SetPhone(Phone);
+  }
+  
   void Print()
   {
-    cout<<_Adr.GetCity()<<endl;
+    cout<<"Fullname: "<<_Firstname + ' ' + _Lastname<<'\n'
+	<<"Age: "<<_Age<<'\n'
+	<<"Country: "<<_Adr.GetCountry()<<'\n'
+	<<"City: "<<_Adr.GetCity()<<'\n'
+	<<"Adr: "<<_Adr.GetAdr()<<'\n'
+	<<"Phone: "<<_Adr.GetPhone()<<'\n'
+	<<"Balance: "<<_Balance<<endl;
   }
 };
 
 int main(void)
 {
-  clsClient Cl("A000", "Ahmed", "Hajji", 18, 985.33, "St404, 10001", "Morocco", "Casablanca", "+98765999");
+  clsClient Cl("A000", "Ahmed", "Hajji", 18, 985.33, "St404, 10001", "Morocco", "Casablanca", "+14765999");
 
+  Cl.Print();
+  Cl.SetPhoneAdr("+985555");
   Cl.Print();
   return (0);
 }

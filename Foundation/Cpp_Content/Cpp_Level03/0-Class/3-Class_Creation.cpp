@@ -17,13 +17,13 @@ public:
   {
   }
 
-  /*
+
   clsString(const char* _Str)
   {
     this->_Str = _Str;
   }
-  */
-  clsString(const char* Str) : _Str(Str) {}
+
+  //clsString(const char* Str) : _Str(Str) {}
   
   void SetStr(const char* Str)
   {
@@ -93,10 +93,20 @@ int main(void)
   cout<<string(string(Str1.GetStr()))<<endl;
   cout<<PromptStr.length()<<'\n'<<string(Str1.GetStr()).length()<<endl;
   
-  clsMisc M1("This is really amazing!"), M2;
+  clsMisc M1("This is really amazing!"), M2, M3, M4;
   cout<<M1.WordCounter()<<endl;
   cout<<M2.WordCounter(Str1.GetStr())<<endl;
+  Str1.Print();
+  
+  PromptStr = ReadData("Enter a new content: ");
+  Str1.SetStr(PromptStr.c_str());
+  cout<<M3.WordCounter()<<endl;
+  cout<<M4.WordCounter(Str1.GetStr())<<endl;
   M1.Print();
   M2.Print();
+  Str1.Print();
+  M3.Print();
+  M4.Print();
+  
   return (0);
 }

@@ -2,10 +2,12 @@
 #include <cstdint>
 #include <string>
 #include <cstdlib>
+#include <vector>
 
 using std::cout;
 using std::endl;
 using std::string;
+using std::vector;
 
 class clsString
 {
@@ -47,6 +49,15 @@ public:
     uint16_t Len = 0;
     
     while (this->_Str[Len] != '\0') Len++;
+    
+    return (Len);
+  }
+
+  uint16_t Length(const char *Str = _StrHolder)
+  {
+    uint16_t Len = 0;
+    
+    while (Str[Len] != '\0') Len++;
     
     return (Len);
   }
@@ -157,7 +168,8 @@ public:
 	<<"Count-Ext<0 Param> : "<<WordCounterExt()<<'\n'
 	<<"Pos Finder         : "<<FindPos(" ")<<'\n'
 	<<"Slice              : "<<Substr(0, FindPos(" "))<<'\n'
-	<<"Pushed Back        : "<<Pushback(" True")<<endl;
+	<<"Pushed Back        : "<<Pushback(" True")<<'\n'
+	<<"Length<Static>     : "<<Length("Alpha Test!")<<'\n'<<endl;
   }
 
   ~clsString()
@@ -170,6 +182,28 @@ public:
 };
 
 const char *clsString::_StrHolder = nullptr;
+
+vector <string> Slice(const char *Delim)
+{
+  clsString Str("Hello World!");
+  vector <string> vSlices;
+  short Pos = Str.FindPos(Delim);
+  const char *StrH = Str.GetStr();
+  
+  while (Pos >= 0 && StrH[0] != '\0') {
+    vSlices.push_back(string(Str.Substr(0, Pos)));
+    StrH = string(StrH).erase(0, Pos + Str.Length(Delim)).c_str();
+    Str.SetStr(StrH);
+    Pos = Str.FindPos(Delim);
+  }
+
+  if (string(StrH) != "") {
+    vSlices.push_back(Str.GetStr());
+    string(StrH).clear();
+  }
+  
+  return (vSlices);
+}
 
 int main(void)
 {
@@ -207,6 +241,7 @@ int main(void)
   cout<<Str2.FindPos(" ##/  ")<<endl;
   cout<<string(Str2.GetStr()).substr(1, string(Str2.GetStr()).find(" ##/  ") - 1)<<endl;
   cout<<string(Str2.GetStr()).substr(1, Str2.FindPos(" ##/  ") - 1)<<endl;
-  
+
+  cout<<"Slices<Vector>     : "<<Slice(" ")[0]<<" and "<<Slice(" ")[1]<<'\n'<<endl;
   return (0);
 }

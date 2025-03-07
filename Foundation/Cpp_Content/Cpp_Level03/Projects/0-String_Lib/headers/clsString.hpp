@@ -34,7 +34,7 @@ public:
   static const char *Substr(uint16_t From, uint16_t To);
   static const char *Erase(uint16_t From, uint16_t To);
   
-  static vector <string> GetWords(const char *Val, const char *DELIM);
-  vector <string> GetWords(const char *DELIM) const;
+  static vector <const char*> GetWords(const char *Val, const char *DELIM);
+  vector <const char*> GetWords(const char *DELIM) const;
 };
 #endif /* CLSSTRING_H */

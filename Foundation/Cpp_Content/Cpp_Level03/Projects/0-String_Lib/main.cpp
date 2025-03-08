@@ -22,7 +22,7 @@ int main(void)
   cout<<"GVal: "<<clsString::getGValue()<<'\n';
   cout<<"GVal Pos: "<<clsString::FindPos(" ")<<'\n';
   */
-  cout<<"Substr: "<<clsString::Substr(2, 5)<<'\n';
+  //cout<<"Substr: "<<clsString::Substr(2, 5)<<'\n';
   for (const char *v:str1.GetWords("i#!# * t## * re y## * Gm La##! * Rt## *!", "## * ")) {
     cout<<v<<'\n';
     }/*
@@ -44,5 +44,11 @@ int main(void)
   cout<<"Str3 Before: "<<str3.getGValue()<<'\n';
   str3.setGValue(clsString::Erase(2, 4));
   cout<<"Str3 After[2, 4]: "<<str3.getGValue()<<'\n';*/
+
+  cout<<str3.toUpper("rambo, tHE bLuE #gReEk")<<'\n';
+  cout<<str3.toLower("rambo tHE @bLuE 'gReEk")<<'\n';
+  cout<<clsString::Strlen("Hello !")<<" | "<<strlen("Hello !")<<'\n';
+  str3.setGValue("Hello !");
+  cout<<str3.Strlen()<<'\n';
   return (0);
 }

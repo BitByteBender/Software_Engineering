@@ -16,11 +16,12 @@ class clsString
 {
 private:
   const char *m_Value = nullptr;
+  static char *m_Buffer;
   static const char *m_Global_Value;
   
 public:
-  clsString() : m_Value(nullptr) {}
-  clsString(const char *Val) : m_Value(Val) {}
+  clsString();
+  clsString(const char *Val);
 
   void setValue(const char *Val);
   const char *getValue() const;
@@ -36,5 +37,17 @@ public:
   
   static vector <const char*> GetWords(const char *Val, const char *DELIM);
   vector <const char*> GetWords(const char *DELIM) const;
+
+  bool isLower(char Alphabet);
+  bool isUpper(char Alphabet);
+  const char *toLower(const char *Word);
+  static const char *toLower();
+  const char *toUpper(const char *Word);
+  static const char *toUpper();
+
+  static uint16_t Strlen(const char *Word);
+  uint16_t Strlen();
+  
+  ~clsString();
 };
 #endif /* CLSSTRING_H */

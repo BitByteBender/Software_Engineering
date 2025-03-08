@@ -1,10 +1,15 @@
 #include "../headers/clsString.hpp"
 
 const char *clsString::m_Global_Value = nullptr;
+char *clsString::m_Buffer = nullptr;
+
+clsString::clsString() : m_Value(nullptr) {}
+
+clsString::clsString(const char *Val) : m_Value(Val) {}
 
 void clsString::setValue(const char *Val)
 {
-  this->m_Value = Val;
+  m_Value = Val;
 }
 
 const char *clsString::getValue() const
@@ -61,7 +66,7 @@ uint16_t clsString::FindPos(const char *DELIM)
 
     i++;
   }
-  
+
   return (pos);
 }
 
@@ -69,73 +74,117 @@ uint16_t clsString::FindPos(const char *DELIM)
 const char *clsString::Substr(uint16_t From, uint16_t To)
 {
   uint16_t i = 0, len = abs(To - From);
-  char *_Buffer = (char *)malloc(len + 1);
+  m_Buffer = (char *)malloc(len + 1);
   
   for (; i < len; ++i) {
-    _Buffer[i] = clsString::getGValue()[From + i];
+    m_Buffer[i] = clsString::getGValue()[From + i];
   }
 
-  _Buffer[len] = '\0';
-  return (_Buffer);
+  m_Buffer[len] = '\0';
+  return (m_Buffer);
 }
 
 const char *clsString::Erase(uint16_t From, uint16_t To)
 {
   uint16_t len = strlen(clsString::getGValue()) - abs(To - From), i = 0, j = 0;
-  char *_Buffer = (char*)malloc(len + 1);
+  m_Buffer = (char*)malloc(len + 1);
 
   cout<<"strVal: "<<clsString::getGValue()<<'\n';
   cout<<"strLen: "<<strlen(clsString::getGValue())<<'\n';
   cout<<"size len: "<<len<<'\n';
-  cout<<"size buffer: "<<sizeof(_Buffer)<<'\n';
+  cout<<"size buffer: "<<sizeof(m_Buffer)<<'\n';
   
   for (i = 0; i < strlen(clsString::getGValue()); ++i) {
     if (i >= From && i < To) continue;
     
-    _Buffer[j] = clsString::getGValue()[i];
+    m_Buffer[j] = clsString::getGValue()[i];
     j++;
 
   }
 
-  _Buffer[len] = '\0';
-  return (_Buffer);
+  m_Buffer[len] = '\0';
+  return (m_Buffer);
 }
 
 vector <const char*> clsString::GetWords(const char *Val, const char *DELIM)
 {
   vector <const char*> vWords;
-  /*
-    string strContainter = Val;
-  short pos = string(strContainter).find(DELIM);
-  
-  while (pos > 0) {
-    vWords.push_back(strContainter.substr(0, pos));
-    strContainter.erase(0, pos + string(DELIM).length());
-    pos = strContainter.find(DELIM);
-  }
 
-  if (!strContainter.empty()) vWords.push_back(strContainter);
-  */
   clsString::setGValue(Val);
-  string strContainer = clsString::getGValue();
+  m_Global_Value = clsString::getGValue();
   short pos = FindPos(DELIM);
 
   while (pos >= 0) {
     vWords.push_back(clsString::Substr(0, pos));
-    //clsString::setGValue(strContainer.erase(0, pos + string(DELIM).length()).c_str());
-    strContainer = clsString::Erase(0, pos + strlen(DELIM));
-    clsString::setGValue(strContainer.c_str());
-    cout<<"SC: "<<strContainer<<" | GVal: "<<clsString::getGValue()<<'\n';
+    m_Global_Value = clsString::Erase(0, pos + strlen(DELIM));
+    clsString::setGValue(m_Global_Value);
+    cout<<"SC: "<<m_Global_Value<<" | GVal: "<<clsString::getGValue()<<'\n';
     pos = FindPos(DELIM);
 
-    if (strContainer.empty())
+    if (string(m_Global_Value).empty())
       break;
   }
 
+  free((void*)m_Global_Value);
   return (vWords);
 }
 
 vector <const char*> clsString::GetWords(const char *DELIM) const
 {
   return (GetWords(m_Value, DELIM));
+}
+
+bool clsString::isLower(char Alphabet)
+{
+  return (Alphabet >= 97 && Alphabet <= 122);
+}
+
+bool clsString::isUpper(char Alphabet)
+{
+  return (Alphabet >= 65 && Alphabet <= 90);
+}
+
+const char *clsString::toLower(const char *Word)
+{
+  uint16_t i = 0, len = strlen(Word);
+  m_Buffer = (char*)malloc(len + 1);
+
+  for (; i < len; i++) {
+    if (isUpper(Word[i])) m_Buffer[i] = char(uint16_t(Word[i]) + 32);
+    else m_Buffer[i] = Word[i];
+  }
+  
+  return (m_Buffer);
+}
+
+const char *clsString::toUpper(const char *Word)
+{
+  uint16_t i = 0, len = strlen(Word);
+  m_Buffer = (char*)malloc(len + 1);
+
+  for (; i < len; i++) {
+    if (isLower(Word[i])) m_Buffer[i] = char(uint16_t(Word[i]) - 32);
+    else m_Buffer[i] = Word[i];
+  }
+  
+  return (m_Buffer);
+}
+
+uint16_t clsString::Strlen(const char *Word)
+{
+  uint16_t Counter = 0;
+
+  while (Word[Counter] != '\0') Counter++;
+  
+  return (Counter);
+}
+
+uint16_t clsString::Strlen()
+{
+  return (Strlen(m_Global_Value));
+}
+
+clsString::~clsString()
+{
+  
 }

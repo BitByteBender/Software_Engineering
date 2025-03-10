@@ -118,9 +118,45 @@ uint16_t clsDate::RemainingDays(uint16_t Days, uint16_t Year)
   return (Days);
 }
 
+uint16_t clsDate::RemainingDays() const
+{
+  return (RemainingDays(stoi(m_Day), stoi(m_Year)));
+}
+
 void clsDate::Print() const
 {
   cout<<"Date <"<<m_Day<<'/'<<m_Month<<'/'<<m_Year<<">\n";
+}
+
+uint16_t clsDate::GregorianCalc(clsDate *Date)
+{
+  uint16_t a = 0, y = stoi(Date->m_Year), m = stoi(Date->m_Month), d = 0;
+
+  a = floor((14 - m) / 12);
+  y -= a;
+  m += (12 * a) - 2;
+
+  d = (stoi(Date->m_Day) + y + floor(y/4) - floor(y/100) + floor(y/400) + floor((31 * m) / 12));
+  d = d % 7;
+
+  return (d);
+}
+
+uint16_t clsDate::GregorianCalc()
+{
+  return (GregorianCalc(this));
+}
+
+bool clsDate::IsValid(clsDate *Date)
+{
+  if (stoi(Date->m_Day) > getDaysInMonth(stoi(Date->m_Month), stoi(Date->m_Year)) || (stoi(Date->m_Month) > 12 || stoi(Date->m_Month) < 1)) return (0);
+  else
+    return (1);
+}
+
+bool clsDate::IsValid()
+{
+  return (IsValid(this));
 }
 
 clsDate::~clsDate()

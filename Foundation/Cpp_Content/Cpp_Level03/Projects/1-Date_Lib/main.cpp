@@ -90,8 +90,61 @@ int main(void)
   cout<<"Month: "<<D4.DaysIntoMonths(62, 2025)<<'\n';
   cout<<"Days left: "<<D4.RemainingDays(62, 2025)<<'\n';
 
-  uint16_t Days = 126, Year = 2025;
+  uint16_t Days = 250, Year = 2022;
   clsDate D5(Days, Year);
   D5.Print();
+  
+  cout<<D5.GregorianCalc()<<'\n';
+
+  string Dd = "10", Mm = "3", Yy = "2025";
+  D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
+  cout<<clsDate::GregorianCalc(&D5)<<'\n';
+  cout<<D5.IsValid()<<'\n';
+  
+  Dd = "17", Mm = "3", Yy = "2025";
+  D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
+  cout<<clsDate::GregorianCalc(&D5)<<'\n';
+  cout<<D5.IsValid()<<'\n';
+  
+  Dd = "16", Mm = "3", Yy = "2025";
+  D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
+  cout<<clsDate::GregorianCalc(&D5)<<'\n';
+  cout<<D5.IsValid()<<'\n';
+    
+  Dd = "32", Mm = "12", Yy = "2025";
+  D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
+  cout<<clsDate::GregorianCalc(&D5)<<'\n';
+  cout<<D5.IsValid()<<'\n';
+
+  Dd = "29", Mm = "2", Yy = "2025";
+  D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
+  cout<<clsDate::GregorianCalc(&D5)<<'\n';
+  cout<<D5.IsValid()<<'\n';
+
+  Dd = "28", Mm = "2", Yy = "2025";
+  D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
+  cout<<clsDate::GregorianCalc(&D5)<<'\n';
+  cout<<D5.IsValid()<<'\n';
+
+  Dd = "29", Mm = "2", Yy = "2368";
+  D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
+  cout<<clsDate::GregorianCalc(&D5)<<'\n';
+  cout<<D5.IsValid()<<'\n';
+  
+  Dd = "31", Mm = "1", Yy = "2025";
+  D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
+  cout<<clsDate::GregorianCalc(&D5)<<'\n';
+  cout<<D5.IsValid()<<'\n';
+
+  Dd = "29", Mm = "0", Yy  = "2025";
+  D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
+  cout<<clsDate::GregorianCalc(&D5)<<'\n';
+  cout<<D5.IsValid()<<'\n';
+
+  Dd = "29", Mm = "13", Yy = "2025";
+  D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
+  cout<<clsDate::GregorianCalc(&D5)<<'\n';
+  cout<<D5.IsValid()<<'\n';
+  
   return (0);
 }

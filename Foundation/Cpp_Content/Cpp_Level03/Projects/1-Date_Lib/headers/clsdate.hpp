@@ -22,7 +22,7 @@ public:
   string getDay() const;
   string getMonth() const;
   string getYear() const;
-
+  
   static uint16_t isLeap(uint16_t Year);
   uint16_t isLeap();
   
@@ -36,7 +36,13 @@ public:
   uint16_t DaysIntoMonths() const;
   
   static uint16_t RemainingDays(uint16_t Days, uint16_t Year);
-  uint16_t RemainingDays();
+  uint16_t RemainingDays() const;
+
+  static uint16_t GregorianCalc(clsDate *Date);
+  uint16_t GregorianCalc();
+
+  static bool IsValid(clsDate *Date);
+  bool IsValid();
   
   void Print() const;
   

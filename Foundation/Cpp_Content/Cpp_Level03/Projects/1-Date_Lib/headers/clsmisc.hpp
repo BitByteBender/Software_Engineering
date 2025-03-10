@@ -5,6 +5,7 @@
 #include <string.h>
 #include <vector>
 #include <cstdint>
+#include <cmath>
 
 using std::cout;
 using std::endl;

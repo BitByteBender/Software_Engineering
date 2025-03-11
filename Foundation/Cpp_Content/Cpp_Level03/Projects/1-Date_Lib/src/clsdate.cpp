@@ -141,7 +141,21 @@ uint16_t clsDate::GregorianCalc(clsDate *Date)
 
   return (d);
 }
+/*
+uint16_t clsDate::GregorianCalc(clsDate Date)
+{
+  uint16_t a = 0, y = stoi(Date.m_Year), m = stoi(Date.m_Month), d = 0;
 
+  a = floor((14 - m) / 12);
+  y -= a;
+  m += (12 * a) - 2;
+
+  d = (stoi(Date.m_Day) + y + floor(y/4) - floor(y/100) + floor(y/400) + floor((31 * m) / 12));
+  d = d % 7;
+
+  return (d);
+}
+*/
 uint16_t clsDate::GregorianCalc()
 {
   return (GregorianCalc(this));

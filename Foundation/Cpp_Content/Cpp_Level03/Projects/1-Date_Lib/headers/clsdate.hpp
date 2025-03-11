@@ -39,6 +39,7 @@ public:
   uint16_t RemainingDays() const;
 
   static uint16_t GregorianCalc(clsDate *Date);
+  //static uint16_t GregorianCalc(clsDate Date);
   uint16_t GregorianCalc();
 
   static bool IsValid(clsDate *Date);

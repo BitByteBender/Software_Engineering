@@ -145,6 +145,11 @@ int main(void)
   D5.setDay(Dd), D5.setMonth(Mm), D5.setYear(Yy);
   cout<<clsDate::GregorianCalc(&D5)<<'\n';
   cout<<D5.IsValid()<<'\n';
+
+  D = 28, M = 12, Y = 2025;
+  clsDate *ptr = new clsDate(D, M, Y);
+  cout<<clsDate::GregorianCalc(ptr)<<'\n';
+  delete ptr;
   
   return (0);
 }

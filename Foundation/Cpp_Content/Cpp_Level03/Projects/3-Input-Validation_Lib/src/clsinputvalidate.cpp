@@ -73,21 +73,20 @@ bool clsInputValidate::NANChecker(string Str)
 int clsInputValidate::ReadIntegerNumberBetween(int From, int To, const char *Msg)
 {
   string strContainer = "";
-  bool Checker = false;
-  cout<<"Enter an integer: ";
-  getline(cin>>ws, strContainer);
-
+  bool Checker = true;
+  
   do {
     if (Checker) {
+      cout<<"Enter an integer: ";
       getline(cin>>ws, strContainer);
       Checker = false;
     }
     
     if (!NANChecker(strContainer)) {
-      cout<<"["<<strContainer<<"] NAN re-enter an integer value: ";
+      cout<<"["<<strContainer<<"] NAN re-";
       Checker = true;
     } else if (!IsNumberBetween(stoi(strContainer), From, To)) {
-      cout<<Msg<<endl;
+      cout<<Msg<<From<<" and "<<To<<", re-";
       Checker = true;
     }
 

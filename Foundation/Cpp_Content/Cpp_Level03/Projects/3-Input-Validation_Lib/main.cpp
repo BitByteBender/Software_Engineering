@@ -10,8 +10,8 @@ int main(void)
   cout<<clsInputValidate::IsDateBetween(clsDate(), clsDate(D, M, Y), clsDate(Dd, Mm, Y))<<endl;
   cout<<clsInputValidate::IsDateBetween(clsDate(), clsDate(Dd, Mm, Y), clsDate(D, M, Y))<<endl;
 
- /* int a = clsInputValidate::ReadIntegerNumber("Invalid integer number, Enter again: ");
-  cout<<"a = "<<a<<'\n';*/
+  int a = clsInputValidate::ReadIntegerNumber("Invalid integer number, Enter again: ");
+  cout<<"a = "<<a<<'\n';
 
   int b = clsInputValidate::ReadIntegerNumberBetween(1, 15, "Number entered is not between ");
   cout<<"b = "<<b<<endl;

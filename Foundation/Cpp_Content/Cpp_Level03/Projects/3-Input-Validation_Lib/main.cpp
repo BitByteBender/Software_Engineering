@@ -13,12 +13,19 @@ int main(void)
  /* int a = clsInputValidate::ReadIntegerNumber("Invalid integer number, Enter again: ");
   cout<<"a = "<<a<<'\n';*/
 
-  /*int b = clsInputValidate::ReadIntegerNumberBetween(1, 15, "Number entered is not between ");
+  int b = clsInputValidate::ReadIntegerNumberBetween(1, 15, "Number entered is not between ");
   cout<<"b = "<<b<<endl;
+  
+  /*
+  cout<<clsInputValidate::NANChecker("-81r-")<<endl;
+  cout<<clsInputValidate::NANChecker("99-Z-")<<endl;
+  cout<<clsInputValidate::NANChecker("-8Z1r-")<<endl;
+  cout<<clsInputValidate::NANChecker("9-Z")<<endl;
+  cout<<clsInputValidate::NANChecker("9")<<endl;
+  cout<<clsInputValidate::NANChecker("809")<<endl;
+  cout<<clsInputValidate::NANChecker("-829")<<endl;
+  cout<<clsInputValidate::NANChecker("99-")<<endl;
+  cout<<clsInputValidate::NANChecker("-9-8")<<endl;
   */
-  cout<<clsInputValidate::Filter("-81r-")<<endl;
-  cout<<clsInputValidate::Filter("99-Z-")<<endl;
-  cout<<clsInputValidate::Filter("-8Z1r-")<<endl;
-  cout<<clsInputValidate::Filter("9-Z")<<endl;
   return (0);
 }

@@ -16,7 +16,7 @@ class clsInputValidate
   static bool IsDateBetween(clsDate Date, clsDate From, clsDate To);
   static int ReadIntegerNumber(const char *Msg);
   static int ReadIntegerNumberBetween(int From, int To, const char *Msg);
-  static int Filter(string Str);
+  static bool NANChecker(string Str);
 };
 
 #endif /* CLSINPUTVALIDATE_HPP */

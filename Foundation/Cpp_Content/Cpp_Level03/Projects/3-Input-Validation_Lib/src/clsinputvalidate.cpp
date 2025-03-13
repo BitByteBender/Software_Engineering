@@ -58,37 +58,40 @@ int clsInputValidate::ReadIntegerNumber(const char *Msg)
   return (Num);
 }
 
-int clsInputValidate::Filter(string Str)
+bool clsInputValidate::NANChecker(string Str)
 {
   uint16_t i = 0;
-  int Num = 0;
-  string Filler = "";
   
   for (; i < Str.length(); ++i) {
-    if (Str[i] == '-' && i == 0) Filler += Str[i];
-    else if (IsNumberBetween(int(char(Str[i]) - 48), 0, 9)) Filler += Str[i];
+    if (Str[i] == '-' && i == 0) continue;
+    else if (!IsNumberBetween(int(char(Str[i]) - 48), 0, 9)) return (false);
   }
   
-  return (Num = stoi(Filler));
+  return (true);
 }
 
 int clsInputValidate::ReadIntegerNumberBetween(int From, int To, const char *Msg)
 {
-  int Num = 0;
   string strContainer = "";
-  
+  bool Checker = false;
   cout<<"Enter an integer: ";
   getline(cin>>ws, strContainer);
 
   do {
-    
-    if (!IsNumberBetween(Num, From, To)) {
-      cout<<Msg<<endl;
+    if (Checker) {
       getline(cin>>ws, strContainer);
-      continue;
+      Checker = false;
+    }
+    
+    if (!NANChecker(strContainer)) {
+      cout<<"["<<strContainer<<"] NAN re-enter an integer value: ";
+      Checker = true;
+    } else if (!IsNumberBetween(stoi(strContainer), From, To)) {
+      cout<<Msg<<endl;
+      Checker = true;
     }
 
-  } while (true);
+  } while (Checker);
 
-  return (Num);
+  return (stoi(strContainer));
 }

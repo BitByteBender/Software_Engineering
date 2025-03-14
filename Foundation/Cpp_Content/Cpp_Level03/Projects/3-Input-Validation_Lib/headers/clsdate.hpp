@@ -47,6 +47,9 @@ public:
 
   static string DateToString(clsDate Date);
   string DateToString() const;
+
+  static bool IsDateBetween(clsDate Date, clsDate From, clsDate To);
+  bool IsDateBetween() const;
   
   void Print() const;
   

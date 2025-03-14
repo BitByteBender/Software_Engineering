@@ -6,6 +6,8 @@
 using std::cin;
 using std::cerr;
 using std::ws;
+using std::numeric_limits;
+using std::streamsize;
 
 class clsInputValidate
 {
@@ -19,6 +21,7 @@ class clsInputValidate
   static bool NANChecker(string Str);
   static int ReadIntegerNumberBetween(int From, int To, const char *Msg);
   static double ReadDblNumber(const char *Msg);
+  static double ReadDoubleNumber(const char *Msg="Invalid number, Enter again: ");
   static double ReadDblNumberBetween(double From, double To, const char *Msg);
   static bool IsValidDate(clsDate Date);
 };

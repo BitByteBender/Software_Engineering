@@ -157,3 +157,21 @@ bool clsInputValidate::IsValidDate(clsDate Date)
 {
   return (clsDate::IsValid(&Date));
 }
+
+double clsInputValidate::ReadDoubleNumber(const char *Msg)
+{
+  double Num = 0;
+  string msg = "Enter a double number: ";
+  cout<<msg;
+  cin>>Num;
+  
+  while (cin.fail()) {
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    msg = Msg;
+    cout<<msg;
+    cin>>Num;
+  }
+  
+  return (Num);
+}

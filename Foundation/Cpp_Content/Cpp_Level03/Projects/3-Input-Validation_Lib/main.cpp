@@ -22,20 +22,11 @@ int main(void)
   double d = clsInputValidate::ReadDblNumberBetween(.56, 9.35, "Number entered is not between ");
   cout<<"d = "<<d<<endl;
   
-  /*
-  cout<<clsInputValidate::NANChecker("-81r-")<<endl;
-  cout<<clsInputValidate::NANChecker("99-Z-")<<endl;
-  cout<<clsInputValidate::NANChecker("-8Z1r-")<<endl;
-  cout<<clsInputValidate::NANChecker("9-Z")<<endl;
-  cout<<clsInputValidate::NANChecker("9")<<endl;
-  cout<<clsInputValidate::NANChecker("809")<<endl;
-  cout<<clsInputValidate::NANChecker("-829")<<endl;
-  cout<<clsInputValidate::NANChecker("99-")<<endl;
-  cout<<clsInputValidate::NANChecker("-9-8")<<endl;
-  */
-
   uint16_t Day = 31, Month = 12, Year = 2025;
   cout<<clsInputValidate::IsValidDate(clsDate(Day, Month, Year))<<endl;
+  
+  double y = clsInputValidate::ReadDoubleNumber();
+  cout<<"y = "<<y<<'\n';
   
   return (0);
 }

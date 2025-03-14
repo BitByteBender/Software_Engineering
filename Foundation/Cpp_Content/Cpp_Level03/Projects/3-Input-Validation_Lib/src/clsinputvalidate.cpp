@@ -17,13 +17,7 @@ bool clsInputValidate::IsNumberBetween(float Num, float From, float To)
 
 bool clsInputValidate::IsDateBetween(clsDate Date, clsDate From, clsDate To)
 {
-  bool Y, M, D;
-
-  Y = (stoi(Date.getYear()) >= stoi(From.getYear()) && stoi(Date.getYear()) <= stoi(To.getYear()));
-  M = (stoi(From.getMonth()) <= stoi(Date.getMonth()) && stoi(Date.getMonth()) <= stoi(To.getMonth()));
-  D = (stoi(Date.getDay()) >= stoi(From.getDay()) && stoi(Date.getDay()) <= stoi(To.getDay()));
-
-  return (Y && M && D);
+  return (clsDate::IsDateBetween(Date, From, To));
 }
 
 int clsInputValidate::ReadIntegerNumber(const char *Msg)

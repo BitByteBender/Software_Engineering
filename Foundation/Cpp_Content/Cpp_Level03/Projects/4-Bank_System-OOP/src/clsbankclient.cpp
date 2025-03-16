@@ -1,5 +1,6 @@
 #include "../headers/clsbankclient.hpp"
 
+clsBankClient::clsBankClient() : clsPerson("", "", "", "") {};
 clsBankClient::clsBankClient(enMode Mode, string AccNum, string Pincode, double Balance,
 			     string Firstname, string Lastname, string Email, string Phonenum)
   : clsPerson(Firstname, Lastname, Email, Phonenum), m_Mode(Mode),
@@ -116,4 +117,80 @@ bool clsBankClient::IsClientExist(string AccNum)
 {
   clsBankClient Client = clsBankClient::Find(AccNum);
   return (!Client.IsEmpty());
+}
+
+string clsBankClient::_ConvertClientObjectToLine(clsBankClient ClientObj, string Separator)
+{
+  string Line = "";
+
+  Line = ClientObj.GetFirstname() + Separator;
+  Line += ClientObj.GetLastname() + Separator;
+  Line += ClientObj.GetEmail() + Separator;
+  Line += ClientObj.GetPhonenum() + Separator;
+  Line += ClientObj.GetAccountNumber() + Separator;
+  Line += ClientObj.GetPincode() + Separator + to_string(ClientObj.GetBalance());
+    
+  return (Line);
+}
+
+vector <clsBankClient> clsBankClient::_Loader(string Filename)
+{
+  vector <clsBankClient> vClients;
+  
+  fstream File;
+  File.open(Filename, ios::in);
+
+  if (File.is_open()) {
+    string Line = "";
+    while (getline(File, Line)) {
+      if (Line != "") vClients.push_back(_ConvertLineToClientObject(Line));
+    }
+    File.close();
+  }
+  
+  return (vClients);
+}
+
+void clsBankClient::_Saver(vector <clsBankClient> &vClientObj)
+{
+  fstream File; 
+  File.open("Clients.txt", ios::out);
+
+  if (File.is_open()) {
+    string Rec = "";
+    
+    for (const clsBankClient &Obj:vClientObj) {
+      Rec = _ConvertClientObjectToLine(Obj);
+      File << Rec<<'\n';
+    }
+    File.close();
+  }
+}
+
+void clsBankClient::_Update()
+{
+  vector <clsBankClient> vClientsObj = _Loader("Clients.txt");
+  
+  for (clsBankClient &Obj:vClientsObj) {
+    if (Obj.GetAccountNumber() == GetAccountNumber()) {
+      Obj = *this;
+      break;
+    }
+  }
+  
+  _Saver(vClientsObj);
+  cout<<"End of saving\n"<<endl;
+}
+
+clsBankClient::enSaveResults clsBankClient::Save()
+{
+  switch (m_Mode) {
+  case (enMode::EmptyMode):
+    break;
+  case (enMode::UpdateMode):
+    _Update();
+    return (enSaveResults::svSucceeded);
+  }
+  
+  return (enSaveResults::svFailedEmptyObj);
 }

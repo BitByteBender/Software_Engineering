@@ -38,11 +38,11 @@ public:
   static vector <const char*> GetWords(const char *Val, const char *DELIM);
   vector <const char*> GetWords(const char *DELIM) const;
 
-  bool isLower(char Alphabet);
-  bool isUpper(char Alphabet);
-  const char *toLower(const char *Word);
+  static bool isLower(char Alphabet);
+  static bool isUpper(char Alphabet);
+  static const char *toLower(const char *Word);
   static const char *toLower();
-  const char *toUpper(const char *Word);
+  static const char *toUpper(const char *Word);
   static const char *toUpper();
 
   static uint16_t Strlen(const char *Word);

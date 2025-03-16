@@ -168,7 +168,7 @@ const char *clsString::toUpper(const char *Word)
     if (isLower(Word[i])) m_Buffer[i] = char(uint16_t(Word[i]) - 32);
     else m_Buffer[i] = Word[i];
   }
-  
+ 
   return (m_Buffer);
 }
 

@@ -19,10 +19,19 @@ private:
 
   static clsBankClient _ConvertLineToClientObject(string Line, string Separator="#//#");
   static clsBankClient _GetEmptyClientObject();
+  static string _ConvertClientObjectToLine(clsBankClient ClientObj, string Separator="#//#");
+  static vector <clsBankClient> _Loader(string Filename);
+  static void _Saver(vector <clsBankClient> &vClientObj);
+  void _Update();
 public:
+  clsBankClient();
   clsBankClient(enMode Mode, string AccNum, string Pincode, double Balance, string Firstname, string Lastname, string Email, string Phonenum);
 
-  //Read only for now (because i'm onnly using the find method)
+  /*
+    Read only for now (because i'm only using the find method)
+    Prolly i will do an incrementor or randomizer
+    instead of a Set_method once i get to the Add_method
+  */
   string GetAccountNumber(void) const;
 
   bool IsEmpty() const;
@@ -37,7 +46,9 @@ public:
 
   static clsBankClient Find(string AccNum);
   static clsBankClient Find(string AccNum, string Pincode);
-
   static bool IsClientExist(string AccNum);
+
+  enum enSaveResults { svFailedEmptyObj = 0, svSucceeded = 1};
+  enSaveResults Save();
 };
 #endif /* CLSBANKCLIENT_HPP */

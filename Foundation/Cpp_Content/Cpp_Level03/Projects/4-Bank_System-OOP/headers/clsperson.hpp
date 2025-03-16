@@ -2,7 +2,7 @@
 #define CLSPERSON_HPP
 
 #include "clsutil.hpp"
-#include "clsString.hpp"
+#include "clsinputvalidate.hpp"
 
 class clsPerson
 {

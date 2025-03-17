@@ -5,5 +5,6 @@
 
 void ReadStr(clsBankClient &Client);
 void UpdateClient();
-
+void AddNewClient();
+void DeleteClient();
 #endif /* CORE_HPP */

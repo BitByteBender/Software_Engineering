@@ -2,7 +2,9 @@
 
 int main(void)
 {
-  UpdateClient();
+  //UpdateClient();
+  //AddNewClient();
+  DeleteClient();
   
   return (0);
 }

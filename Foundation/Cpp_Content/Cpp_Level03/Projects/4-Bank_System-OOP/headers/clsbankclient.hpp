@@ -10,28 +10,26 @@ using std::ios;
 class clsBankClient : public clsPerson
 {
 private:
-  enum enMode { EmptyMode = 0, UpdateMode = 1 };
+  enum enMode { EmptyMode = 0, UpdateMode = 1 , AddNewMode = 2 };
   
   enMode m_Mode = enMode::EmptyMode;
   string m_AccountNumber = "";
   string m_PinCode = "";
   double m_Balance = 0;
-
+  bool m_Marked = false;
+  
   static clsBankClient _ConvertLineToClientObject(string Line, string Separator="#//#");
   static clsBankClient _GetEmptyClientObject();
   static string _ConvertClientObjectToLine(clsBankClient ClientObj, string Separator="#//#");
   static vector <clsBankClient> _Loader(string Filename);
   static void _Saver(vector <clsBankClient> &vClientObj);
   void _Update();
+  void _AddNew();
+  void _AddDataLineToFile(string Line);
 public:
   clsBankClient();
   clsBankClient(enMode Mode, string AccNum, string Pincode, double Balance, string Firstname, string Lastname, string Email, string Phonenum);
 
-  /*
-    Read only for now (because i'm only using the find method)
-    Prolly i will do an incrementor or randomizer
-    instead of a Set_method once i get to the Add_method
-  */
   string GetAccountNumber(void) const;
 
   bool IsEmpty() const;
@@ -47,8 +45,11 @@ public:
   static clsBankClient Find(string AccNum);
   static clsBankClient Find(string AccNum, string Pincode);
   static bool IsClientExist(string AccNum);
-
-  enum enSaveResults { svFailedEmptyObj = 0, svSucceeded = 1};
+  
+  static clsBankClient GetAddNewClientObject(string AccNum);
+  static clsBankClient GetDeletedClientObject(clsBankClient Client);
+  bool Delete();
+  enum enSaveResults { svFailedEmptyObj = 0, svSucceeded = 1, svFailedAccNumExists = 2 };
   enSaveResults Save();
 };
 #endif /* CLSBANKCLIENT_HPP */

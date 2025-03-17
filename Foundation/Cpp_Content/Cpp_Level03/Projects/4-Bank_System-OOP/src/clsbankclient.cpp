@@ -160,8 +160,10 @@ void clsBankClient::_Saver(vector <clsBankClient> &vClientObj)
     string Rec = "";
     
     for (const clsBankClient &Obj:vClientObj) {
-      Rec = _ConvertClientObjectToLine(Obj);
-      File << Rec<<'\n';
+      if (Obj.m_Marked == false) {
+	Rec = _ConvertClientObjectToLine(Obj);
+	File << Rec<<'\n';
+      }
     }
     File.close();
   }
@@ -182,15 +184,73 @@ void clsBankClient::_Update()
   cout<<"End of saving\n"<<endl;
 }
 
+clsBankClient clsBankClient::GetAddNewClientObject(string AccNum)
+{
+  return (clsBankClient(enMode::AddNewMode, AccNum, "", 0, "", "", "", ""));
+}
+
+void clsBankClient::_AddDataLineToFile(string Line)
+{
+  fstream File;
+  File.open("Clients.txt", ios::out | ios::app);
+
+  if (File.is_open()) {
+    if (!Line.empty())
+      File<<Line<<'\n';
+
+    File.close();
+  }
+}
+
+void clsBankClient::_AddNew()
+{
+  return (_AddDataLineToFile(_ConvertClientObjectToLine(*this)));
+}
+/*
+clsBankClient clsBankClient::GetDeletedClientObject(clsBankClient Client)
+{
+  return (clsBankClient(enMode::DeleteMode, Client.GetAccountNumber(), Client.GetPincode(),
+			Client.GetBalance(), Client.GetFirstname(), Client.GetLastname(),
+			Client.GetEmail(), Client.GetPhonenum()));
+}
+*/
+bool clsBankClient::Delete()
+{
+  vector <clsBankClient> vClients = _Loader("Clients.txt");
+  
+  for (clsBankClient &Obj:vClients) {
+    if (Obj.GetAccountNumber() == GetAccountNumber()) {
+      Obj.m_Marked = true;
+      break;
+    }
+  }
+
+  _Saver(vClients);
+  cout<<"End of Deletion\n"<<endl;
+  *this = _GetEmptyClientObject();
+  
+  return (true);
+}
+
 clsBankClient::enSaveResults clsBankClient::Save()
 {
   switch (m_Mode) {
   case (enMode::EmptyMode):
-    break;
+    if (IsEmpty())
+      return (enSaveResults::svFailedEmptyObj);
+    else break;
   case (enMode::UpdateMode):
     _Update();
-    return (enSaveResults::svSucceeded);
+    break;
+  case (enMode::AddNewMode):
+    if (IsClientExist(GetAccountNumber())) {
+      return (enSaveResults::svFailedAccNumExists);
+    } else {
+      _AddNew();
+      m_Mode = enMode::UpdateMode;
+      return (enSaveResults::svSucceeded);
+    }
   }
   
-  return (enSaveResults::svFailedEmptyObj);
+  return (enSaveResults::svSucceeded);
 }

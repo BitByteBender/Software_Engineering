@@ -36,21 +36,6 @@ bool clsBankClient::IsEmpty() const
   return (m_Mode == enMode::EmptyMode);
 }
 
-void clsBankClient::Print(void)
-{
-  cout<<"Bank Client Record\n"
-      <<"----------------------------------------\n"
-      <<"Firstname      :  "<<clsPerson::GetFirstname()<<'\n'
-      <<"Lastname       :  "<<clsPerson::GetLastname()<<'\n'
-      <<"Fullname       :  "<<clsPerson::GetFullname()<<'\n'
-      <<"Email          :  "<<clsPerson::GetEmail()<<'\n'
-      <<"Phone Number   :  "<<clsPerson::GetPhonenum()<<'\n'
-      <<"Account Number :  "<<GetAccountNumber()<<'\n'
-      <<"Password       :  "<<GetPincode()<<'\n'
-      <<"Balance        :  "<<GetBalance()<<'\n'
-      <<"----------------------------------------\n"<<endl;
-}
-
 clsBankClient clsBankClient::_ConvertLineToClientObject(string Line, string Separator)
 {
   vector <const char *> vLine = clsString::GetWords(Line.c_str(), Separator.c_str());
@@ -253,4 +238,38 @@ clsBankClient::enSaveResults clsBankClient::Save()
   }
   
   return (enSaveResults::svSucceeded);
+}
+
+vector <clsBankClient> clsBankClient::GetClientList()
+{
+  return (_Loader("Clients.txt"));
+}
+
+double clsBankClient::GetTotalBalances()
+{
+  vector <clsBankClient> vClients = _Loader("Clients.txt");
+  double TotalBalance = 0.0;
+
+  for (const clsBankClient &Obj:vClients) {
+    TotalBalance += Obj.GetBalance();
+  }
+
+  return (TotalBalance);
+}
+
+void clsBankClient::Deposit(double Amount)
+{
+  m_Balance += Amount;
+  Save();
+}
+
+bool clsBankClient::Withdraw(double Amount)
+{
+  if (Amount > m_Balance) {
+    return (false);
+  } else {
+    m_Balance -= Amount;
+    Save();
+    return (true);
+  }
 }

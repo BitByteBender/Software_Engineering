@@ -3,7 +3,10 @@
 
 #include "clsperson.hpp"
 #include <fstream>
+#include <iomanip>
 
+using std::setw;
+using std::left;
 using std::fstream;
 using std::ios;
 
@@ -40,16 +43,27 @@ public:
   void SetBalance(double Balance);
   double GetBalance(void) const;
 
-  void Print(void);
+  /*
+    Moved to the UI_Layer
+    void Print(void);
+  */
 
   static clsBankClient Find(string AccNum);
   static clsBankClient Find(string AccNum, string Pincode);
   static bool IsClientExist(string AccNum);
   
   static clsBankClient GetAddNewClientObject(string AccNum);
+
   static clsBankClient GetDeletedClientObject(clsBankClient Client);
   bool Delete();
+
   enum enSaveResults { svFailedEmptyObj = 0, svSucceeded = 1, svFailedAccNumExists = 2 };
   enSaveResults Save();
+
+  static vector <clsBankClient> GetClientList();
+  static double GetTotalBalances();
+
+  void Deposit(double Amount);
+  bool Withdraw(double Amount);
 };
 #endif /* CLSBANKCLIENT_HPP */

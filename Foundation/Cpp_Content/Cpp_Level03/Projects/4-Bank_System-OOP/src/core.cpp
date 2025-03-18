@@ -1,5 +1,5 @@
 #include "../headers/core.hpp"
-
+/*
 void ReadStr(clsBankClient &Client)
 {
   Client.SetPincode(clsInputValidate::ReadString("Enter a Pincode: "));
@@ -93,4 +93,80 @@ void DeleteClient()
       Client.Print();
     } else cout<<"\nError Client was not deleted\n";
   }
+}
+*/
+/*
+void PrintClientRecordLine(clsBankClient Client)
+{
+  cout<<"| "<<setw(15)<<left<<Client.GetAccountNumber();
+  cout<<"| "<<setw(20)<<left<<Client.GetFullname();
+  cout<<"| "<<setw(12)<<left<<Client.GetPhonenum();
+  cout<<"| "<<setw(20)<<left<<Client.GetEmail();
+  cout<<"| "<<setw(10)<<left<<Client.GetPincode();
+  cout<<"| "<<setw(12)<<left<<Client.GetBalance();
+}
+
+void ShowClientsList()
+{
+  vector <clsBankClient> vClients = clsBankClient::GetClientList();
+  cout<<"\n"<<clsUtil::Tabs(5)<<"Client List ("<<vClients.size()<<") Client(s).\n";
+  cout<<"______________________________________________________";
+  cout<<"______________________________________________________\n"<<endl;
+
+  cout<<"| "<<left<<setw(15)<<"Account Number";
+  cout<<"| "<<left<<setw(20)<<"Client Name";
+  cout<<"| "<<left<<setw(12)<<"Phone";
+  cout<<"| "<<left<<setw(20)<<"Email";
+  cout<<"| "<<left<<setw(10)<<"Pin Code";
+  cout<<"| "<<left<<setw(12)<<"Balance";
+  cout<<"\n______________________________________________________";
+  cout<<"______________________________________________________\n"<<endl;
+
+  if (vClients.size() == 0)
+    cout<<clsUtil::Tabs(3)<<"No Clients Available In the System!";
+  else {
+    for (const clsBankClient &Rec:vClients) {
+      PrintClientRecordLine(Rec);
+      cout<<endl;
+    }
+  }
+  cout<<"______________________________________________________";
+  cout<<"______________________________________________________\n"<<endl;
+}
+*/
+void PrintClientRecordBalanceLine(clsBankClient Client)
+{
+  cout<<"| "<<setw(15)<<left<<Client.GetAccountNumber();
+  cout<<"| "<<setw(40)<<left<<Client.GetFullname();
+  cout<<"| "<<setw(12)<<left<<Client.GetBalance();
+}
+
+void ShowClientsTotalBalancesList()
+{
+  vector <clsBankClient> vClients = clsBankClient::GetClientList();
+  double TotalBalance = 0.0;
+  
+  cout<<"\n"<<clsUtil::Tabs(5)<<"Client List ("<<vClients.size()<<") Client(s).\n";
+  cout<<"______________________________________________________";
+  cout<<"______________________________________________________\n"<<endl;
+
+  cout<<"| "<<left<<setw(15)<<"Account Number";
+  cout<<"| "<<left<<setw(40)<<"Client Name";
+  cout<<"| "<<left<<setw(12)<<"Balance";
+  cout<<"\n______________________________________________________";
+  cout<<"______________________________________________________\n"<<endl;
+
+  TotalBalance = clsBankClient::GetTotalBalances();
+
+  if (vClients.size() == 0)
+    cout<<clsUtil::Tabs(4)<<"No Clients Available In the System!";
+  else {
+    for (const clsBankClient &Rec:vClients) {
+      PrintClientRecordBalanceLine(Rec);
+      cout<<endl;
+    }
+  }
+  cout<<"______________________________________________________";
+  cout<<"______________________________________________________\n"<<endl;
+  cout<<clsUtil::Tabs(5)<<" Total Balances = "<<TotalBalance <<endl;
 }

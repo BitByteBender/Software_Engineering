@@ -27,6 +27,8 @@ void clsDeleteClientScreen::_PrintClient(clsBankClient Client)
 
 void clsDeleteClientScreen::DeleteClient()
 {
+  if (!_CheckAccessRights(clsUser::enPermissions::DeleteClient))
+      return ;
   clsBankClient Client;
   string Title = "\t     Delete Client Screen", AccNum = "";
 

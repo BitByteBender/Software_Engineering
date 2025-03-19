@@ -12,6 +12,9 @@ void clsClientListScreen::PrintClientRecordLine(clsBankClient Client)
 
 void clsClientListScreen::ShowClientsList()
 {
+  if (!_CheckAccessRights(clsUser::enPermissions::ListClients))
+      return ;
+  
   vector <clsBankClient> vClients = clsBankClient::GetClientList();
   string Title = "\t     Client List Screen", Subtitle = "\t\t(" + to_string(vClients.size()) + ") Client(s).";
 

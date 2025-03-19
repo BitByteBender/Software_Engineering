@@ -17,6 +17,8 @@ void clsFindClientScreen::_PrintClient(clsBankClient Client)
 
 void clsFindClientScreen::FindClient()
 {
+  if (!_CheckAccessRights(clsUser::enPermissions::FindClient))
+      return ;
   clsBankClient Client;
   string Title = "\t     Find Client Screen";
   _DrawScreenHeader(Title);

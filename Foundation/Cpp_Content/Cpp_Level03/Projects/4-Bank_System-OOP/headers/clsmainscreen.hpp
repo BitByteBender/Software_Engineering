@@ -17,7 +17,7 @@ private:
     ManageUsers = 7,
     Exit = 8,
   };
-  
+
   static short _ReadMainMenuOption();
   static void _GoBackToMainMenu();
   static void _ShowAllClientsScreen();
@@ -27,8 +27,9 @@ private:
   static void _ShowFindClientScreen();
   static void _ShowTransactionsMenu();
   static void _ShowManageUsersMenu();
-  static void _ShowEndScreen();
+  static void _Logout();
   static void _PerformMainMenuOption(enMainMenuOptions Option);
+
 public:
   static void ShowMainMenu();
 };

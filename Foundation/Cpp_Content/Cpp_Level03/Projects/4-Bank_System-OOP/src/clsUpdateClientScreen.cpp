@@ -27,6 +27,8 @@ void clsUpdateClientScreen::_PrintClient(clsBankClient Client)
 
 void clsUpdateClientScreen::UpdateClient()
 {
+  if (!_CheckAccessRights(clsUser::enPermissions::UpdateClient))
+      return ;
   clsBankClient Client;
   string Title = "\t     Update Client Screen";
   _DrawScreenHeader(Title);

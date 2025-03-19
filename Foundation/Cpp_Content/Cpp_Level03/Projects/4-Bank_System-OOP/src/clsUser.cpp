@@ -239,3 +239,13 @@ vector <clsUser> clsUser::GetUserList()
 {
   return (_Loader("Users.txt"));
 }
+
+bool clsUser::CheckAccessPermission(enPermissions Permission)
+{
+  if (this->m_Permissions == enPermissions::All) return (true);
+
+  if ((Permission & this->m_Permissions) == Permission)
+    return (true);
+  else
+    return (false);
+}

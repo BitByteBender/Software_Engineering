@@ -57,6 +57,8 @@ void clsTransactionsScreen::_PerformTrxMenuOption(enTrxMenuOptions Option)
 
 void clsTransactionsScreen::ShowTransactionsMenu()
 {
+  if (!_CheckAccessRights(clsUser::enPermissions::Trx))
+      return ;
   _DrawScreenHeader("\t\tTransactions Screen");
 
   cout<<setw(35)<<left<<""<<"======================================\n";

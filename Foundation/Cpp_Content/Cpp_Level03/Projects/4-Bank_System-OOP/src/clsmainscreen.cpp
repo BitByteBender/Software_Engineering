@@ -5,6 +5,7 @@
 #include "../headers/clsUpdateClientScreen.hpp"
 #include "../headers/clsFindClientScreen.hpp"
 #include "../headers/clsTransactionsScreen.hpp"
+#include "../headers/clsManageUsersMenu.hpp"
 
 short clsMainScreen::_ReadMainMenuOption()
 {
@@ -55,7 +56,7 @@ void clsMainScreen::_ShowTransactionsMenu()
 
 void clsMainScreen::_ShowManageUsersMenu()
 {
-  
+  clsManageUsersMenu::ShowManageUserScreen();
 }
 
 void clsMainScreen::_ShowEndScreen()

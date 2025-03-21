@@ -1,5 +1,6 @@
 #include "headers/core.hpp"
-#include "headers/clsmainscreen.hpp"
+//#include "headers/clsmainscreen.hpp"
+#include "headers/clsLoginScreen.hpp"
 
 int main(void)
 {
@@ -8,7 +9,9 @@ int main(void)
   //DeleteClient();
   // ShowClientsList();
   //ShowClientsTotalBalancesList();
-  clsMainScreen::ShowMainMenu();
-  
+  //clsMainScreen::ShowMainMenu();
+  while (true)
+    clsLoginScreen::ShowLoginScreen();
+
   return (0);
 }

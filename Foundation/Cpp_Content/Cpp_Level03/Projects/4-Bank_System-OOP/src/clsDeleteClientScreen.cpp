@@ -27,10 +27,13 @@ void clsDeleteClientScreen::_PrintClient(clsBankClient Client)
 
 void clsDeleteClientScreen::DeleteClient()
 {
+  if (!_CheckAccessRights(clsUser::enPermissions::DeleteClient))
+      return ;
   clsBankClient Client;
   string Title = "\t     Delete Client Screen", AccNum = "";
 
   _DrawScreenHeader(Title);
+  _ShowStats();
   AccNum = clsInputValidate::ReadString("Enter an account number: ");
   
   while (!clsBankClient::IsClientExist(AccNum)) {

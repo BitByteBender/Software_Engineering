@@ -27,9 +27,12 @@ void clsAddNewClient::_PrintClient(clsBankClient Client)
 
 void clsAddNewClient::AddNewClient()
 {
+  if (!_CheckAccessRights(clsUser::enPermissions::AddNewClient))
+      return ;
   clsBankClient Client;
   string Title = "\t     Add New Client Screen";
   _DrawScreenHeader(Title);
+  _ShowStats();
   
   string AccNum = clsInputValidate::ReadString("Enter an account number: ");
   

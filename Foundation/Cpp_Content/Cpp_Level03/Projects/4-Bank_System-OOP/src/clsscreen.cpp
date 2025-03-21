@@ -1,5 +1,6 @@
 #include "../headers/clsscreen.hpp"
 #include "../headers/global.hpp"
+#include "../headers/clsdate.hpp"
 
 void clsScreen::_DrawScreenHeader(string Title, string Subtitle)
 {
@@ -19,4 +20,10 @@ bool clsScreen::_CheckAccessRights(clsUser::enPermissions Permission)
     cout<<"\n"<<clsUtil::Tabs(5)<<"_______________________________________\n\n";
     return (false);
   } else return (true);
+}
+
+void clsScreen::_ShowStats()
+{
+  cout<<clsUtil::Tabs(5)<<"User: "<<CurrentUser.GetUsername()<<'\n';
+  cout<<clsUtil::Tabs(5)<<"Date: "<<clsDate::DateToString(clsDate())<<'\n'<<endl;
 }

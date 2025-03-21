@@ -12,6 +12,6 @@ int main(void)
   //clsMainScreen::ShowMainMenu();
   while (true)
     clsLoginScreen::ShowLoginScreen();
-  
+
   return (0);
 }

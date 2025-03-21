@@ -22,6 +22,8 @@ void clsFindClientScreen::FindClient()
   clsBankClient Client;
   string Title = "\t     Find Client Screen";
   _DrawScreenHeader(Title);
+  _ShowStats();
+  
   string AccNum = clsInputValidate::ReadString("Enter an account number to update: ");
   
   while (!clsBankClient::IsClientExist(AccNum)) {

@@ -32,7 +32,7 @@ void clsUpdateClientScreen::UpdateClient()
   clsBankClient Client;
   string Title = "\t     Update Client Screen";
   _DrawScreenHeader(Title);
-  
+  _ShowStats();
   string AccNum = clsInputValidate::ReadString("Enter an account number to update: ");
   
   while (!clsBankClient::IsClientExist(AccNum)) {

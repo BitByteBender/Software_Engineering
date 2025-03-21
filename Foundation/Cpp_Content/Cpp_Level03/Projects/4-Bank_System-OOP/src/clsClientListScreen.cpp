@@ -19,7 +19,8 @@ void clsClientListScreen::ShowClientsList()
   string Title = "\t     Client List Screen", Subtitle = "\t\t(" + to_string(vClients.size()) + ") Client(s).";
 
   _DrawScreenHeader(Title, Subtitle);
-
+  _ShowStats();
+  
   cout<<"\n______________________________________________________";
   cout<<"______________________________________________________\n"<<endl;
 

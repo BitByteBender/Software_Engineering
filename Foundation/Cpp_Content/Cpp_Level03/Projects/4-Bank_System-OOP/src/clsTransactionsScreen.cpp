@@ -60,7 +60,8 @@ void clsTransactionsScreen::ShowTransactionsMenu()
   if (!_CheckAccessRights(clsUser::enPermissions::Trx))
       return ;
   _DrawScreenHeader("\t\tTransactions Screen");
-
+  _ShowStats();
+  
   cout<<setw(35)<<left<<""<<"======================================\n";
   cout<<setw(35)<<left<<""<<"\t\t  Transactions Menu\n";
   cout<<setw(35)<<left<<""<<"======================================\n";

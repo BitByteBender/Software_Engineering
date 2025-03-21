@@ -33,6 +33,7 @@ void clsDeleteClientScreen::DeleteClient()
   string Title = "\t     Delete Client Screen", AccNum = "";
 
   _DrawScreenHeader(Title);
+  _ShowStats();
   AccNum = clsInputValidate::ReadString("Enter an account number: ");
   
   while (!clsBankClient::IsClientExist(AccNum)) {

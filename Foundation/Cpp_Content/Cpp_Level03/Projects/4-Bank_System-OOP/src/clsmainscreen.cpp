@@ -107,7 +107,7 @@ void clsMainScreen::_PerformMainMenuOption(enMainMenuOptions Option)
 void clsMainScreen::ShowMainMenu()
 {
   _DrawScreenHeader("\t\tMain Screen");
-
+  _ShowStats();
   cout<<setw(35)<<left<<""<<"======================================\n";
   cout<<setw(35)<<left<<""<<"\t\t  Main Menu\n";
   cout<<setw(35)<<left<<""<<"======================================\n";

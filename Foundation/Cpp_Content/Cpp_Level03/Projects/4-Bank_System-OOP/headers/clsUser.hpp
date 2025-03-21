@@ -69,5 +69,7 @@ public:
   enSaveResults Save();
 
   static vector <clsUser> GetUserList();
+
+  bool CheckAccessPermission(enPermissions Permission);
 };
 #endif /* CLSUSER_HPP */

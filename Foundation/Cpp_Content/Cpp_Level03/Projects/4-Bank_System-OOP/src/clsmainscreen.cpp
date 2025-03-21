@@ -6,6 +6,7 @@
 #include "../headers/clsFindClientScreen.hpp"
 #include "../headers/clsTransactionsScreen.hpp"
 #include "../headers/clsManageUsersMenu.hpp"
+#include "../headers/global.hpp"
 
 short clsMainScreen::_ReadMainMenuOption()
 {
@@ -59,9 +60,10 @@ void clsMainScreen::_ShowManageUsersMenu()
   clsManageUsersMenu::ShowManageUserScreen();
 }
 
-void clsMainScreen::_ShowEndScreen()
+void clsMainScreen::_Logout()
 {
-  
+  //exit(EXIT_SUCCESS);
+  CurrentUser = clsUser::Find("", "");
 }
 
 void clsMainScreen::_PerformMainMenuOption(enMainMenuOptions Option)
@@ -96,7 +98,7 @@ void clsMainScreen::_PerformMainMenuOption(enMainMenuOptions Option)
     _GoBackToMainMenu();
     break;
   case (enMainMenuOptions::Exit):
-    _ShowEndScreen();
+    _Logout();
     //Login();
     break;
   }
@@ -105,7 +107,7 @@ void clsMainScreen::_PerformMainMenuOption(enMainMenuOptions Option)
 void clsMainScreen::ShowMainMenu()
 {
   _DrawScreenHeader("\t\tMain Screen");
-
+  _ShowStats();
   cout<<setw(35)<<left<<""<<"======================================\n";
   cout<<setw(35)<<left<<""<<"\t\t  Main Menu\n";
   cout<<setw(35)<<left<<""<<"======================================\n";

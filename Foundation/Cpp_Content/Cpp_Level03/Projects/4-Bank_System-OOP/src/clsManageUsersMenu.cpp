@@ -77,8 +77,11 @@ void clsManageUsersMenu::_PerformManageUserMenu(enUsrManagerMenuOptions Option)
 
 void clsManageUsersMenu::ShowManageUserScreen()
 {
+  if (!_CheckAccessRights(clsUser::enPermissions::ManageUsers))
+      return ;
   _DrawScreenHeader("\t\tManage Users Screen");
-
+  _ShowStats();
+  
   cout<<setw(35)<<left<<""<<"======================================\n";
   cout<<setw(35)<<left<<""<<"\t  Manage Users Menu\n";
   cout<<setw(35)<<left<<""<<"======================================\n";

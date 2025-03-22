@@ -45,6 +45,8 @@ public:
   static void FillArrayWithRandomKeys(string Arr[], uint16_t Length, enCharType Choice);
   static string Spaces(uint16_t Space);
   static string Tabs(uint16_t Tab);
+  static string SmartSpacer(string Line, short Spacing);
+  static string SmartSplit(string Line, string Separator="#//#");
   static string EncryptText(string Text, const short &Key);
   static string DecryptText(string Text, const short &Key);
 };

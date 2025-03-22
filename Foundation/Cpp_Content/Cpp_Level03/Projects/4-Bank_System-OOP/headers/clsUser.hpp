@@ -29,7 +29,10 @@ private:
   void _Update();
   void _AddNew();
   void _AddDataLineToFile(string Line);
+  string _PreparedData(string Separator="#//#");
+  
 public:
+  
   enum enPermissions
   {
     All = -1,
@@ -40,6 +43,7 @@ public:
     FindClient = 16,
     Trx = 32,
     ManageUsers = 64,
+    LogFile = 128,
   };
   
   clsUser();
@@ -71,5 +75,18 @@ public:
   static vector <clsUser> GetUserList();
 
   bool CheckAccessPermission(enPermissions Permission);
+
+  void SaveCurrentUserData();
+  
+  struct stUserLog
+  {
+    string DateTime = "";
+    string Username = "";
+    string Passwd = "";
+    int16_t Permission = 0;
+  };
+  
+  static stUserLog ConvertLineToRecord(string Line);
+  static vector<stUserLog> LoadLogFile();
 };
 #endif /* CLSUSER_HPP */

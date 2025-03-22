@@ -10,8 +10,9 @@ int main(void)
   // ShowClientsList();
   //ShowClientsTotalBalancesList();
   //clsMainScreen::ShowMainMenu();
-  while (true)
+  while (true) {
     clsLoginScreen::ShowLoginScreen();
+  }
 
   return (0);
 }

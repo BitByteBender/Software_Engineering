@@ -50,7 +50,8 @@ public:
 
   static bool IsDateBetween(clsDate Date, clsDate From, clsDate To);
   bool IsDateBetween() const;
-  
+
+  static string GetClockTime();
   void Print() const;
   
   ~clsDate();

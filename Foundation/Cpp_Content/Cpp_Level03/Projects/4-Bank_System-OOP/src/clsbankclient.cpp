@@ -1,4 +1,5 @@
 #include "../headers/clsbankclient.hpp"
+#include "../headers/global.hpp"
 
 clsBankClient::clsBankClient() : clsPerson("", "", "", "") {};
 clsBankClient::clsBankClient(enMode Mode, string AccNum, string Pincode, double Balance,
@@ -271,5 +272,60 @@ bool clsBankClient::Withdraw(double Amount)
     m_Balance -= Amount;
     Save();
     return (true);
+  }
+}
+
+clsBankClient::stTransferLog clsBankClient::_GenerateTransferLog(string CSrc, string CDst, double Amount, double CSrcBalance, double CDstBalance, string CurrUsername)
+{
+  stTransferLog TL;
+  
+  TL.DateTime = clsDate::GetClockTime();
+  TL.ClientSrc = CSrc;
+  TL.ClientDst = CDst;
+  TL.Amount = Amount;
+  TL.ClientSrcBalance = CSrcBalance;
+  TL.ClientDstBalance = CDstBalance;
+  TL.CurrentUsername = CurrUsername;
+
+  return (TL);
+}
+
+bool clsBankClient::Transfer(double Amount, clsBankClient &DestinationClient)
+{
+  stTransferLog TL;
+  
+  if (Amount > GetBalance()) return (false);
+
+  Withdraw(Amount);
+  DestinationClient.Deposit(Amount);
+  TL = _GenerateTransferLog(this->GetAccountNumber(), DestinationClient.GetAccountNumber(), Amount, this->GetBalance(), DestinationClient.GetBalance(), CurrentUser.GetUsername());
+  _SaveToTransferLog(TL);
+  return (true);
+}
+
+string clsBankClient::_ConvertRecordToLine(stTransferLog &Log, string Separator)
+{
+  string Line = "";
+  
+  Line = Log.DateTime + Separator;
+  Line += Log.ClientSrc + Separator + Log.ClientDst + Separator;
+  Line += to_string(Log.Amount) + Separator + to_string(Log.ClientSrcBalance) + Separator + to_string(Log.ClientDstBalance);
+  Line += Separator + Log.CurrentUsername;
+
+  return (Line);
+}
+
+void clsBankClient::_SaveToTransferLog(stTransferLog &Log)
+{
+  fstream File;
+  File.open("TransferLog.txt", ios::out | ios::app);
+
+  if (File.is_open()) {
+    string Line = _ConvertRecordToLine(Log);
+    
+    if (!Line.empty())
+      File<<Line<<'\n';
+
+    File.close();
   }
 }

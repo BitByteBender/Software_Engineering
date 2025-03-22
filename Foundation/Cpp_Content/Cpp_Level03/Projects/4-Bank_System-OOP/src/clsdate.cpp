@@ -194,6 +194,24 @@ bool clsDate::IsDateBetween(clsDate Date, clsDate From, clsDate To)
   return (Y && M && D);
 }
 
+string clsDate::GetClockTime()
+{
+  time_t t = time(0);
+  tm *now = localtime(&t);
+
+  uint16_t Day, Month, Year, Hour, Min, Sec;
+
+  Year = now->tm_year + 1900;
+  Month = now->tm_mon + 1;
+  Day = now->tm_mday;
+  Hour = now->tm_hour;
+  Min = now->tm_min;
+  Sec = now->tm_sec;
+
+  return (to_string(Day) + '/' + to_string(Month) + '/' + to_string(Year) + " - "
+	  + to_string(Hour) + ':' + to_string(Min) + ':' + to_string(Sec));
+}
+
 clsDate::~clsDate()
 {
 }

@@ -15,7 +15,8 @@ private:
     FindClient = 5,
     ShowTrxMenu = 6,
     ManageUsers = 7,
-    Exit = 8,
+    LogFile = 8,
+    Exit = 9,
   };
 
   static short _ReadMainMenuOption();
@@ -27,6 +28,7 @@ private:
   static void _ShowFindClientScreen();
   static void _ShowTransactionsMenu();
   static void _ShowManageUsersMenu();
+  static void _ShowLogFileScreen();
   static void _Logout();
   static void _PerformMainMenuOption(enMainMenuOptions Option);
 

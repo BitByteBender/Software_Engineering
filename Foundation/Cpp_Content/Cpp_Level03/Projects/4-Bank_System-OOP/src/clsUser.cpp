@@ -249,3 +249,62 @@ bool clsUser::CheckAccessPermission(enPermissions Permission)
   else
     return (false);
 }
+
+string clsUser::_PreparedData(string Separator)
+{
+  string Line = "";
+
+  Line += clsDate::GetClockTime() + Separator;
+  Line +=  m_Username + Separator;
+  Line += m_Password + Separator + to_string(m_Permissions);
+  
+  return (Line);
+}
+
+void clsUser::SaveCurrentUserData()
+{
+  fstream File;
+  File.open("Logfile.txt", ios::out | ios::app);
+
+  if (File.is_open()) {
+    string Line = _PreparedData();
+    
+    if (Line != "")
+      File<<Line<<'\n';
+
+    File.close();
+  }
+}
+
+clsUser::stUserLog clsUser::ConvertLineToRecord(string Line)
+{
+  vector <const char *> vLine = clsString::GetWords(Line.c_str(), "#//#");
+  stUserLog UL;
+  
+  UL.DateTime = vLine[0];
+  UL.Username = vLine[1];
+  UL.Passwd = vLine[2];
+  UL.Permission = stoi(vLine[3]);
+
+  return (UL);
+}
+
+vector <clsUser::stUserLog> clsUser::LoadLogFile()
+{
+  fstream File;
+  File.open("Logfile.txt", ios::in);
+  vector <stUserLog> vLogs;
+  
+  if (File.is_open()) {
+    string Line = "";
+    
+    while (getline(File, Line)) {
+      if (Line != "") {
+	vLogs.push_back(ConvertLineToRecord(Line));
+      }
+    }
+    File.close();
+  }
+
+  return (vLogs);
+}

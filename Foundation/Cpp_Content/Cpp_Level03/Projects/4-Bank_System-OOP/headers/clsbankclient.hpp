@@ -29,6 +29,18 @@ private:
   void _Update();
   void _AddNew();
   void _AddDataLineToFile(string Line);
+
+  struct stTransferLog
+  {
+    string DateTime = "";
+    string ClientSrc = "", ClientDst = "";
+    double Amount = 0.0, ClientSrcBalance = 0.0, ClientDstBalance = 0.0;
+    string CurrentUsername = "";
+  };
+  
+  stTransferLog _GenerateTransferLog(string CSrc, string CDst, double Amount, double CSrcBalance, double CDstBalance, string CurrUsername);
+  string _ConvertRecordToLine(stTransferLog &Log, string Separator="#//#");
+  void _SaveToTransferLog(stTransferLog &Log);
 public:
   clsBankClient();
   clsBankClient(enMode Mode, string AccNum, string Pincode, double Balance, string Firstname, string Lastname, string Email, string Phonenum);
@@ -65,5 +77,9 @@ public:
 
   void Deposit(double Amount);
   bool Withdraw(double Amount);
+
+  bool Transfer(double Amount, clsBankClient &DestinationClient);
+  
+  //vector <stTransferLog> GetTransferLogs();
 };
 #endif /* CLSBANKCLIENT_HPP */

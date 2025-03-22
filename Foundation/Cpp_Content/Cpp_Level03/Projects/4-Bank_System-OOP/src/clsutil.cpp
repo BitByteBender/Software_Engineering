@@ -220,3 +220,32 @@ string clsUtil::DecryptText(string Text, const short &Key)
 {
   return (EncryptText(EncryptText(Text, Key), (Key * -1)));
 }
+
+string clsUtil::SmartSpacer(string Line, short Spacing)
+{
+  short i = 0, len = Spacing - Line.length();
+  string Cnt = Line;
+  
+  while (i < len) {
+    Cnt += ' ';
+    ++i;
+  }
+
+  return (Cnt);
+}
+
+string clsUtil::SmartSplit(string Line, string Separator)
+{
+  short Pos = Line.find(Separator);
+  string NewLine = "";
+  
+  while (Pos != string::npos) {
+    NewLine += "| " + SmartSpacer(Line.substr(0, Pos), 30);
+    Line.erase(0, Pos + Separator.length());
+    Pos = Line.find(Separator);
+  }
+  
+  if (Line != "") NewLine += "|" + Line;
+  
+  return (NewLine);
+}

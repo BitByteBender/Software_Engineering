@@ -37,6 +37,10 @@ int16_t clsAddNewUser::_ReadPermissionsToSet()
   cout<<"\nManage Users? (y/n): ";
   cin>>Answer;
   if (Answer == 'y' || Answer == 'Y') Permissions += clsUser::enPermissions::ManageUsers;
+
+  cout<<"\nShow LogFile? (y/n): ";
+  cin>>Answer;
+  if (Answer == 'y' || Answer == 'Y') Permissions += clsUser::enPermissions::LogFile;
   
   return (Permissions);
 }

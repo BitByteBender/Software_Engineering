@@ -1,19 +1,6 @@
 #include "../headers/clsLoginScreen.hpp"
 #include "../headers/clsmainscreen.hpp"
 #include "../headers/global.hpp"
-void clsLoginScreen::_SaveToLogFile()
-{
-  fstream File;
-  File.open("Logfile.txt", ios::out | ios::app);
-
-  if (File.is_open()) {
-    string Line = clsDate::DateToString(clsDate()) + "#//#" + CurrentUser.GetUsername() + "#//#" + CurrentUser.GetPassword() + "#//#" + to_string(CurrentUser.GetPermissions());
-    if (Line != "")
-      File<<Line<<'\n';
-
-    File.close();
-  }
-}
 
 void clsLoginScreen::_Login()
 { 
@@ -43,8 +30,8 @@ void clsLoginScreen::_Login()
     
   } while (LoginChecker);
 
+  CurrentUser.SaveCurrentUserData();
   clsMainScreen::ShowMainMenu();
-  _SaveToLogFile();
 }
 
 void clsLoginScreen::ShowLoginScreen()

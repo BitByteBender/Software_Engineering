@@ -7,7 +7,6 @@ class clsLoginScreen : protected clsScreen
 {
 private:
   static void _Login();
-  static void _SaveToLogFile();
 public:
   static void ShowLoginScreen();
 };

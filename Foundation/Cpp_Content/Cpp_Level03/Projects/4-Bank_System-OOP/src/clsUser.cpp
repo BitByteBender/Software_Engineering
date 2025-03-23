@@ -44,7 +44,7 @@ clsUser clsUser::_ConvertLineToUserObject(string Line, string Separator)
 {
   vector <const char *> vLine = clsString::GetWords(Line.c_str(), Separator.c_str());
   
-  return (clsUser(enMode::UpdateMode, string(vLine[0]), string(vLine[1]), string(vLine[2]), string(vLine[3]),string(vLine[4]), string(vLine[5]), stoi(vLine[6])));
+  return (clsUser(enMode::UpdateMode, string(vLine[0]), string(vLine[1]), string(vLine[2]), string(vLine[3]),string(vLine[4]), clsUtil::DecryptText(string(vLine[5]), 5), stoi(vLine[6])));
 }
 
 clsUser clsUser::_GetEmptyUserObject()
@@ -115,7 +115,7 @@ string clsUser::_ConvertUserObjectToLine(clsUser UserObj, string Separator)
   Line += UserObj.GetEmail() + Separator;
   Line += UserObj.GetPhonenum() + Separator;
   Line += UserObj.GetUsername() + Separator;
-  Line += UserObj.GetPassword() + Separator + to_string(UserObj.GetPermissions());
+  Line += clsUtil::EncryptText(UserObj.GetPassword(), 5) + Separator + to_string(UserObj.GetPermissions());
     
   return (Line);
 }
@@ -256,7 +256,7 @@ string clsUser::_PreparedData(string Separator)
 
   Line += clsDate::GetClockTime() + Separator;
   Line +=  m_Username + Separator;
-  Line += m_Password + Separator + to_string(m_Permissions);
+  Line += clsUtil::EncryptText(m_Password, 5) + Separator + to_string(m_Permissions);
   
   return (Line);
 }
@@ -283,7 +283,7 @@ clsUser::stUserLog clsUser::ConvertLineToRecord(string Line)
   
   UL.DateTime = vLine[0];
   UL.Username = vLine[1];
-  UL.Passwd = vLine[2];
+  UL.Passwd = clsUtil::DecryptText(string(vLine[2]), 5);
   UL.Permission = stoi(vLine[3]);
 
   return (UL);

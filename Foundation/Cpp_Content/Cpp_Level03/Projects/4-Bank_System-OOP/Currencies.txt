@@ -1,0 +1,9 @@
+United States of America#//#USD#//#US Dollar#//#1.000000
+Albania#//#ALL#//#Albania Lek(e)#//#109.010003
+American Samoa#//#USD#//#US Dollar#//#1.000000
+Argentina#//#ARS#//#Argentine Peso#//#171.744995
+Belgium#//#EUR#//#Euro#//#0.938000
+Canada#//#CAD#//#Canadian Dollar#//#1.353000
+El Salvador#//#USD#//#US Dollar#//#1.000000
+United Arab Emirates#//#AED#//#United Arab Emirates Dirham#//#3.673000
+United Kingdom#//#GBP#//#U.K. Pound#//#0.804000

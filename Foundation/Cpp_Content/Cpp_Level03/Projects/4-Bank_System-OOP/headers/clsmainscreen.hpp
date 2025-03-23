@@ -16,7 +16,8 @@ private:
     ShowTrxMenu = 6,
     ManageUsers = 7,
     LogFile = 8,
-    Exit = 9,
+    CurrencyExchange = 9,
+    Exit = 10,
   };
 
   static short _ReadMainMenuOption();
@@ -29,6 +30,7 @@ private:
   static void _ShowTransactionsMenu();
   static void _ShowManageUsersMenu();
   static void _ShowLogFileScreen();
+  static void _ShowCurrencyScreen();
   static void _Logout();
   static void _PerformMainMenuOption(enMainMenuOptions Option);
 

@@ -42,8 +42,9 @@ clsBankClient clsBankClient::_ConvertLineToClientObject(string Line, string Sepa
   vector <const char *> vLine = clsString::GetWords(Line.c_str(), Separator.c_str());
   
   return (clsBankClient(enMode::UpdateMode, string(vLine[4]),
-			string(vLine[5]), stod(string(vLine[6])), string(vLine[0]),
-			string(vLine[1]), string(vLine[2]), string(vLine[3])));
+		        string(vLine[5]), stod(string(vLine[6])),
+			string(vLine[0]), string(vLine[1]),
+			string(vLine[2]), string(vLine[3])));
 }
 
 clsBankClient clsBankClient::_GetEmptyClientObject()
@@ -328,4 +329,40 @@ void clsBankClient::_SaveToTransferLog(stTransferLog &Log)
 
     File.close();
   }
+}
+
+clsBankClient::stTransferLog clsBankClient::_ConvertLineToRec(string Line)
+{
+  stTransferLog TL;
+  vector <const char*> vLine = clsString::GetWords(Line.c_str(), "#//#");
+  
+  TL.DateTime = vLine[0];
+  TL.ClientSrc = vLine[1];
+  TL.ClientDst = vLine[2];
+  TL.Amount = stod(string(vLine[3]));
+  TL.ClientSrcBalance = stod(string(vLine[4]));
+  TL.ClientDstBalance = stod(string(vLine[5]));
+  TL.CurrentUsername = vLine[6];
+  
+  return (TL);
+}
+
+vector <clsBankClient::stTransferLog> clsBankClient::GetTransferLogs()
+{
+  fstream File;
+  vector <stTransferLog> vLogs;
+
+  File.open("TransferLog.txt", ios::in);
+
+  if (File.is_open()) {
+    string Line =  "";
+    while (getline(File, Line)) {
+      stTransferLog TL = _ConvertLineToRec(Line);
+      vLogs.push_back(TL);
+    }
+    
+    File.close();
+  }
+
+  return (vLogs);
 }

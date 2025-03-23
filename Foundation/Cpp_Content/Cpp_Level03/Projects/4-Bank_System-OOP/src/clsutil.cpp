@@ -218,7 +218,7 @@ string clsUtil::EncryptText(string Text, const short &Key)
 
 string clsUtil::DecryptText(string Text, const short &Key)
 {
-  return (EncryptText(EncryptText(Text, Key), (Key * -1)));
+  return (EncryptText(Text, (Key * -1)));
 }
 
 string clsUtil::SmartSpacer(string Line, short Spacing)

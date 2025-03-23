@@ -12,7 +12,8 @@ private:
     Withdraw = 2,
     TotalBalances = 3,
     Transfer = 4,
-    MainMenu = 5,
+    TransferLog = 5,
+    MainMenu = 6,
   };
 
   static short _ReadTrxMenuOption();
@@ -21,6 +22,7 @@ private:
   static void _ShowWithdrawScreen();
   static void _ShowTotalBalancesScreen();
   static void _ShowTransferScreen();
+  static void _ShowTransferLogScreen();
   static void _PerformTrxMenuOption(enTrxMenuOptions Option);
   
 public:

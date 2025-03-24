@@ -3,6 +3,7 @@
 
 #include "clsbankclient.hpp"
 #include "clsUser.hpp"
+#include "clsCurrency.hpp"
 
 class clsScreen
 {

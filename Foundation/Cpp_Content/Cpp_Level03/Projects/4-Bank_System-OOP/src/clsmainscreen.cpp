@@ -8,13 +8,14 @@
 #include "../headers/clsManageUsersMenu.hpp"
 #include "../headers/clsLogFileScreen.hpp"
 #include "../headers/global.hpp"
+#include "../headers/clsCurrencyScreen.hpp"
 
 short clsMainScreen::_ReadMainMenuOption()
 {
   int16_t Choice;
  
-  cout<<setw(25)<<left<<""<<"Choose an option from the menu above [1 To 9]: ";
-  Choice = clsInputValidate::ReadIntegerNumberBetween(1, 9, "Enter a number between 1 to 9? ");
+  cout<<setw(25)<<left<<""<<"Choose an option from the menu above [1 To 10]: ";
+  Choice = clsInputValidate::ReadIntegerNumberBetween(1, 10, "Enter a number between 1 to 10? ");
   
   return (Choice);
 }
@@ -66,6 +67,11 @@ void clsMainScreen::_ShowLogFileScreen()
   clsLogFileScreen::ShowLogFileList();
 }
 
+void clsMainScreen::_ShowCurrencyScreen()
+{
+  clsCurrencyScreen::ShowCurrencyScreen();
+}
+
 void clsMainScreen::_Logout()
 {
   //exit(EXIT_SUCCESS);
@@ -107,6 +113,10 @@ void clsMainScreen::_PerformMainMenuOption(enMainMenuOptions Option)
     _ShowLogFileScreen();
     _GoBackToMainMenu();
     break;
+  case (enMainMenuOptions::CurrencyExchange):
+    _ShowCurrencyScreen();
+    _GoBackToMainMenu();
+    break;
   case (enMainMenuOptions::Exit):
     _Logout();
     //Login();
@@ -129,7 +139,8 @@ void clsMainScreen::ShowMainMenu()
   cout<<setw(35)<<left<<""<<"\t   [6] Transactions.\n";
   cout<<setw(35)<<left<<""<<"\t   [7] Manage Users.\n";
   cout<<setw(35)<<left<<""<<"\t   [8] Log File.\n";
-  cout<<setw(35)<<left<<""<<"\t   [9] Logout.\n";
+  cout<<setw(35)<<left<<""<<"\t   [9] Currency Exchange.\n";
+  cout<<setw(35)<<left<<""<<"\t   [10] Logout.\n";
   cout<<setw(35)<<left<<""<<"======================================\n";
 
   _PerformMainMenuOption((enMainMenuOptions)_ReadMainMenuOption());

@@ -22,17 +22,23 @@ void clsFindScreen::Find()
 {
   _DrawScreenHeader("\t\tFind Currency");
   clsCurrency Currency;
-  string Choice = "Enter a " + _GetChoice() + ":";
   
-  Choice = clsInputValidate::ReadString(Choice.c_str());
+  string Choice = _GetChoice(), Check = "Enter a " + Choice + ": ", Answer = "";
+  
+  Answer = clsInputValidate::ReadString(Check.c_str());
 
-  while (!clsCurrency::IsCurrencyExist(Choice)) {
+  while (!clsCurrency::IsCurrencyExist(Answer, Choice)) {
     cout<<"Failed re-";
-    Choice = clsInputValidate::ReadString(Choice.c_str());
+    Answer = clsInputValidate::ReadString(Check.c_str());
   }
 
-  if (Choice == "Tag") Currency = clsCurrency::FindByTag(Choice);
-  else Currency = clsCurrency::FindByCountry(Choice);
+  if (Choice == "Tag" || Choice == "Country") {
+    if (Choice == "Tag") Currency = clsCurrency::FindByTag(Answer);
+    else Currency = clsCurrency::FindByCountry(Answer);
+  } else {
+    cout<<"Nothing found!\n";
+    return;
+  }
   
   _PrintCurrencyRecord(Currency);
 }

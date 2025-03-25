@@ -41,6 +41,10 @@ int16_t clsAddNewUser::_ReadPermissionsToSet()
   cout<<"\nShow LogFile? (y/n): ";
   cin>>Answer;
   if (Answer == 'y' || Answer == 'Y') Permissions += clsUser::enPermissions::LogFile;
+
+  cout<<"\nShow Currency Exchange? (y/n): ";
+  cin>>Answer;
+  if (Answer == 'y' || Answer == 'Y') Permissions += clsUser::enPermissions::CurrencyExchange;
   
   return (Permissions);
 }

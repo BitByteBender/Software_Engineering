@@ -2,6 +2,8 @@
 #include "../headers/clsFindScreen.hpp"
 #include "../headers/clsListCurrencies.hpp"
 #include "../headers/clsUpdateRateScreen.hpp"
+#include "../headers/global.hpp"
+#include "../headers/clsCurrencyCalculatorScreen.hpp"
 
 short clsCurrencyScreen::_ReadChoice()
 {
@@ -30,6 +32,7 @@ void clsCurrencyScreen::_ShowFindCurrencyScreen()
 
 void clsCurrencyScreen::_ShowCurrencyCalcScreen()
 {
+  clsCurrencyCalc::ShowCurrCalc();
 }
 
 void clsCurrencyScreen::_GoBackToCurrencyScreen()
@@ -65,6 +68,9 @@ void clsCurrencyScreen::_GetCurrencyMenuChoice(enCurrencyMenu Choice)
 
 void clsCurrencyScreen::ShowCurrencyScreen()
 {
+  if (!CurrentUser.CheckAccessPermission(clsUser::enPermissions::CurrencyExchange))
+    return;
+  
   _DrawScreenHeader("\t\tCurrency Exchange Main Screen");
   _ShowStats();
 

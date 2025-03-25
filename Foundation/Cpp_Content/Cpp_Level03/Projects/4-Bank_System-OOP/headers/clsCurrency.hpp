@@ -35,10 +35,12 @@ public:
   static clsCurrency FindByTag(string Tag);
   static clsCurrency FindByCountry(string Country);
 
-  static bool IsCurrencyExist(string Choice);
+  static bool IsCurrencyExist(string Choice, string Tag="Tag");
   static vector <clsCurrency> GetCurrencyList();
 
   void Update(double Rate);
+
+  static double CalcRate(double Amount, string TagA, string TagB="USD");
 };
 
 #endif /* CLSCURRENCY_HPP */

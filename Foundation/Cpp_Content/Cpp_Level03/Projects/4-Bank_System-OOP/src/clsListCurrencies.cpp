@@ -31,7 +31,7 @@ void clsListCurrencies::ShowListCurrencies()
       <<"______________________________________________________________________\n";
 
   if (vCurrList.size() == 0)
-    cout<<"No Record is found\n";
+    cout<<"No Currency is found\n";
   else {
     for (clsCurrency &Rec:vCurrList)
       _PrintListCurrencies(Rec);

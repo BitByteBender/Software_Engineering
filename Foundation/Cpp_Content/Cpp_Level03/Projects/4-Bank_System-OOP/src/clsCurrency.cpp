@@ -110,11 +110,11 @@ vector <clsCurrency> clsCurrency::GetCurrencyList()
   return (vCurrList);
 }
 
-bool clsCurrency::IsCurrencyExist(string Choice)
+bool clsCurrency::IsCurrencyExist(string Choice, string Tag)
 {
   clsCurrency Currency;
   
-  if (Choice == "Tag") Currency = FindByTag(Choice);
+  if (Tag == "Tag") Currency = FindByTag(Choice);
   else Currency = FindByCountry(Choice);
   
   return (!Currency.IsEmpty());  
@@ -161,4 +161,20 @@ void clsCurrency::Update(double Rate)
 {
   m_Rate = Rate;
   _Update();
+}
+
+double clsCurrency::CalcRate(double Amount, string TagA, string TagB)
+{
+  double Rate = 0.0;
+  
+  if (FindByTag(TagA).GetCurrencyTag() != "USD" && FindByTag(TagB).GetCurrencyTag() != "USD") {
+    Rate = Amount / FindByTag(TagA).GetCurrencyRate();
+    Rate = Rate * FindByTag(TagB).GetCurrencyRate();
+  } else {
+    if (FindByTag(TagA).GetCurrencyTag() == "USD")
+      Rate = Amount * FindByTag(TagB).GetCurrencyRate();
+    else Rate = Amount / FindByTag(TagA).GetCurrencyRate();
+  }
+
+  return (Rate);
 }

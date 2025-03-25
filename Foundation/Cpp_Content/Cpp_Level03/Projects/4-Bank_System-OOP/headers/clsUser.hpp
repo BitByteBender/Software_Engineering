@@ -44,6 +44,7 @@ public:
     Trx = 32,
     ManageUsers = 64,
     LogFile = 128,
+    CurrencyExchange = 256,
   };
   
   clsUser();

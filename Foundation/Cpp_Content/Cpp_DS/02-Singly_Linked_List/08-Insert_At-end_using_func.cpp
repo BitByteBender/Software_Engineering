@@ -45,7 +45,8 @@ void InsertAtEnd(Node *&Head, Node Person)
   
   New_Node->P->Name = Person.P->Name;
   New_Node->P->Age = Person.P->Age;
-
+  New_Node->Next = nullptr;
+  
   if (Head == nullptr) {
     Head = New_Node;
     return;
@@ -58,7 +59,6 @@ void InsertAtEnd(Node *&Head, Node Person)
     if (Current->Next == nullptr) break;
   }
 
-  New_Node->Next = Current->Next;
   Current->Next = New_Node;
 }
 

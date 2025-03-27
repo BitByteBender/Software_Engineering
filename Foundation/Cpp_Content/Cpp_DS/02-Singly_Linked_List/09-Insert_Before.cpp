@@ -39,20 +39,26 @@ void Print(Node *Head)
   cout<<endl;
 }
 
-void InsertAtEnd(Node *Head, Node Person)
+void InsertAtEnd(Node *&Head, Node Person)
 {
   Node *New_Node = new Node();
   
   New_Node->P->Name = Person.P->Name;
   New_Node->P->Age = Person.P->Age;
 
-  while (Head != nullptr) {
-    Head = Head->Next;
-    if (Head->Next == nullptr) break;
+  if (Head == nullptr) {
+    Head = New_Node;
+    return;
+  }
+  
+  Node *Current = Head;
+  while (Current != nullptr) {
+    Current = Current->Next;
+    if (Current->Next == nullptr) break;
   }
 
-  New_Node->Next = Head->Next;
-  Head->Next = New_Node;
+  New_Node->Next = Current->Next;
+  Current->Next = New_Node;
 }
 
 Node *FindNode(Node *Head, Node Person)
@@ -93,6 +99,10 @@ int main(void)
 {
   Node *Head = nullptr, *Nd = nullptr;
   Node Person;
+
+  Person.P->Name = "Vampirco";
+  Person.P->Age = 880;
+  InsertAtEnd(Head, Person);
   
   Person.P->Name = "Souf";
   Person.P->Age = 30;

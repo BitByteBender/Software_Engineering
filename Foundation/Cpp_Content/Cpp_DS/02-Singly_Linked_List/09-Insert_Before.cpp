@@ -66,21 +66,27 @@ Node *FindNode(Node *Head, Node Person)
   return (nullptr);
 }
 
-void InsertBefore(Node *Head, Node *prevNode, Node Person)
+void InsertBefore(Node *&Head, Node *prevNode, Node Person)
 {
   Node *New_Node = new Node();
 
-  while (Head != nullptr) {
-    if (Head->Next == prevNode)
-      break;
-    Head = Head->Next;
-  }
-
   New_Node->P->Name = Person.P->Name;
   New_Node->P->Age = Person.P->Age;
+
+  if (Head == prevNode || Head == nullptr) {
+    InsertAtStart(Head, Person);
+    return;
+  }
+
+  Node *Current = Head;
+  while (Current != nullptr) {
+    if (Current->Next == prevNode)
+      break;
+    Current = Current->Next;
+  }
   
   New_Node->Next = prevNode;
-  Head->Next = New_Node;
+  Current->Next = New_Node;
 }
 
 int main(void)
@@ -158,14 +164,51 @@ int main(void)
   else
     cout<<"Node is not found\n";
 
-  Person.P->Name = "Zak";
-  Person.P->Age = 26;
+  Person.P->Name = "SS";
+  Person.P->Age = 20;
   Nd = FindNode(Head, Person);
   
   Person.P->Name = "Malak";
   Person.P->Age = 32;
   InsertBefore(Head, Nd, Person);
 
+  Person.P->Name = "SSR";
+  Person.P->Age = 25;
+  Nd = FindNode(Head, Person);
+  
+  Person.P->Name = "Ayoub";
+  Person.P->Age = 27;
+  InsertBefore(Head, Nd, Person);
+
+  Person.P->Name = "Zak";
+  Person.P->Age = 26;
+  Nd = FindNode(Head, Person);
+  
+  Person.P->Name = "Lamiae";
+  Person.P->Age = 31;
+  InsertBefore(Head, Nd, Person);
+
+  Person.P->Name = "Lara";
+  Person.P->Age = 21;
+  Nd = FindNode(Head, Person);
+  
+  Person.P->Name = "Maria";
+  Person.P->Age = 33;
+  InsertBefore(Head, Nd, Person);
+
+  Person.P->Name = "Zakia";
+  Person.P->Age = 28;
+  Nd = FindNode(Head, Person);
+  
+  Person.P->Name = "Marouane";
+  Person.P->Age = 30;
+  InsertBefore(Head, Nd, Person);
   Print(Head);
+
+  Person.P->Name = "Mazin";
+  Person.P->Age = 33;
+  InsertAtStart(Head, Person);
+  Print(Head);
+  
   return (0);
 }

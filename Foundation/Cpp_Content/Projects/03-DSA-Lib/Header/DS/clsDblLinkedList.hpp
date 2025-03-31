@@ -2,6 +2,9 @@
 #define CLSDBLLINKEDLIST_HPP
 
 #include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <cstdint>
 
 using std::cout;
 using std::endl;
@@ -11,17 +14,21 @@ template <class T>
 class clsDblLinkedList
 {
 private:
-  class _Node
+  class m_Node
   {
   public:
     T Value;
-    _Node *Next = nullptr, *Prev = nullptr;
+    m_Node *Next = nullptr, *Prev = nullptr;
   };
   
-  _Node *Head = nullptr, *Tail = nullptr;
+  m_Node *Head = nullptr, *Tail = nullptr;
 
+protected:
+  T m_Size = 0;
+  T m_Reverse = false;
+  
 public:
-  using Node = _Node;
+  using Node = m_Node;
   
   clsDblLinkedList();
   clsDblLinkedList(Node *&Hd, Node *&Tl);
@@ -33,10 +40,17 @@ public:
   void DeleteNode(Node *&DelNode);
   void DeleteFirstNode();
   void DeleteLastNode();
-  
+
+  T Size();
+  bool IsEmpty();
+  void Clear();
+  void Reverse();
+  void UndoReverse();
   //Printing List
   void PrintList();
   void PrintListBackwards();
+
+  ~clsDblLinkedList();
 };
 
 
@@ -64,6 +78,7 @@ void clsDblLinkedList<T>::InsertAtBegining(T Val)
     Head->Next = nullptr;
     Tail = Head;
     Tail->Prev = nullptr;
+    m_Size++;
     return;
   }
 
@@ -72,6 +87,7 @@ void clsDblLinkedList<T>::InsertAtBegining(T Val)
     Head->Prev = New;  
 
   Head = New;
+  m_Size++;
 }
 
 template <class T>
@@ -102,6 +118,7 @@ void clsDblLinkedList<T>::InsertAfter(Node *Current, T Val)
   if (Current->Next != nullptr)
     Current->Next->Prev = New;
   Current->Next = New;
+  m_Size++;
 }
 
 template <class T>
@@ -118,6 +135,7 @@ void clsDblLinkedList<T>::InsertAtEnd(T Val)
     Head = Tail;
     Tail->Prev = nullptr;
     Head->Next = nullptr;
+    m_Size++;
     return;
   }
 
@@ -126,6 +144,7 @@ void clsDblLinkedList<T>::InsertAtEnd(T Val)
   Tail->Next = New;
   New->Next = nullptr;
   Tail = New;
+  m_Size++;
 }
 
 template <class T>
@@ -135,7 +154,9 @@ void clsDblLinkedList<T>::DeleteNode(Node *&DelNode)
 
   if (Head == Tail) {
     delete Head;
+    Head = nullptr;
     Tail = nullptr;
+    m_Size = 0;
     return;
   }
 
@@ -152,7 +173,8 @@ void clsDblLinkedList<T>::DeleteNode(Node *&DelNode)
   } else {
     Current->Next->Prev = DelNode->Prev;
   }
-  
+
+  m_Size--;
   delete DelNode;
 }
 
@@ -162,16 +184,18 @@ void clsDblLinkedList<T>::DeleteFirstNode()
   if (Head == nullptr) return;
 
   if (Head->Next == nullptr) {
+    delete Head;
     Tail = nullptr;
     Head = nullptr;
+    m_Size = 0;
     return;
   }
   
   Node *Current = Head;
-
   Current = Current->Next;
   Current->Prev = nullptr;
   Head = Current;
+  m_Size--;
 }
 
 template <class T>
@@ -180,8 +204,10 @@ void clsDblLinkedList<T>::DeleteLastNode()
   if (Tail == nullptr) return;
 
   if (Tail->Prev == nullptr) {
+    delete Head;
     Tail = nullptr;
     Head = nullptr;
+    m_Size = 0;
     return;
   }
   
@@ -190,15 +216,81 @@ void clsDblLinkedList<T>::DeleteLastNode()
   Current = Current->Prev;
   Current->Next = nullptr;
   Tail = Current;
+  m_Size--;
+}
+
+template <class T>
+T clsDblLinkedList<T>::Size()
+{
+  // Uses Big O(n)
+  /*
+  Node *Current = Head;
+  T Count = 0;
+  
+  if (First == nullptr) return (Count);
+
+  
+  while (Current != nullptr) {
+    ++Count;
+    Current = Current->Next;
+  }
+  
+  return (Count);
+  */
+  
+  // Uses Big O(1)
+  return (m_Size); 
+}
+
+template <class T>
+bool clsDblLinkedList<T>::IsEmpty()
+{
+  return (!m_Size);
+}
+
+template <class T>
+void clsDblLinkedList<T>::Clear()
+{
+  if (Head == nullptr) return;
+  
+  while (m_Size > 0)
+    DeleteFirstNode();
+
+  Head = nullptr;
+  Tail = nullptr;
+  delete Head;
+  delete Tail;
+}
+
+template <class T>
+void clsDblLinkedList<T>::Reverse()
+{
+  Node *Temp = nullptr, *Current = nullptr;
+  
+  if (Head == nullptr) return;
+
+  Current = Head;
+  
+  while (Current != nullptr) {
+    Temp = Current->Prev;
+    Current->Prev = Current->Next;
+    Current->Next = Temp;
+    Current = Current->Prev;
+  }
+
+  if (Temp != nullptr) {
+    Tail = Head;
+    Head = Temp->Prev;
+  }
 }
 
 template <class T>
 void clsDblLinkedList<T>::PrintList()
 {
   Node *Current = Head;
-
+  
   if (Current == nullptr) {
-    cout<<"<0 Node is found>\n";
+    cout<<"<0 Node found>\n";
     return;
   }
   
@@ -214,18 +306,24 @@ template <class T>
 void clsDblLinkedList<T>::PrintListBackwards()
 {
   Node *Current = Tail;
-
+  
   if (Current == nullptr) {
-    cout<<"<0 Node is found>\n";
+    cout<<"<0 Node found>\n";
     return;
   }
   
   while (Current != nullptr) {
     cout<<Current->Value;
-    Current = Current->Prev;
+      Current = Current->Prev;
+    
     if (Current != nullptr) cout<<" | ";
   }
   cout<<endl;
 }
 
+template <class T>
+clsDblLinkedList<T>::~clsDblLinkedList()
+{
+  Clear();
+}
 #endif /* CLSDBLLINKEDLIST_HPP */

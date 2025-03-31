@@ -4,6 +4,11 @@ int main(void)
 {
   clsDblLinkedList<int> MyDblLinkedList;
 
+  if (MyDblLinkedList.IsEmpty())
+    cout<<"Yes, it is empty\n";
+  else
+    cout<<"No, It is not empty\n";
+  
   MyDblLinkedList.InsertAtBegining(20);
   MyDblLinkedList.InsertAtBegining(30);
   MyDblLinkedList.InsertAtBegining(40);
@@ -194,6 +199,36 @@ int main(void)
   MyDblLinkedList.DeleteLastNode();
   MyDblLinkedList.PrintList();
   MyDblLinkedList.PrintListBackwards();
+
+  MyDblLinkedList.InsertAtEnd(78);
+  MyDblLinkedList.InsertAtBegining(385);
+  MyDblLinkedList.InsertAtBegining(138);
   
+  MyDblLinkedList.PrintList();
+  MyDblLinkedList.PrintListBackwards();
+
+  MyDblLinkedList.DeleteLastNode();
+  MyDblLinkedList.PrintList();
+  MyDblLinkedList.PrintListBackwards();
+  
+  cout<<"\nDBL Size: "<<MyDblLinkedList.Size()<<endl;
+
+  if (MyDblLinkedList.IsEmpty())
+    cout<<"Yes, it is empty\n";
+  else
+    cout<<"No, It is not empty\n"<<endl;
+
+  cout<<"\nDo Reverse:\n";
+  MyDblLinkedList.Reverse();
+  MyDblLinkedList.PrintList();
+  MyDblLinkedList.PrintListBackwards();
+  
+  cout<<"\nClearing the list: ";
+  MyDblLinkedList.Clear();
+
+  cout<<"\nDBL Size: "<<MyDblLinkedList.Size()<<endl;
+  MyDblLinkedList.PrintList();
+  MyDblLinkedList.PrintListBackwards();
+
   return (0);
 }

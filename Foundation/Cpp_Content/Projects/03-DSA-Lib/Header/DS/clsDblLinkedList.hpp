@@ -45,7 +45,8 @@ public:
   bool IsEmpty();
   void Clear();
   void Reverse();
-  void UndoReverse();
+  Node *GetNode(T Index);
+  
   //Printing List
   void PrintList();
   void PrintListBackwards();
@@ -282,6 +283,29 @@ void clsDblLinkedList<T>::Reverse()
     Tail = Head;
     Head = Temp->Prev;
   }
+}
+
+
+template <class T>
+typename clsDblLinkedList<T>::Node *clsDblLinkedList<T>::GetNode(T Index)
+{
+  Node *Current = nullptr;
+
+  if (m_Size == 0 || Index > (m_Size - 1) || Index < 0) return (Current);
+
+  if (Index == m_Size - 1) {
+    Current = Tail;
+    return (Current);
+  }
+
+  Current = Head;
+  
+  while (Index > 0 && Current != nullptr) {
+    Current = Current->Next;
+    --Index;
+  }
+  
+  return (Current);
 }
 
 template <class T>

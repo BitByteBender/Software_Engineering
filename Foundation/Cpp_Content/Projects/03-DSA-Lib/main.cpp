@@ -218,10 +218,22 @@ int main(void)
   else
     cout<<"No, It is not empty\n"<<endl;
 
+  N1 = MyDblLinkedList.GetNode(0);
+  if (N1 != nullptr)
+    cout<<"\nNode value is: "<<N1->Value<<endl;
+  else
+    cout<<"\nNode value is null"<<endl;
+  
   cout<<"\nDo Reverse:\n";
   MyDblLinkedList.Reverse();
   MyDblLinkedList.PrintList();
   MyDblLinkedList.PrintListBackwards();
+
+  N1 = MyDblLinkedList.GetNode(-1);
+  if (N1 != nullptr)
+    cout<<"\nNode value is: "<<N1->Value<<endl;
+  else
+    cout<<"\nNode value is null"<<endl;
   
   cout<<"\nClearing the list: ";
   MyDblLinkedList.Clear();

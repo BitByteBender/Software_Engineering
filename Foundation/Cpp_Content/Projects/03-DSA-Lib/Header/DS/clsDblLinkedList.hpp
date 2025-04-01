@@ -25,7 +25,7 @@ private:
 
 protected:
   T m_Size = 0;
-  T m_Reverse = false;
+  //T m_Reverse = false;
   
 public:
   using Node = m_Node;
@@ -36,16 +36,19 @@ public:
   void InsertAtBegining(T Val);
   Node *Find(T Val);
   void InsertAfter(Node *Next, T Val);
+  bool InsertAfter(T Index, T Val);
   void InsertAtEnd(T Val);
   void DeleteNode(Node *&DelNode);
   void DeleteFirstNode();
   void DeleteLastNode();
-
+  
   T Size();
   bool IsEmpty();
   void Clear();
   void Reverse();
   Node *GetNode(T Index);
+  T GetItem(T Index);
+  bool UpdateItem(T Index, T Val);
   
   //Printing List
   void PrintList();
@@ -77,16 +80,15 @@ void clsDblLinkedList<T>::InsertAtBegining(T Val)
   if (Head == nullptr) {
     Head = New;
     Head->Next = nullptr;
-    Tail = Head;
-    Tail->Prev = nullptr;
+    Tail = New;
     m_Size++;
     return;
   }
 
   New->Next = Head;
   if (Head != nullptr)
-    Head->Prev = New;  
-
+    Head->Prev = New;
+  
   Head = New;
   m_Size++;
 }
@@ -111,39 +113,41 @@ void clsDblLinkedList<T>::InsertAfter(Node *Current, T Val)
   Node *New = nullptr;
   
   if (Current == nullptr) return;
-
+  
   New = new Node();
   New->Value = Val;
-  New->Next = Current->Next;
   New->Prev = Current;
+  New->Next = Current->Next;
+  
   if (Current->Next != nullptr)
     Current->Next->Prev = New;
+  
+  if (Current->Next == nullptr)
+    Tail = New;
+  
   Current->Next = New;
+  
   m_Size++;
 }
 
 template <class T>
 void clsDblLinkedList<T>::InsertAtEnd(T Val)
 {
-  Node *New = new Node(), *TN = nullptr;
+  Node *New = new Node();
 
   New->Value = Val;
   New->Prev = nullptr;
   New->Next = nullptr;
   
-  if (Tail == nullptr) {
+  if (Head == nullptr) {
     Tail = New;
-    Head = Tail;
-    Tail->Prev = nullptr;
-    Head->Next = nullptr;
+    Head = New;
     m_Size++;
     return;
   }
 
-  TN = Tail;
-  New->Prev = TN;
+  New->Prev = Tail;
   Tail->Next = New;
-  New->Next = nullptr;
   Tail = New;
   m_Size++;
 }
@@ -151,6 +155,7 @@ void clsDblLinkedList<T>::InsertAtEnd(T Val)
 template <class T>
 void clsDblLinkedList<T>::DeleteNode(Node *&DelNode)
 {
+  
   if (DelNode == nullptr) return;
 
   if (Head == Tail) {
@@ -291,7 +296,7 @@ typename clsDblLinkedList<T>::Node *clsDblLinkedList<T>::GetNode(T Index)
 {
   Node *Current = nullptr;
 
-  if (m_Size == 0 || Index > (m_Size - 1) || Index < 0) return (Current);
+  if (m_Size == 0 || Index > (m_Size - 1) || Index < 0) return (nullptr);
 
   if (Index == m_Size - 1) {
     Current = Tail;
@@ -306,6 +311,40 @@ typename clsDblLinkedList<T>::Node *clsDblLinkedList<T>::GetNode(T Index)
   }
   
   return (Current);
+}
+
+template <class T>
+T clsDblLinkedList<T>::GetItem(T Index)
+{
+  Node *Current = GetNode(Index);
+
+  if (Current == nullptr)
+    return (0);
+  
+  return (Current->Value);
+}
+
+template <class T>
+bool clsDblLinkedList<T>::UpdateItem(T Index, T Val)
+{
+  Node *Current = GetNode(Index);
+
+  if (Current != nullptr) {
+    Current->Value = Val;
+    return (true);
+  } else
+    return (false);
+}
+
+template <class T>
+bool clsDblLinkedList<T>::InsertAfter(T Index, T Val)
+{
+  Node *Current = GetNode(Index);
+  
+  if (Current != nullptr) {
+    InsertAfter(Current, Val);
+    return (true);
+  } else return (false);
 }
 
 template <class T>

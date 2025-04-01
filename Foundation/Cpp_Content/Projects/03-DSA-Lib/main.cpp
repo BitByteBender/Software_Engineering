@@ -3,7 +3,7 @@
 int main(void)
 {
   clsDblLinkedList<int> MyDblLinkedList;
-
+  
   if (MyDblLinkedList.IsEmpty())
     cout<<"Yes, it is empty\n";
   else
@@ -223,22 +223,53 @@ int main(void)
     cout<<"\nNode value is: "<<N1->Value<<endl;
   else
     cout<<"\nNode value is null"<<endl;
+
+  cout<<"\nItem(3) Value is: "<<MyDblLinkedList.GetItem(3)<<'\n';
+
+  MyDblLinkedList.UpdateItem(3, 9999);
+  cout<<'\n';
+  MyDblLinkedList.PrintList();
+  MyDblLinkedList.PrintListBackwards();
+
   
   cout<<"\nDo Reverse:\n";
   MyDblLinkedList.Reverse();
   MyDblLinkedList.PrintList();
   MyDblLinkedList.PrintListBackwards();
-
+  
   N1 = MyDblLinkedList.GetNode(-1);
   if (N1 != nullptr)
     cout<<"\nNode value is: "<<N1->Value<<endl;
   else
     cout<<"\nNode value is null"<<endl;
-  
+
+  cout<<"\nItem(3) Value is: "<<MyDblLinkedList.GetItem(10)<<'\n';
   cout<<"\nClearing the list: ";
   MyDblLinkedList.Clear();
 
   cout<<"\nDBL Size: "<<MyDblLinkedList.Size()<<endl;
+  MyDblLinkedList.PrintList();
+  MyDblLinkedList.PrintListBackwards();
+
+  cout<<"\nInsertAfter using index:\n";
+  MyDblLinkedList.InsertAtEnd(15);
+  MyDblLinkedList.InsertAfter(0, 1234);
+  MyDblLinkedList.PrintList();
+  MyDblLinkedList.PrintListBackwards();
+
+  MyDblLinkedList.InsertAfter(0, 12);
+  MyDblLinkedList.PrintList();
+  MyDblLinkedList.PrintListBackwards();
+
+  MyDblLinkedList.InsertAfter(1, 55);
+  MyDblLinkedList.PrintList();
+  MyDblLinkedList.PrintListBackwards();
+
+  MyDblLinkedList.InsertAfter(1, 34);
+  MyDblLinkedList.PrintList();
+  MyDblLinkedList.PrintListBackwards();
+
+  MyDblLinkedList.InsertAfter(6, 304);
   MyDblLinkedList.PrintList();
   MyDblLinkedList.PrintListBackwards();
 

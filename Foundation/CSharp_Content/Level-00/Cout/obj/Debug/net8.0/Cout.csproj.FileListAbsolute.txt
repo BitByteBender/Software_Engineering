@@ -1,0 +1,15 @@
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/bin/Debug/net8.0/Cout
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/bin/Debug/net8.0/Cout.deps.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/bin/Debug/net8.0/Cout.runtimeconfig.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/bin/Debug/net8.0/Cout.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/bin/Debug/net8.0/Cout.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/obj/Debug/net8.0/Cout.GeneratedMSBuildEditorConfig.editorconfig
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/obj/Debug/net8.0/Cout.AssemblyInfoInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/obj/Debug/net8.0/Cout.AssemblyInfo.cs
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/obj/Debug/net8.0/Cout.csproj.CoreCompileInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/obj/Debug/net8.0/Cout.sourcelink.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/obj/Debug/net8.0/Cout.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/obj/Debug/net8.0/refint/Cout.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/obj/Debug/net8.0/Cout.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/obj/Debug/net8.0/Cout.genruntimeconfig.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Cout/obj/Debug/net8.0/ref/Cout.dll

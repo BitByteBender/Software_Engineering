@@ -1,277 +1,59 @@
-#include "Header/DS/clsDblLinkedList.hpp"
+#include "Header/DS/clsMyStack.hpp"
 
 int main(void)
 {
-  clsDblLinkedList<int> MyDblLinkedList;
+  clsMyStack<int> MyStack;
   
-  if (MyDblLinkedList.IsEmpty())
-    cout<<"Yes, it is empty\n";
-  else
-    cout<<"No, It is not empty\n";
+  MyStack.push(10);
+  MyStack.push(50);
+  MyStack.push(100);
+  MyStack.push(150);
+  MyStack.push(200);
+  MyStack.push(250);
+
+  cout<<"Stack: ";
+  MyStack.Print();
   
-  MyDblLinkedList.InsertAtBegining(20);
-  MyDblLinkedList.InsertAtBegining(30);
-  MyDblLinkedList.InsertAtBegining(40);
-  MyDblLinkedList.InsertAtBegining(50);
+  cout<<"Stack Size: "<<MyStack.Size()<<'\n';
+  cout<<"Stack Top: "<<MyStack.Top()<<'\n';
+  cout<<"Stack Bottom: "<<MyStack.Bottom()<<'\n';
+
+  MyStack.pop();
+  cout<<"\n>> An Item from the stack just popped!\n"<<endl;
   
+  cout<<"Stack After<POP> (LIFO Operation):\n";
+  MyStack.Print();
   
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
+  cout<<"Stack Size: "<<MyStack.Size()<<'\n';
+  cout<<"Stack Top: "<<MyStack.Top()<<'\n';
+  cout<<"Stack Bottom: "<<MyStack.Bottom()<<'\n';
+
+  cout<<"\n[Extension]>:"<<endl;
+  MyStack.Reverse();
+  cout<<"Stack After Reverse: ";
+  MyStack.Print();
+
+  cout<<"Item(2): "<<MyStack.GetItem(2)<<'\n';
   
-  clsDblLinkedList<int>::Node *N1 = MyDblLinkedList.Find(30);
+  MyStack.UpdateItem(2, 500);
+  cout<<"Stack after updating Item(2) to 500: \n";
+  MyStack.Print();
+  
+  MyStack.InsertAfter(2, 900);
+  cout<<"\nStack After inserting 900 after Item(2): \n";
+  MyStack.Print();
 
-  if (N1 != nullptr)
-    cout<<"\nNode with value 30 is found!\n";
-  else
-    cout<<"\nNode with value 30 is not found!\n"<<endl;
+  MyStack.InsertAtTop(2500);
+  cout<<"\nStack after inserting 2500 at top: \n";
+  MyStack.Print();
 
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
+  MyStack.InsertAtBottom(3000);
+  cout<<"\nStack after inserting 3000 at bottom: \n";
+  MyStack.Print();
 
-  MyDblLinkedList.InsertAfter(N1, 500);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAtEnd(600);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAtEnd(700);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAtEnd(800);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAtEnd(900);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  cout<<"\nNodes Deletion:\n";
-  N1 = MyDblLinkedList.Find(30);
+  MyStack.Clear();
+  cout<<"\nStack after clearing: \n";
+  MyStack.Print();
     
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  N1 = MyDblLinkedList.Find(40);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  N1 = MyDblLinkedList.Find(50);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  N1 = MyDblLinkedList.Find(500);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  N1 = MyDblLinkedList.Find(900);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  N1 = MyDblLinkedList.Find(800);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-
-  N1 = MyDblLinkedList.Find(300);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  N1 = MyDblLinkedList.Find(600);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  N1 = MyDblLinkedList.Find(20);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  N1 = MyDblLinkedList.Find(700);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  cout<<"\nRetest:\n";
-  MyDblLinkedList.InsertAtBegining(999);
-
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  N1 = MyDblLinkedList.Find(999);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-
-  MyDblLinkedList.InsertAtEnd(25);
-  MyDblLinkedList.InsertAtBegining(777);
-  
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  N1 = MyDblLinkedList.Find(777);
-    
-  MyDblLinkedList.DeleteNode(N1);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-
-  cout<<"\nNode Deletion(First):\n";
-  MyDblLinkedList.InsertAtBegining(10);
-
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.DeleteFirstNode();
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-
-  MyDblLinkedList.InsertAtEnd(15);
-  MyDblLinkedList.InsertAtBegining(30);
-  
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.DeleteFirstNode();
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAtEnd(45);
-  MyDblLinkedList.InsertAtBegining(65);
-  MyDblLinkedList.InsertAtBegining(75);
-  
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.DeleteFirstNode();
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-  
-  cout<<"\nNode Deletion(Last):\n";
-  MyDblLinkedList.InsertAtBegining(80);
-
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.DeleteLastNode();
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-
-  MyDblLinkedList.InsertAtEnd(53);
-  MyDblLinkedList.InsertAtBegining(360);
-  
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.DeleteLastNode();
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAtEnd(425);
-  MyDblLinkedList.InsertAtBegining(685);
-  MyDblLinkedList.InsertAtBegining(725);
-  
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.DeleteLastNode();
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAtEnd(78);
-  MyDblLinkedList.InsertAtBegining(385);
-  MyDblLinkedList.InsertAtBegining(138);
-  
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.DeleteLastNode();
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-  
-  cout<<"\nDBL Size: "<<MyDblLinkedList.Size()<<endl;
-
-  if (MyDblLinkedList.IsEmpty())
-    cout<<"Yes, it is empty\n";
-  else
-    cout<<"No, It is not empty\n"<<endl;
-
-  N1 = MyDblLinkedList.GetNode(0);
-  if (N1 != nullptr)
-    cout<<"\nNode value is: "<<N1->Value<<endl;
-  else
-    cout<<"\nNode value is null"<<endl;
-
-  cout<<"\nItem(3) Value is: "<<MyDblLinkedList.GetItem(3)<<'\n';
-
-  MyDblLinkedList.UpdateItem(3, 9999);
-  cout<<'\n';
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  
-  cout<<"\nDo Reverse:\n";
-  MyDblLinkedList.Reverse();
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-  
-  N1 = MyDblLinkedList.GetNode(-1);
-  if (N1 != nullptr)
-    cout<<"\nNode value is: "<<N1->Value<<endl;
-  else
-    cout<<"\nNode value is null"<<endl;
-
-  cout<<"\nItem(3) Value is: "<<MyDblLinkedList.GetItem(10)<<'\n';
-  cout<<"\nClearing the list: ";
-  MyDblLinkedList.Clear();
-
-  cout<<"\nDBL Size: "<<MyDblLinkedList.Size()<<endl;
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  cout<<"\nInsertAfter using index:\n";
-  MyDblLinkedList.InsertAtEnd(15);
-  MyDblLinkedList.InsertAfter(0, 1234);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAfter(0, 12);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAfter(1, 55);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAfter(1, 34);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
-  MyDblLinkedList.InsertAfter(6, 304);
-  MyDblLinkedList.PrintList();
-  MyDblLinkedList.PrintListBackwards();
-
   return (0);
 }

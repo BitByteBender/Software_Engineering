@@ -1,0 +1,15 @@
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/obj/Debug/net8.0/EscapeChars.GeneratedMSBuildEditorConfig.editorconfig
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/obj/Debug/net8.0/EscapeChars.AssemblyInfoInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/obj/Debug/net8.0/EscapeChars.AssemblyInfo.cs
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/obj/Debug/net8.0/EscapeChars.csproj.CoreCompileInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/obj/Debug/net8.0/EscapeChars.sourcelink.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/bin/Debug/net8.0/EscapeChars
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/bin/Debug/net8.0/EscapeChars.deps.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/bin/Debug/net8.0/EscapeChars.runtimeconfig.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/bin/Debug/net8.0/EscapeChars.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/bin/Debug/net8.0/EscapeChars.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/obj/Debug/net8.0/EscapeChars.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/obj/Debug/net8.0/refint/EscapeChars.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/obj/Debug/net8.0/EscapeChars.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/obj/Debug/net8.0/EscapeChars.genruntimeconfig.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/EscapeChars/obj/Debug/net8.0/ref/EscapeChars.dll

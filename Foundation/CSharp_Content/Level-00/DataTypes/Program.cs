@@ -171,7 +171,9 @@ namespace DataTypes
 	    Console.Write(Student3 + "\n");
 
 	    /*
-	      Dynamic
+	      Dynamic Types:
+	      * escapes type checking at compile time
+	      * Resolves type at run time
 	    */
 	    dynamic DynamicTesting = -15;
 	    Console.WriteLine("Value: {0}, Value Type: {1}", DynamicTesting, DynamicTesting.GetType());

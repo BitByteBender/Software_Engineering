@@ -169,6 +169,24 @@ namespace DataTypes
 	    Console.Write(Student1 + "\n");
 	    Console.Write(Student2 + "\n");
 	    Console.Write(Student3 + "\n");
+
+	    /*
+	      Dynamic
+	    */
+	    dynamic DynamicTesting = -15;
+	    Console.WriteLine("Value: {0}, Value Type: {1}", DynamicTesting, DynamicTesting.GetType());
+
+	    DynamicTesting = true;
+	    Console.WriteLine("Value: {0}, Value Type: {1}", DynamicTesting, DynamicTesting.GetType());
+
+	    DynamicTesting = "Dotnet on linux is fun!\n";
+	    Console.WriteLine("Value: {0}, Value Type: {1}", DynamicTesting, DynamicTesting.GetType());
+
+	    DynamicTesting = 15.55;
+	    Console.WriteLine("Value: {0}, Value Type: {1}", DynamicTesting, DynamicTesting.GetType());
+
+	    DynamicTesting = 'S';
+	    Console.WriteLine("Value: {0}, Value Type: {1}", DynamicTesting, DynamicTesting.GetType());
 	    
 	    Console.ReadKey();
 	}

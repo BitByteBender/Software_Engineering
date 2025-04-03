@@ -1,0 +1,15 @@
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/bin/Debug/net8.0/CoutEndl
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/bin/Debug/net8.0/CoutEndl.deps.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/bin/Debug/net8.0/CoutEndl.runtimeconfig.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/bin/Debug/net8.0/CoutEndl.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/bin/Debug/net8.0/CoutEndl.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/obj/Debug/net8.0/CoutEndl.GeneratedMSBuildEditorConfig.editorconfig
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/obj/Debug/net8.0/CoutEndl.AssemblyInfoInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/obj/Debug/net8.0/CoutEndl.AssemblyInfo.cs
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/obj/Debug/net8.0/CoutEndl.csproj.CoreCompileInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/obj/Debug/net8.0/CoutEndl.sourcelink.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/obj/Debug/net8.0/CoutEndl.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/obj/Debug/net8.0/refint/CoutEndl.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/obj/Debug/net8.0/CoutEndl.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/obj/Debug/net8.0/CoutEndl.genruntimeconfig.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/CoutEndl/obj/Debug/net8.0/ref/CoutEndl.dll

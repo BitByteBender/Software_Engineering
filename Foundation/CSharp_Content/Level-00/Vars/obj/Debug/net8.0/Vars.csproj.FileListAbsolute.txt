@@ -1,0 +1,15 @@
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/obj/Debug/net8.0/Vars.GeneratedMSBuildEditorConfig.editorconfig
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/obj/Debug/net8.0/Vars.AssemblyInfoInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/obj/Debug/net8.0/Vars.AssemblyInfo.cs
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/obj/Debug/net8.0/Vars.csproj.CoreCompileInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/obj/Debug/net8.0/Vars.sourcelink.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/bin/Debug/net8.0/Vars
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/bin/Debug/net8.0/Vars.deps.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/bin/Debug/net8.0/Vars.runtimeconfig.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/bin/Debug/net8.0/Vars.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/bin/Debug/net8.0/Vars.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/obj/Debug/net8.0/Vars.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/obj/Debug/net8.0/refint/Vars.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/obj/Debug/net8.0/Vars.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/obj/Debug/net8.0/Vars.genruntimeconfig.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/Vars/obj/Debug/net8.0/ref/Vars.dll

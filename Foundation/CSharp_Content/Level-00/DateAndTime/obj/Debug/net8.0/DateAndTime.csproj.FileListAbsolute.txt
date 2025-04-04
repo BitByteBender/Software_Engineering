@@ -1,0 +1,15 @@
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/obj/Debug/net8.0/DateAndTime.GeneratedMSBuildEditorConfig.editorconfig
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/obj/Debug/net8.0/DateAndTime.AssemblyInfoInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/obj/Debug/net8.0/DateAndTime.AssemblyInfo.cs
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/obj/Debug/net8.0/DateAndTime.csproj.CoreCompileInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/obj/Debug/net8.0/DateAndTime.sourcelink.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/bin/Debug/net8.0/DateAndTime
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/bin/Debug/net8.0/DateAndTime.deps.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/bin/Debug/net8.0/DateAndTime.runtimeconfig.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/bin/Debug/net8.0/DateAndTime.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/bin/Debug/net8.0/DateAndTime.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/obj/Debug/net8.0/DateAndTime.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/obj/Debug/net8.0/refint/DateAndTime.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/obj/Debug/net8.0/DateAndTime.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/obj/Debug/net8.0/DateAndTime.genruntimeconfig.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/DateAndTime/obj/Debug/net8.0/ref/DateAndTime.dll

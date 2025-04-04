@@ -54,6 +54,33 @@ namespace DateAndtime
 
 	    DateTime dt0 = dt.Add(ts);
 	    Console.Write(dt0 + "\n");
+
+	    DateTime dt1, dt2;
+
+	    dt1 = new DateTime(2003, 10, 30);
+	    dt2 = DateTime.Today;
+	    
+	    TimeSpan Timespan = dt2.Subtract(dt1);
+	    Console.WriteLine("[Dates]> dt1: {0}, dt2: {1}, timespan: {2}", dt1, dt2, Timespan.Days);
+
+	    //Operations
+	    dt = new DateTime(2022, 10, 15);
+	    dt0 = new DateTime(2000, 12, 31);
+	    dt1 = DateTime.Today;
+	    dt2 = DateTime.UtcNow;
+	    ts = new TimeSpan(20, 5, 2, 30);
+
+	    Console.WriteLine(dt + ts);
+	    Console.WriteLine(dt0 + ts);
+	    Console.WriteLine(dt.Year + 5);
+	    Console.WriteLine(dt > dt0);
+	    Console.WriteLine(dt.Day - dt0.Day);
+	    Console.WriteLine(dt2.Month + dt1.Month);
+	    Console.WriteLine(dt1 < dt2);
+	    Console.WriteLine(dt1 <= dt2);
+	    Console.WriteLine(dt1 >= dt2);
+	    Console.WriteLine(dt0 != dt2);
+	    Console.WriteLine(dt1 == dt0);
 	    
 	    Console.ReadKey();
 	}

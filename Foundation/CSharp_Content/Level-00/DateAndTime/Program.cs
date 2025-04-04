@@ -81,6 +81,20 @@ namespace DateAndtime
 	    Console.WriteLine(dt1 >= dt2);
 	    Console.WriteLine(dt0 != dt2);
 	    Console.WriteLine(dt1 == dt0);
+
+	    //String convertion to DateTime
+	    string Date, Time;
+
+	    Date = "2029/7/8";
+	    Time = "16:30:45";
+	    DateTime.TryParse(Date, out dt);
+	    var DT0 = DateTime.TryParse(Time, out dt0);
+
+	    Console.WriteLine(Date);
+	    Console.WriteLine(Time);
+	    Console.WriteLine(DT0);
+	    Console.WriteLine($"{dt} >> date changed here");
+	    Console.WriteLine($"{dt0} >> time changed here");
 	    
 	    Console.ReadKey();
 	}

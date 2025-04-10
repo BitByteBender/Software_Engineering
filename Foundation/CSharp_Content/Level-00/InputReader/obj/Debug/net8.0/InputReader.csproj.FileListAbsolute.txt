@@ -1,0 +1,15 @@
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/obj/Debug/net8.0/InputReader.GeneratedMSBuildEditorConfig.editorconfig
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/obj/Debug/net8.0/InputReader.AssemblyInfoInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/obj/Debug/net8.0/InputReader.AssemblyInfo.cs
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/obj/Debug/net8.0/InputReader.csproj.CoreCompileInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/obj/Debug/net8.0/InputReader.sourcelink.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/bin/Debug/net8.0/InputReader
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/bin/Debug/net8.0/InputReader.deps.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/bin/Debug/net8.0/InputReader.runtimeconfig.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/bin/Debug/net8.0/InputReader.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/bin/Debug/net8.0/InputReader.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/obj/Debug/net8.0/InputReader.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/obj/Debug/net8.0/refint/InputReader.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/obj/Debug/net8.0/InputReader.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/obj/Debug/net8.0/InputReader.genruntimeconfig.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-00/InputReader/obj/Debug/net8.0/ref/InputReader.dll

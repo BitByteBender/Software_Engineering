@@ -1,0 +1,15 @@
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/obj/Debug/net8.0/00-Class_Implementation.GeneratedMSBuildEditorConfig.editorconfig
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/obj/Debug/net8.0/00-Class_Implementation.AssemblyInfoInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/obj/Debug/net8.0/00-Class_Implementation.AssemblyInfo.cs
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/obj/Debug/net8.0/00-Class_Implementation.csproj.CoreCompileInputs.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/obj/Debug/net8.0/00-Class_Implementation.sourcelink.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/bin/Debug/net8.0/00-Class_Implementation
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/bin/Debug/net8.0/00-Class_Implementation.deps.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/bin/Debug/net8.0/00-Class_Implementation.runtimeconfig.json
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/bin/Debug/net8.0/00-Class_Implementation.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/bin/Debug/net8.0/00-Class_Implementation.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/obj/Debug/net8.0/00-Class_Implementation.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/obj/Debug/net8.0/refint/00-Class_Implementation.dll
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/obj/Debug/net8.0/00-Class_Implementation.pdb
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/obj/Debug/net8.0/00-Class_Implementation.genruntimeconfig.cache
+/home/godmode/SWE/Software_Engineering/Foundation/CSharp_Content/Level-01/00-Class_Implementation/obj/Debug/net8.0/ref/00-Class_Implementation.dll
